@@ -1,498 +1,819 @@
 <!DOCTYPE html>
-<html lang="hi">
+<html lang="gu">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Zoya Gaming Lab | @minizoyaofficial (2026 Pro Toolkit)</title>
+<title>Mini Zoya Gaming Lab | Official 2026 Pro Hub</title>
 <style>
   :root {
-    --bg-dark: #0b0f19;
-    --card-bg: #151c2c;
-    --accent-gold: #fbbf24;
-    --accent-blue: #38bdf8;
-    --accent-pink: #f43f5e;
-    --accent-green: #10b981;
-    --text-main: #f8fafc;
-    --text-muted: #94a3b8;
+    --bg-main: #060913;
+    --card-bg: #111827;
+    --card-border: #1f2937;
+    --gold: #fbbf24;
+    --gold-glow: rgba(251, 191, 36, 0.35);
+    --cyan: #00f2fe;
+    --blue: #3b82f6;
+    --pink: #f43f5e;
+    --green: #10b981;
+    --text: #f9fafb;
+    --muted: #9ca3af;
   }
-  * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Roboto, Helvetica, sans-serif; }
-  body { background-color: var(--bg-dark); color: var(--text-main); line-height: 1.5; padding-bottom: 50px; }
-  header {
-    background: linear-gradient(135deg, #1e1b4b 0%, #0f172a 100%);
-    border-bottom: 2px solid var(--accent-gold);
-    padding: 20px 15px;
-    text-align: center;
+  * { box-sizing: border-box; margin: 0; padding: 0; font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif; -webkit-tap-highlight-color: transparent; }
+  body { background: radial-gradient(circle at top, #172554 0%, var(--bg-main) 45%); color: var(--text); padding-bottom: 60px; min-height: 100vh; }
+
+  /* LANGUAGE BAR (STICKY TOP) */
+  .lang-bar {
     position: sticky;
     top: 0;
-    z-index: 100;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.6);
+    z-index: 999;
+    background: rgba(6, 9, 19, 0.92);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(251, 191, 36, 0.4);
+    padding: 8px 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
   }
-  .badge-top {
-    display: inline-block;
-    background: rgba(251, 191, 36, 0.15);
-    color: var(--accent-gold);
-    border: 1px solid var(--accent-gold);
-    padding: 4px 12px;
+  .lang-label { font-size: 12px; font-weight: 800; color: var(--gold); }
+  .lang-btns { display: flex; gap: 6px; }
+  .lang-btn {
+    background: #1e293b;
+    color: #fff;
+    border: 1px solid #334155;
+    padding: 5px 11px;
     border-radius: 99px;
     font-size: 12px;
-    font-weight: 700;
+    font-weight: 800;
+    cursor: pointer;
+    transition: 0.2s;
+  }
+  .lang-btn.active {
+    background: linear-gradient(90deg, var(--gold), #f59e0b);
+    color: #000;
+    border-color: #fff;
+    box-shadow: 0 0 10px var(--gold-glow);
+  }
+
+  /* HERO BANNER */
+  .hero {
+    text-align: center;
+    padding: 18px 14px 14px;
+    background: linear-gradient(180deg, rgba(30,27,75,0.7) 0%, rgba(6,9,19,0) 100%);
+  }
+  .hero-badge {
+    display: inline-block;
+    background: rgba(16, 185, 129, 0.15);
+    color: #34d399;
+    border: 1px solid #10b981;
+    font-size: 11px;
+    font-weight: 800;
+    padding: 3px 12px;
+    border-radius: 99px;
     margin-bottom: 8px;
   }
-  h1 { font-size: 24px; font-weight: 800; color: #fff; text-shadow: 0 0 10px rgba(56,189,248,0.5); }
-  h1 span { color: var(--accent-gold); }
-  .sub-header { font-size: 13px; color: var(--text-muted); margin-top: 4px; }
-  .insta-btn {
-    display: inline-block;
+  .hero h1 {
+    font-size: 25px;
+    font-weight: 900;
+    letter-spacing: 0.5px;
+    color: #fff;
+    text-shadow: 0 2px 15px rgba(0, 242, 254, 0.5);
+  }
+  .hero h1 span { color: var(--gold); }
+  .hero p { font-size: 13px; color: #cbd5e1; margin-top: 4px; font-weight: 500; }
+  .follow-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
     margin-top: 10px;
     background: linear-gradient(90deg, #f43f5e, #fbbf24);
     color: #000;
-    font-weight: 800;
-    text-decoration: none;
+    font-weight: 900;
+    font-size: 13px;
     padding: 8px 18px;
     border-radius: 99px;
-    font-size: 13px;
-    box-shadow: 0 4px 12px rgba(244,63,94,0.4);
+    text-decoration: none;
+    box-shadow: 0 4px 15px rgba(244, 63, 94, 0.45);
   }
-  .container { max-width: 600px; margin: 0 auto; padding: 15px; }
-  .nav-tabs {
+
+  .container { max-width: 580px; margin: 0 auto; padding: 0 12px; }
+
+  /* 3-STEP VISUAL GUIDE BAR */
+  .how-box {
+    background: linear-gradient(90deg, #0f172a, #1e1b4b);
+    border: 1px solid #3b82f6;
+    border-radius: 12px;
+    padding: 10px 12px;
+    margin-bottom: 14px;
+    font-size: 12px;
+    color: #e2e8f0;
+    display: flex;
+    justify-content: space-around;
+    text-align: center;
+    font-weight: 700;
+  }
+  .how-step span { display: block; color: var(--gold); font-size: 14px; font-weight: 900; }
+
+  /* NAVIGATION GRID */
+  .nav-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 8px;
-    margin-bottom: 18px;
+    margin-bottom: 16px;
   }
-  .tab-btn {
+  .nav-card {
     background: var(--card-bg);
-    border: 1px solid #2dd4bf44;
-    color: var(--text-main);
-    padding: 10px 6px;
-    border-radius: 10px;
-    font-size: 12px;
-    font-weight: 700;
-    cursor: pointer;
+    border: 1px solid #334155;
+    border-radius: 12px;
+    padding: 10px 4px;
     text-align: center;
+    color: #fff;
+    cursor: pointer;
     transition: 0.2s;
   }
-  .tab-btn.active {
-    background: linear-gradient(135deg, #0284c7, #2563eb);
-    border-color: var(--accent-gold);
-    color: #fff;
-    box-shadow: 0 0 12px rgba(56,189,248,0.4);
+  .nav-card .icon { font-size: 20px; display: block; margin-bottom: 3px; }
+  .nav-card .title { font-size: 12px; font-weight: 800; display: block; line-height: 1.2; }
+  .nav-card.active {
+    background: linear-gradient(135deg, #1d4ed8, #0284c7);
+    border: 2px solid var(--gold);
+    box-shadow: 0 0 15px rgba(59, 130, 246, 0.5);
+    transform: translateY(-2px);
   }
-  .card {
+
+  /* TOOL PANELS */
+  .panel { display: none; }
+  .panel.active { display: block; }
+  .glass-card {
     background: var(--card-bg);
-    border: 1px solid rgba(255,255,255,0.08);
-    border-radius: 16px;
-    padding: 18px;
-    margin-bottom: 18px;
-    box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 18px;
+    padding: 16px;
+    margin-bottom: 16px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
   }
-  .card-title {
-    font-size: 18px;
-    font-weight: 800;
-    color: var(--accent-gold);
-    margin-bottom: 6px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
+  .sec-title { font-size: 18px; font-weight: 900; color: var(--gold); margin-bottom: 4px; }
+  .sec-sub { font-size: 12.5px; color: var(--muted); margin-bottom: 14px; }
+
+  /* BIG GAME SWITCHER */
+  .game-switch {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 14px;
   }
-  .card-desc { font-size: 13px; color: var(--text-muted); margin-bottom: 14px; }
-  label { display: block; font-size: 13px; font-weight: 700; margin: 10px 0 5px; color: var(--accent-blue); }
-  select, input {
-    width: 100%;
-    padding: 11px 12px;
-    border-radius: 10px;
-    border: 1px solid #334155;
+  .game-btn {
+    padding: 12px 8px;
+    border-radius: 12px;
+    border: 2px solid #334155;
     background: #0f172a;
     color: #fff;
+    font-weight: 900;
     font-size: 14px;
+    cursor: pointer;
+    text-align: center;
+  }
+  .game-btn.active {
+    background: linear-gradient(135deg, #ea580c, #e11d48);
+    border-color: var(--gold);
+    box-shadow: 0 0 15px rgba(225, 29, 72, 0.45);
+  }
+
+  /* RAM CHIPS */
+  .ram-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    margin-bottom: 16px;
+  }
+  .ram-chip {
+    background: #0f172a;
+    border: 1px solid #334155;
+    color: #cbd5e1;
+    padding: 10px 6px;
+    border-radius: 10px;
+    text-align: center;
+    font-weight: 800;
+    font-size: 13px;
+    cursor: pointer;
+  }
+  .ram-chip small { display: block; font-size: 10px; color: var(--muted); font-weight: 600; margin-top: 2px; }
+  .ram-chip.active {
+    background: rgba(251, 191, 36, 0.18);
+    border: 2px solid var(--gold);
+    color: #fff;
+  }
+  .ram-chip.active small { color: var(--gold); }
+
+  /* VISUAL PROGRESS BARS FOR SENSITIVITY */
+  .live-board {
+    background: #090d16;
+    border: 1px solid #1e293b;
+    border-radius: 14px;
+    padding: 14px;
+  }
+  .bar-row { margin-bottom: 10px; }
+  .bar-top { display: flex; justify-content: space-between; font-size: 13px; font-weight: 800; margin-bottom: 4px; }
+  .bar-val { color: var(--gold); font-weight: 900; }
+  .bar-track { width: 100%; height: 9px; background: #1e293b; border-radius: 99px; overflow: hidden; }
+  .bar-fill { height: 100%; background: linear-gradient(90deg, #00f2fe, #fbbf24, #f43f5e); border-radius: 99px; transition: width 0.35s ease; }
+
+  .meta-badges {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    margin-top: 12px;
+  }
+  .meta-box {
+    background: #151f32;
+    border: 1px solid #3b82f6;
+    border-radius: 10px;
+    padding: 10px;
+    text-align: center;
+  }
+  .meta-box span { font-size: 11px; color: #93c5fd; display: block; font-weight: 700; }
+  .meta-box strong { font-size: 16px; color: #fff; font-weight: 900; }
+
+  .cloud-box {
+    background: linear-gradient(135deg, #052e16, #064e3b);
+    border: 2px dashed #34d399;
+    border-radius: 12px;
+    padding: 12px;
+    text-align: center;
+    margin-top: 12px;
+  }
+  .cloud-code { font-family: monospace; font-size: 17px; font-weight: 900; color: #fff; margin: 6px 0; letter-spacing: 0.5px; }
+  .btn-main {
+    width: 100%;
+    padding: 12px;
+    border-radius: 12px;
+    border: none;
+    background: linear-gradient(90deg, var(--gold), #f59e0b);
+    color: #000;
+    font-weight: 900;
+    font-size: 15px;
+    cursor: pointer;
+    box-shadow: 0 4px 14px var(--gold-glow);
+  }
+  .btn-copy {
+    background: #10b981;
+    color: #000;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-weight: 900;
+    font-size: 13px;
+    cursor: pointer;
+  }
+
+  /* LOOT WHEEL CRATE SIMULATOR */
+  .crate-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+    margin-bottom: 14px;
+  }
+  .crate-item {
+    background: #0f172a;
+    border: 1px solid #334155;
+    border-radius: 12px;
+    padding: 10px;
+    text-align: center;
+    transition: 0.15s;
+  }
+  .crate-item .c-icon { font-size: 26px; display: block; }
+  .crate-item .c-name { font-size: 12px; font-weight: 800; color: #fff; margin-top: 4px; display: block; }
+  .crate-item .c-tag { font-size: 10px; color: var(--gold); font-weight: 700; }
+  .crate-item.highlight {
+    border: 2px solid var(--gold);
+    background: linear-gradient(135deg, #422006, #713f12);
+    transform: scale(1.04);
+    box-shadow: 0 0 18px var(--gold);
+  }
+
+  /* STYLISH NAMES & VIP */
+  .input-box {
+    width: 100%;
+    padding: 12px;
+    border-radius: 10px;
+    border: 2px solid #3b82f6;
+    background: #090d16;
+    color: #fff;
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 12px;
     outline: none;
   }
-  .action-btn {
-    width: 100%;
-    margin-top: 14px;
-    padding: 12px;
-    border: none;
-    border-radius: 12px;
-    background: linear-gradient(90deg, #fbbf24, #f59e0b);
-    color: #000;
-    font-size: 15px;
-    font-weight: 800;
-    cursor: pointer;
-    box-shadow: 0 4px 15px rgba(251,191,36,0.3);
-  }
-  .result-box {
-    margin-top: 15px;
-    background: #0f172a;
-    border: 1px solid var(--accent-blue);
-    border-radius: 12px;
-    padding: 14px;
-    display: none;
-  }
-  .stat-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 8px;
-    margin-top: 10px;
-  }
-  .stat-item {
-    background: #1e293b;
-    padding: 8px 10px;
-    border-radius: 8px;
-    font-size: 13px;
-  }
-  .stat-item strong { color: var(--accent-gold); display: block; font-size: 15px; }
-  .code-box {
-    background: #052e16;
-    border: 1px dashed var(--accent-green);
-    padding: 10px;
-    border-radius: 8px;
-    margin-top: 10px;
-    text-align: center;
-    font-family: monospace;
-    font-size: 15px;
-    color: #34d399;
-    font-weight: 700;
-  }
-  .copy-btn {
-    background: var(--accent-green);
-    color: #000;
-    border: none;
-    padding: 6px 14px;
-    border-radius: 6px;
-    font-weight: 800;
-    font-size: 12px;
-    margin-top: 8px;
-    cursor: pointer;
-  }
-  .vip-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 8px;
-    margin-top: 10px;
-  }
-  .vip-badge {
-    background: linear-gradient(135deg, #422006, #713f12);
-    border: 1px solid var(--accent-gold);
-    padding: 8px 10px;
-    border-radius: 10px;
-    font-size: 12px;
-    color: #fef08a;
-    font-weight: 700;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-  }
-  .name-list { display: flex; flex-direction: column; gap: 8px; margin-top: 10px; }
-  .name-row {
+  .name-item {
     display: flex;
     justify-content: space-between;
     align-items: center;
     background: #0f172a;
-    padding: 9px 12px;
-    border-radius: 8px;
     border: 1px solid #1e293b;
+    padding: 10px 12px;
+    border-radius: 10px;
+    margin-bottom: 8px;
+    font-weight: 800;
     font-size: 14px;
   }
-  .section-panel { display: none; }
-  .section-panel.active { display: block; }
-  footer {
+  .vip-card-gold {
+    background: linear-gradient(135deg, #422006 0%, #92400e 50%, #422006 100%);
+    border: 2px solid var(--gold);
+    border-radius: 16px;
+    padding: 16px;
     text-align: center;
-    font-size: 12px;
-    color: var(--text-muted);
-    margin-top: 30px;
-    padding: 15px;
-    border-top: 1px solid #1e293b;
+    margin: 12px 0;
+    box-shadow: 0 0 25px var(--gold-glow);
   }
+  .vip-wall-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    margin-top: 10px;
+  }
+  .vip-member {
+    background: rgba(251, 191, 36, 0.1);
+    border: 1px solid var(--gold);
+    border-radius: 10px;
+    padding: 9px;
+    font-size: 12px;
+    font-weight: 800;
+    color: #fef08a;
+  }
+  .check-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #0f172a;
+    border: 1px solid #334155;
+    padding: 10px 12px;
+    border-radius: 10px;
+    margin-bottom: 8px;
+    cursor: pointer;
+  }
+  .check-row input { width: 18px; height: 18px; accent-color: var(--gold); }
+  footer { text-align: center; font-size: 12px; color: var(--muted); margin-top: 25px; padding: 15px; border-top: 1px solid #1e293b; }
 </style>
 </head>
 <body>
 
-<header>
-  <div class="badge-top">🇮🇳 INDIA'S #1 AI GAMING LAB • 2026 EDITION</div>
+<!-- TOP LANGUAGE BAR -->
+<div class="lang-bar">
+  <div class="lang-label" id="langPrompt">🌐 ભાષા પસંદ કરો (Language):</div>
+  <div class="lang-btns">
+    <button class="lang-btn active" onclick="setLang('gu', this)">ગુજરાતી</button>
+    <button class="lang-btn" onclick="setLang('hi', this)">हिंदी</button>
+    <button class="lang-btn" onclick="setLang('en', this)">English</button>
+  </div>
+</div>
+
+<!-- COMPACT HERO -->
+<div class="hero">
+  <div class="hero-badge" id="heroBadge">🇮🇳 INDIA'S #1 AI GAMING SCIENTIST • 2026</div>
   <h1>👧 MINI ZOYA <span>GAMING LAB</span></h1>
-  <p class="sub-header">કેમ છો Gamers! Free Fire MAX (OB54) & BGMI (v4.6) Official Helper</p>
-  <a class="insta-btn" href="https://instagram.com/minizoyaofficial" target="_blank">👑 Follow @minizoyaofficial</a>
-</header>
+  <p id="heroSub">હા મોજ હા! Free Fire MAX (OB54) & BGMI (v4.6) માટે 100% ફ્રી VIP ટૂલ્સ</p>
+  <a class="follow-pill" href="https://instagram.com/minizoyaofficial" target="_blank" id="followBtn">👑 Follow @minizoyaofficial on Instagram</a>
+</div>
 
 <div class="container">
-  <div class="nav-tabs">
-    <button class="tab-btn active" onclick="showTab('sensi')">🎯 सेंसिटिविटी & कोड</button>
-    <button class="tab-btn" onclick="showTab('calc')">💎 डायमंड/UC गणित</button>
-    <button class="tab-btn" onclick="showTab('spin')">🎰 फ्री स्पिन (Fun)</button>
-    <button class="tab-btn" onclick="showTab('names')">✨ गुजराती & प्रो नाम</button>
-    <button class="tab-btn" onclick="showTab('vip')">👑 VIP Gamers लिस्ट</button>
-    <button class="tab-btn" onclick="showTab('redeem')">🎁 रिडीम गाइड</button>
+  <!-- 3-STEP VISUAL GUIDE -->
+  <div class="how-box">
+    <div class="how-step"><span>1️⃣ STEP 1</span><div id="step1Txt">ટૂલ પસંદ કરો</div></div>
+    <div class="how-step"><span>2️⃣ STEP 2</span><div id="step2Txt">ફોન RAM દબાવો</div></div>
+    <div class="how-step"><span>3️⃣ STEP 3</span><div id="step3Txt">1-Click કોપી કરો!</div></div>
   </div>
 
-  <!-- TAB 1: SENSITIVITY & CLOUD CODE -->
-  <div id="sensi" class="section-panel active">
-    <div class="card">
-      <div class="card-title">🎯 2026 AI Phone Sensitivity & Cloud Code</div>
-      <p class="card-desc">अपने फोन की RAM और गेम चुनें — 2026 के नए 0-200 स्केल की वन-टैप हेडशॉट सेटिंग और BGMI का 19-Digit जीरो-रिकॉइल कोड तुरंत पाएं!</p>
-      
-      <label>1. अपना गेम चुनें (Select Game):</label>
-      <select id="gameSelect">
-        <option value="ff">🔥 Free Fire MAX (2026 0-200 Scale + DPI)</option>
-        <option value="bgmi">🪖 BGMI / PUBG (Zero Recoil + 19-Digit Code)</option>
-      </select>
-
-      <label>2. अपने फोन की RAM चुनें:</label>
-      <select id="ramSelect">
-        <option value="2gb">2GB RAM (Redmi A-Series, Infinix Smart, Old Vivo)</option>
-        <option value="3gb">3GB RAM (Realme C-Series, Redmi 12C/13C)</option>
-        <option value="4gb" selected>4GB RAM (Vivo Y/T, Redmi 12/13, POCO M, Samsung A14)</option>
-        <option value="6gb">6GB RAM (Vivo T4x 5G, Realme P-Series, Samsung A35)</option>
-        <option value="8gb">8GB RAM (Redmi Note 13/14 Pro, POCO X6/X7, iQOO Z9)</option>
-        <option value="12gb">12GB RAM (iQOO 12/13, POCO F6, Samsung S-Series 120FPS)</option>
-      </select>
-
-      <button class="action-btn" onclick="generateSensi()">⚡ मेरी प्रो सेटिंग निकालें (Generate)</button>
-
-      <div id="sensiResult" class="result-box"></div>
+  <!-- 6 VISUAL NAVIGATION CARDS -->
+  <div class="nav-grid">
+    <div class="nav-card active" onclick="openPanel('sensi', this)">
+      <span class="icon">🎯</span>
+      <span class="title" id="nav1">હેડશોટ સેટિંગ & કોડ</span>
+    </div>
+    <div class="nav-card" onclick="openPanel('spin', this)">
+      <span class="icon">🎰</span>
+      <span class="title" id="nav2">ફ્રી ક્રેટ સ્પિન (Fun)</span>
+    </div>
+    <div class="nav-card" onclick="openPanel('calc', this)">
+      <span class="icon">💎</span>
+      <span class="title" id="nav3">ડાયમંડ & UC બચત</span>
+    </div>
+    <div class="nav-card" onclick="openPanel('names', this)">
+      <span class="icon">✨</span>
+      <span class="title" id="nav4">ગુજરાતી & પ્રો નામ</span>
+    </div>
+    <div class="nav-card" onclick="openPanel('worth', this)">
+      <span class="icon">💰</span>
+      <span class="title" id="nav5">ID ની કિંમત જાણો</span>
+    </div>
+    <div class="nav-card" onclick="openPanel('vip', this)">
+      <span class="icon">👑</span>
+      <span class="title" id="nav6">VIP લિસ્ટ & રિડીમ</span>
     </div>
   </div>
 
-  <!-- TAB 2: DIAMOND & UC CALCULATOR -->
-  <div id="calc" class="section-panel">
-    <div class="card">
-      <div class="card-title">💎 Evo Gun & M416 Glacier स्मार्ट कैलकुलेटर</div>
-      <p class="card-desc">जानिए अपनी पसंदीदा गन को अपग्रेड करने में कितने टोकन/मटेरियल लगेंगे और मिनी जोया की ट्रिक से कैसे आधे डायमंड/UC बचाएं!</p>
+  <!-- PANEL 1: LIVE VISUAL SENSITIVITY & CODE -->
+  <div id="sensi" class="panel active">
+    <div class="glass-card">
+      <div class="sec-title" id="sensiTitle">🎯 2026 Auto-Headshot & Zero Recoil Hub</div>
+      <p class="sec-sub" id="sensiSub">નીચે તમારી ગેમ અને ફોનની RAM પર ટચ કરો — તમારી સેટિંગ તરત જ નીચે લાઈવ દેખાશે!</p>
 
-      <label>1. क्या कैलकुलेट करना है?</label>
-      <select id="calcType">
-        <option value="ff_evo">🔥 Free Fire Evo Gun (Cobra MP40 / M1887 / Draco AK)</option>
-        <option value="bgmi_glacier">❄️ BGMI M416 Glacier / The Fool (Level 1 to 8)</option>
-        <option value="bgmi_mythic">👑 BGMI Mythic Forge 300-600 UC Secret Trick</option>
-      </select>
-
-      <label>2. किस लेवल तक अपग्रेड करना है?</label>
-      <select id="targetLevel">
-        <option value="4">Level 4 (बजट स्टॉप - Double Attribute / Kill Broadcast)</option>
-        <option value="6">Level 6 (बेस्ट वैल्यू - Final Look & Special Ability)</option>
-        <option value="7" selected>Level 7 (स्टैंडर्ड मैक्स - Exclusive Emote / Loot Crate)</option>
-        <option value="8">Level 8 (2026 अल्टीमेट सॉवरेन मैक्स)</option>
-      </select>
-
-      <button class="action-btn" onclick="calculateCost()">🧮 असली खर्च और बचत ट्रिक देखें</button>
-      <div id="calcResult" class="result-box"></div>
-    </div>
-  </div>
-
-  <!-- TAB 3: VIRTUAL CRATE SPIN SIMULATOR -->
-  <div id="spin" class="section-panel">
-    <div class="card">
-      <div class="card-title">🎰 2026 Free Crate Spin Simulator (Fun Mode)</div>
-      <p class="card-desc">बिना एक रुपया खर्च किए अनलिमिटेड फ्री स्पिन करें और देखें कि आज आपकी किस्मत में कौन-सा 2026 ट्रेंडिंग बंडल या गन स्किन खुलती है!</p>
-      
-      <button class="action-btn" onclick="spinCrate()">🎲 अभी फ्री स्पिन करें (100% Free Spin)</button>
-      <div id="spinResult" class="result-box" style="text-align:center;"></div>
-    </div>
-  </div>
-
-  <!-- TAB 4: STYLISH GUJARATI & PRO NAMES -->
-  <div id="names" class="section-panel">
-    <div class="card">
-      <div class="card-title">✨ हा मोज हा! Gujarati & Pro Esports Names</div>
-      <p class="card-desc">1-क्लिक में सबसे ट्रेंडिंग गुजराती गेमिंग नाम, सिंबल्स और Invisible Space कॉपी करें!</p>
-
-      <label>अपना नाम लिखकर स्टाइलिश बनाएं:</label>
-      <input type="text" id="customNameInput" placeholder="यहाँ अपना नाम लिखें (जैसे: Raj / Zoya)" oninput="makeCustomNames()">
-      <div id="customNameOutput" class="name-list"></div>
-
-      <label style="margin-top:16px;">🔥 टॉप ट्रेंडिंग गुजराती और प्रो टैग्स (1-Click Copy):</label>
-      <div class="name-list" id="presetNames"></div>
-    </div>
-  </div>
-
-  <!-- TAB 5: VIP GAMERS WALL -->
-  <div id="vip" class="section-panel">
-    <div class="card">
-      <div class="card-title">👑 Mini Zoya Golden VIP Gamers List</div>
-      <p class="card-desc">जो पहले 1,000 भाई @minizoyaofficial को इंस्टाग्राम पर Follow करके कमेंट में अपना नाम लिख रहे हैं, उनका नाम यहाँ गोल्डन बैज में जुड़ रहा है!</p>
-
-      <label>अपना VIP Card चेक करने के लिए अपना गेम नाम लिखें:</label>
-      <input type="text" id="vipInput" placeholder="अपना Game Name लिखें...">
-      <button class="action-btn" onclick="previewVip()">🏆 मेरा गोल्डन VIP बैज बनाएं</button>
-      <div id="vipPreview" class="result-box" style="text-align:center;"></div>
-
-      <label style="margin-top:16px;">🌟 Featured Golden VIP Supporters:</label>
-      <div class="vip-grid">
-        <div class="vip-badge">👑 #001 • MINI ZOYA FOUNDER</div>
-        <div class="vip-badge">👑 #002 • ★Gujju WØRRIER★</div>
-        <div class="vip-badge">👑 #003 • નટખટ કાનુડો</div>
-        <div class="vip-badge">👑 #004 • रंગીલા રાજા</div>
-        <div class="vip-badge">👑 #005 • જય દ્વારિકાધીશ</div>
-        <div class="vip-badge">👑 #006 • Next is YOU! (Comment Now)</div>
+      <!-- BIG GAME BUTTONS -->
+      <div class="game-switch">
+        <button class="game-btn active" id="btnFF" onclick="selectGame('ff')">🔥 FREE FIRE MAX</button>
+        <button class="game-btn" id="btnBGMI" onclick="selectGame('bgmi')">🪖 BGMI / PUBG</button>
       </div>
+
+      <!-- BIG RAM BUTTONS -->
+      <div class="ram-grid">
+        <div class="ram-chip" onclick="selectRam('2gb', this)">2GB RAM<small>Redmi A / Old Vivo</small></div>
+        <div class="ram-chip" onclick="selectRam('3gb', this)">3GB RAM<small>Realme C / 12C</small></div>
+        <div class="ram-chip active" onclick="selectRam('4gb', this)">4GB RAM<small>Vivo Y / POCO M</small></div>
+        <div class="ram-chip" onclick="selectRam('6gb', this)">6GB RAM<small>Vivo T4x / A35</small></div>
+        <div class="ram-chip" onclick="selectRam('8gb', this)">8GB RAM<small>Note 14 / POCO X6</small></div>
+        <div class="ram-chip" onclick="selectRam('12gb', this)">12GB RAM<small>iQOO / S24 120FPS</small></div>
+      </div>
+
+      <!-- ALWAYS-VISIBLE LIVE SENSITIVITY BOARD -->
+      <div class="live-board" id="liveSensiBoard"></div>
     </div>
   </div>
 
-  <!-- TAB 6: REDEEM CODE GUIDE -->
-  <div id="redeem" class="section-panel">
-    <div class="card">
-      <div class="card-title">🎁 Official Redeem Code & Safety Guide</div>
-      <p class="card-desc">मिनी जोया का सच्चा वादा: हम कभी भी किसी गेमर से पासवर्ड या आईडी लॉगिन नहीं मांगते! रिडीम कोड हमेशा सिर्फ गरेना की ऑफिशियल वेबसाइट पर ही डालें।</p>
-      <div class="stat-item" style="margin-bottom:10px;">
-        <strong>⚠️ जरूरी नियम (Guest Account Warning):</strong>
-        12 या 16 अक्षरों का ऑफिशियल रिडीम कोड Guest अकाउंट पर काम नहीं करता। पहले अपनी गेम आईडी को Google या Facebook से बाइंड (Bind) रखें।
+  <!-- PANEL 2: VISUAL CRATE SPIN SIMULATOR -->
+  <div id="spin" class="panel">
+    <div class="glass-card">
+      <div class="sec-title" id="spinTitle">🎰 2026 Evo Vault & X-Suit Free Spin</div>
+      <p class="sec-sub" id="spinSub">એક પણ રૂપિયો ખર્ચ્યા વગર ફ્રી સ્પિન કરો અને જુઓ તમારા નસીબમાં કઈ 2026 સ્કિન ખુલે છે!</p>
+
+      <div class="crate-grid" id="crateGrid">
+        <div class="crate-item" id="item0"><span class="c-icon">🐍</span><span class="c-name">MP40 Cobra Lv.7</span><span class="c-tag">14,500 💎 Value</span></div>
+        <div class="crate-item" id="item1"><span class="c-icon">❄️</span><span class="c-name">M416 Glacier Lv.8</span><span class="c-tag">80,900 UC Value</span></div>
+        <div class="crate-item" id="item2"><span class="c-icon">👑</span><span class="c-name">Golden Shade Bundle</span><span class="c-tag">4,500 💎 Value</span></div>
+        <div class="crate-item" id="item3"><span class="c-icon">🐉</span><span class="c-name">Dravion X-Suit 2026</span><span class="c-tag">65,000 UC Value</span></div>
+        <div class="crate-item" id="item4"><span class="c-icon">🔥</span><span class="c-name">Blue Flame Draco AK</span><span class="c-tag">13,800 💎 Value</span></div>
+        <div class="crate-item" id="item5"><span class="c-icon">🃏</span><span class="c-name">M416 The Fool Lv.7</span><span class="c-tag">75,000 UC Value</span></div>
+        <div class="crate-item" id="item6"><span class="c-icon">⚡</span><span class="c-name">M1887 Evo Conqueror</span><span class="c-tag">14,500 💎 Value</span></div>
+        <div class="crate-item" id="item7"><span class="c-icon">🐧</span><span class="c-name">Ninja Penguin + Skates</span><span class="c-tag">BGMI 4.x Mythic</span></div>
       </div>
-      <a class="action-btn" style="display:block; text-align:center; text-decoration:none;" href="https://reward.ff.garena.com" target="_blank">🔗 Go to Official Garena Rewards Site</a>
+
+      <button class="btn-main" onclick="startVisualSpin()" id="spinBtnText">🎲 અત્યારે જ ફ્રી સ્પિન કરો (SPIN NOW!)</button>
+      <div id="spinWinBanner" style="margin-top:12px;"></div>
+    </div>
+  </div>
+
+  <!-- PANEL 3: DIAMOND & UC SAVING CALCULATOR -->
+  <div id="calc" class="panel">
+    <div class="glass-card">
+      <div class="sec-title" id="calcTitle">💎 Evo Gun & Glacier બચત કેલ્ક્યુલેટર</div>
+      <p class="sec-sub" id="calcSub">જાણો ગન મેક્સ કરવામાં કેટલા ડાયમંડ/UC લાગશે અને મિની ઝોયાની ટ્રિકથી અડધા પૈસા કેવી રીતે બચાવવા!</p>
+
+      <div class="game-switch">
+        <button class="game-btn active" id="cBtnFF" onclick="setCalcMode('ff')">🔥 Free Fire Evo Gun</button>
+        <button class="game-btn" id="cBtnBGMI" onclick="setCalcMode('bgmi')">❄️ BGMI Glacier / Forge</button>
+      </div>
+
+      <div class="ram-grid" style="grid-template-columns: repeat(4, 1fr);">
+        <div class="ram-chip" onclick="setCalcLvl(4, this)">Lv. 4<small>Budget King</small></div>
+        <div class="ram-chip" onclick="setCalcLvl(6, this)">Lv. 6<small>Final Power</small></div>
+        <div class="ram-chip active" onclick="setCalcLvl(7, this)">Lv. 7<small>Max Emote</small></div>
+        <div class="ram-chip" onclick="setCalcLvl(8, this)">Lv. 8<small>2026 Ultra</small></div>
+      </div>
+
+      <div class="live-board" id="calcBoard"></div>
+    </div>
+  </div>
+
+  <!-- PANEL 4: GUJARATI & PRO STYLISH NAMES -->
+  <div id="names" class="panel">
+    <div class="glass-card">
+      <div class="sec-title" id="nameTitle">✨ હા મોજ હા! Gujarati & Pro Name Maker</div>
+      <p class="sec-sub" id="nameSub">તમારું નામ લખો અને 1-Click માં સ્ટાઈલિશ નામ અને ગુજરાતી સ્વેગ કોપી કરો!</p>
+
+      <input type="text" class="input-box" id="userIgn" placeholder="અહીં તમારું નામ લખો (Type Name: e.g. KANUDO)" oninput="renderCustomNames()">
+      <div id="customNamesBox"></div>
+
+      <div style="font-size:14px; font-weight:900; color:var(--gold); margin: 14px 0 8px;" id="gujjuTagTitle">🔥 ટોપ ગુજરાતી ગેમિંગ નામ (Tap to Copy):</div>
+      <div id="presetNamesBox"></div>
+    </div>
+  </div>
+
+  <!-- PANEL 5: ID WORTH CALCULATOR -->
+  <div id="worth" class="panel">
+    <div class="glass-card">
+      <div class="sec-title" id="worthTitle">💰 મારી ગેમ ID કેટલા રૂપિયાની છે? (ID Worth)</div>
+      <p class="sec-sub" id="worthSub">તમારી પાસે જે આઈટમ હોય તેના પર ટિક (✅) કરો અને તમારું Golden ID Value Card બનાવો!</p>
+
+      <label class="check-row"><span>🔥 Max Evo Gun (Cobra / Draco / M1887)</span><input type="checkbox" value="8500" onchange="calcWorth()" checked></label>
+      <label class="check-row"><span>❄️ M416 Glacier / Upgradable Gun</span><input type="checkbox" value="12000" onchange="calcWorth()" checked></label>
+      <label class="check-row"><span>👑 Rare Bundle / X-Suit (Golden Shade / Dravion)</span><input type="checkbox" value="6500" onchange="calcWorth()"></label>
+      <label class="check-row"><span>🎟️ Elite / Royal Pass (5+ Seasons)</span><input type="checkbox" value="3500" onchange="calcWorth()" checked></label>
+      <label class="check-row"><span>⚡ Old 3+ Years OG Account Badge</span><input type="checkbox" value="5000" onchange="calcWorth()"></label>
+
+      <div class="vip-card-gold" id="worthCard"></div>
+    </div>
+  </div>
+
+  <!-- PANEL 6: VIP GAMERS WALL & OFFICIAL REDEEM -->
+  <div id="vip" class="panel">
+    <div class="glass-card">
+      <div class="sec-title" id="vipTitle">👑 Mini Zoya Golden VIP Gamers List</div>
+      <p class="sec-sub" id="vipSub">જે ભાઈઓ @minizoyaofficial ને Follow કરીને રીલમાં પોતાનું નામ Comment કરે છે, એમનું નામ અહીં ગોલ્ડન લિસ્ટમાં જોડાય છે!</p>
+
+      <input type="text" class="input-box" id="vipUserName" placeholder="તમારું Game Name લખો..." oninput="renderVipBadge()">
+      <div class="vip-card-gold" id="myVipCard"></div>
+
+      <div style="font-size:13px; font-weight:900; color:var(--gold); margin-top:12px;">🌟 Official Golden VIP Supporters:</div>
+      <div class="vip-wall-grid">
+        <div class="vip-member">👑 #001 • MINI ZOYA</div>
+        <div class="vip-member">👑 #002 • ★Gujju WØRRIER★</div>
+        <div class="vip-member">👑 #003 • નટખટ કાનુડો</div>
+        <div class="vip-member">👑 #004 • રંગીલા રાજા</div>
+        <div class="vip-member">👑 #005 • જય દ્વારિકાધીશ</div>
+        <div class="vip-member">👑 #006 • રાજા ચામુંડા સરકાર</div>
+      </div>
+
+      <div style="margin-top:18px; padding-top:14px; border-top:1px solid #334155;">
+        <div class="sec-title" style="font-size:16px;">🎁 Official Garena Redeem Site (100% Safe)</div>
+        <p class="sec-sub">અમે ક્યારેય પાસવર્ડ માંગતા નથી! રિડીમ કોડ હંમેશા ગરેનાની ઓફિશિયલ સાઈટ પર જ નાખો:</p>
+        <a href="https://reward.ff.garena.com" target="_blank" class="btn-main" style="display:block; text-align:center; text-decoration:none;">🔗 Open Official Garena Rewards</a>
+      </div>
     </div>
   </div>
 </div>
 
 <footer>
-  <p>❤️ Made with Love by <strong>Mini Zoya (@minizoyaofficial)</strong></p>
-  <p style="margin-top:4px;">100% Safe Fan-Made Gaming Utility & Simulator • No Passwords Required Ever.</p>
+  <div>❤️ Made with Love by <strong>Mini Zoya (@minizoyaofficial)</strong></div>
+  <div style="margin-top:4px;">India's #1 AI Gaming Scientist • 100% Safe & Free Forever (2026–2050)</div>
 </footer>
 
 <script>
-function showTab(tabId) {
-  document.querySelectorAll('.section-panel').forEach(p => p.classList.remove('active'));
-  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-  document.getElementById(tabId).classList.add('active');
-  event.currentTarget.classList.add('active');
+let currentLang = 'gu';
+let currentGame = 'ff';
+let currentRam = '4gb';
+let calcMode = 'ff';
+let calcLvl = 7;
+
+const i18n = {
+  gu: {
+    langPrompt: "🌐 ભાષા પસંદ કરો:",
+    heroSub: "હા મોજ હા! Free Fire MAX (OB54) & BGMI (v4.6) માટે 100% ફ્રી VIP ટૂલ્સ",
+    step1Txt: "ટૂલ પસંદ કરો",
+    step2Txt: "ફોન RAM દબાવો",
+    step3Txt: "1-Click કોપી કરો!",
+    nav1: "હેડશોટ સેટિંગ & કોડ",
+    nav2: "ફ્રી ક્રેટ સ્પિન (Fun)",
+    nav3: "ડાયમંડ & UC બચત",
+    nav4: "ગુજરાતી & પ્રો નામ",
+    nav5: "ID ની કિંમત જાણો",
+    nav6: "VIP લિસ્ટ & રિડીમ",
+    sensiTitle: "🎯 2026 Auto-Headshot & Zero Recoil Hub",
+    sensiSub: "નીચે તમારી ગેમ અને ફોનની RAM પર ટચ કરો — તમારી સેટિંગ તરત જ નીચે લાઈવ દેખાશે!",
+    spinTitle: "🎰 2026 Evo Vault & X-Suit Free Spin",
+    spinSub: "એક પણ રૂપિયો ખર્ચ્યા વગર ફ્રી સ્પિન કરો અને જુઓ તમારા નસીબમાં કઈ 2026 સ્કિન ખુલે છે!",
+    spinBtnText: "🎲 અત્યારે જ ફ્રી સ્પિન કરો (SPIN NOW!)",
+    calcTitle: "💎 Evo Gun & Glacier બચત કેલ્ક્યુલેટર",
+    calcSub: "જાણો ગન મેક્સ કરવામાં કેટલા ડાયમંડ/UC લાગશે અને મિની ઝોયાની ટ્રિકથી અડધા પૈસા કેવી રીતે બચાવવા!",
+    nameTitle: "✨ હા મોજ હા! Gujarati & Pro Name Maker",
+    nameSub: "તમારું નામ લખો અને 1-Click માં સ્ટાઈલિશ નામ અને ગુજરાતી સ્વેગ કોપી કરો!",
+    worthTitle: "💰 મારી ગેમ ID કેટલા રૂપિયાની છે? (ID Worth)",
+    worthSub: "તમારી પાસે જે આઈટમ હોય તેના પર ટિક (✅) કરો અને તમારું Golden ID Value Card બનાવો!",
+    vipTitle: "👑 Mini Zoya Golden VIP Gamers List",
+    vipSub: "જે ભાઈઓ @minizoyaofficial ને Follow કરીને રીલમાં પોતાનું નામ Comment કરે છે, એમનું નામ અહીં ગોલ્ડન લિસ્ટમાં જોડાય છે!"
+  },
+  hi: {
+    langPrompt: "🌐 भाषा चुनें:",
+    heroSub: "हा मोज हा! Free Fire MAX (OB54) और BGMI (v4.6) के लिए 100% फ्री VIP टूल्स",
+    step1Txt: "टूल चुनें",
+    step2Txt: "फोन RAM दबाएं",
+    step3Txt: "1-Click कॉपी करें!",
+    nav1: "हेडशॉट सेटिंग & कोड",
+    nav2: "फ्री क्रेट स्पिन (Fun)",
+    nav3: "डायमंड & UC बचत",
+    nav4: "गुजराती & प्रो नाम",
+    nav5: "ID की कीमत जानें",
+    nav6: "VIP लिस्ट & रिडीम",
+    sensiTitle: "🎯 2026 Auto-Headshot & Zero Recoil Hub",
+    sensiSub: "नीचे अपना गेम और फोन की RAM टच करें — आपकी सेटिंग तुरंत नीचे लाइव दिखेगी!",
+    spinTitle: "🎰 2026 Evo Vault & X-Suit Free Spin",
+    spinSub: "बिना एक रुपया खर्च किए फ्री स्पिन करें और देखें आपकी किस्मत में कौन-सी 2026 स्किन खुलती है!",
+    spinBtnText: "🎲 अभी फ्री स्पिन करें (SPIN NOW!)",
+    calcTitle: "💎 Evo Gun & Glacier बचत कैलकुलेटर",
+    calcSub: "जानिए गन मैक्स करने में कितने डायमंड/UC लगेंगे और मिनी जोया की ट्रिक से आधे पैसे कैसे बचाएं!",
+    nameTitle: "✨ हा मोज हा! Gujarati & Pro Name Maker",
+    nameSub: "अपना नाम लिखें और 1-Click में स्टाइलिश नाम व गुजराती स्वैग कॉपी करें!",
+    worthTitle: "💰 मेरी गेम ID कितने रुपये की है? (ID Worth)",
+    worthSub: "आपके पास जो आइटम हैं उन पर टिक (✅) करें और अपना Golden ID Value Card बनाएं!",
+    vipTitle: "👑 Mini Zoya Golden VIP Gamers List",
+    vipSub: "जो भाई @minizoyaofficial को Follow करके रील में अपना नाम Comment करते हैं, उनका नाम यहाँ जुड़ता है!"
+  },
+  en: {
+    langPrompt: "🌐 Select Language:",
+    heroSub: "Ha Moj Ha! 100% Free VIP Toolkit for Free Fire MAX (OB54) & BGMI (v4.6)",
+    step1Txt: "Pick Tool",
+    step2Txt: "Tap Phone RAM",
+    step3Txt: "1-Click Copy!",
+    nav1: "Headshot & Code",
+    nav2: "Free Crate Spin",
+    nav3: "Diamond/UC Saver",
+    nav4: "Gujju & Pro Names",
+    nav5: "Check ID Worth",
+    nav6: "VIP Wall & Redeem",
+    sensiTitle: "🎯 2026 Auto-Headshot & Zero Recoil Hub",
+    sensiSub: "Tap your Game and Phone RAM below — your pro settings update live instantly!",
+    spinTitle: "🎰 2026 Evo Vault & X-Suit Free Spin",
+    spinSub: "Spin 100% free and unlock 2026 trending bundles & upgradable gun skins in your virtual locker!",
+    spinBtnText: "🎲 SPIN CRATE NOW (100% FREE)",
+    calcTitle: "💎 Evo Gun & Glacier Smart Cost Calculator",
+    calcSub: "Check exact Tokens/Materials needed and save 50% Diamonds/UC with Mini Zoya's trick!",
+    nameTitle: "✨ Pro Esports & Gujarati Name Generator",
+    nameSub: "Type your name below and copy stylish esports symbols in 1 tap!",
+    worthTitle: "💰 Check Your Gaming ID Worth",
+    worthSub: "Tick (✅) the items you own to generate your certified Golden ID Valuation Card!",
+    vipTitle: "👑 Mini Zoya Golden VIP Gamers List",
+    vipSub: "Follow @minizoyaofficial & comment your Game Name on our Reels to get featured here!"
+  }
+};
+
+function setLang(lang, btn) {
+  currentLang = lang;
+  document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  const dict = i18n[lang];
+  Object.keys(dict).forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.innerText = dict[id];
+  });
+  renderSensi();
+  renderCalc();
 }
 
-const ffData = {
-  "2gb": { gen: "190 - 200", red: "186 - 196", s2x: "180 - 190", s4x: "175 - 185", awm: "120 - 145", look: "180 - 190", dpi: "390 - 410 (Safe)", btn: "40% - 44%" },
-  "3gb": { gen: "185 - 195", red: "180 - 192", s2x: "175 - 188", s4x: "165 - 180", awm: "110 - 135", look: "170 - 185", dpi: "410 - 440", btn: "42% - 46%" },
-  "4gb": { gen: "178 - 188", red: "172 - 184", s2x: "168 - 178", s4x: "155 - 168", awm: "105 - 125", look: "175 - 190", dpi: "420 - 450", btn: "46% - 50%" },
-  "6gb": { gen: "165 - 180", red: "160 - 175", s2x: "160 - 170", s4x: "150 - 165", awm: "90 - 110", look: "160 - 175", dpi: "520 - 560", btn: "45% - 50%" },
-  "8gb": { gen: "150 - 165 (iQOO: 190)", red: "145 - 160", s2x: "150 - 165", s4x: "140 - 155", awm: "80 - 100", look: "140 - 155", dpi: "540 - 580", btn: "42% - 48%" },
-  "12gb": { gen: "140 - 155", red: "135 - 150", s2x: "140 - 155", s4x: "130 - 145", awm: "70 - 90", look: "135 - 150", dpi: "600 - 640", btn: "40% - 45%" }
+function openPanel(id, card) {
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-card').forEach(c => c.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  card.classList.add('active');
+}
+
+const ffSensi = {
+  "2gb": { gen: 196, red: 192, s2x: 186, s4x: 180, awm: 135, dpi: "400 DPI", btn: "42%" },
+  "3gb": { gen: 190, red: 186, s2x: 182, s4x: 174, awm: 125, dpi: "425 DPI", btn: "44%" },
+  "4gb": { gen: 184, red: 180, s2x: 174, s4x: 164, awm: 115, dpi: "440 DPI", btn: "47%" },
+  "6gb": { gen: 175, red: 170, s2x: 166, s4x: 158, awm: 105, dpi: "540 DPI", btn: "46%" },
+  "8gb": { gen: 162, red: 156, s2x: 158, s4x: 148, awm: 92,  dpi: "560 DPI", btn: "45%" },
+  "12gb":{ gen: 148, red: 142, s2x: 146, s4x: 138, awm: 82,  dpi: "610 DPI", btn: "42%" }
 };
 
-const bgmiData = {
-  "2gb": { cam: "115 - 140", red: "56 - 65", s3x: "30 - 38", s4x: "26 - 30", gyro: "OFF (Non-Gyro Best)", code: "7285-1061-6808-4288-454" },
-  "3gb": { cam: "115 - 135", red: "56 - 68", s3x: "30 - 38", s4x: "24 - 28", gyro: "OFF (Non-Gyro Best)", code: "6983-8762-7023-5848-120" },
-  "4gb": { cam: "115 - 122", red: "60 - 62", s3x: "28 - 30", s4x: "25 - 31", gyro: "200 - 240 (Mid Gyro)", code: "7309-1086-6844-4312-478" },
-  "6gb": { cam: "120 - 125", red: "55 - 60", s3x: "25 - 30", s4x: "18 - 22", gyro: "245 - 255 (Balanced)", code: "7298-1074-6823-4301-468" },
-  "8gb": { cam: "115 - 128", red: "60 - 62", s3x: "28 - 30", s4x: "22 - 32", gyro: "280 - 300 (90 FPS Pro)", code: "7321-1098-6857-4329-491" },
-  "12gb": { cam: "120 - 130", red: "34 - 45", s3x: "22 - 26", s4x: "20 - 24", gyro: "350 - 400 (Full Gyro)", code: "7307-2094-8821-5315-120" }
+const bgmiSensi = {
+  "2gb": { tpp: 128, red: 62, s3x: 34, s4x: 28, gyro: "OFF (Non-Gyro)", code: "7285-1061-6808-4288-454" },
+  "3gb": { tpp: 124, red: 60, s3x: 32, s4x: 26, gyro: "OFF (Non-Gyro)", code: "6983-8762-7023-5848-120" },
+  "4gb": { tpp: 120, red: 60, s3x: 29, s4x: 27, gyro: "230 (Mid Gyro)", code: "7309-1086-6844-4312-478" },
+  "6gb": { tpp: 122, red: 58, s3x: 28, s4x: 20, gyro: "250 (60/90 FPS)", code: "7298-1074-6823-4301-468" },
+  "8gb": { tpp: 122, red: 60, s3x: 29, s4x: 26, gyro: "295 (90 FPS Pro)", code: "7321-1098-6857-4329-491" },
+  "12gb":{ tpp: 125, red: 40, s3x: 24, s4x: 22, gyro: "380 (120 FPS Max)", code: "7307-2094-8821-5315-120" }
 };
 
-function generateSensi() {
-  const game = document.getElementById('gameSelect').value;
-  const ram = document.getElementById('ramSelect').value;
-  const box = document.getElementById('sensiResult');
-  box.style.display = 'block';
+function selectGame(g) {
+  currentGame = g;
+  document.getElementById('btnFF').classList.toggle('active', g === 'ff');
+  document.getElementById('btnBGMI').classList.toggle('active', g === 'bgmi');
+  renderSensi();
+}
 
-  if (game === 'ff') {
-    const d = ffData[ram];
-    box.innerHTML = `
-      <div style="font-weight:800; color:#fbbf24; margin-bottom:6px;">🔥 Free Fire MAX (0-200 Scale) — ${ram.toUpperCase()} सेटिंग:</div>
-      <div class="stat-grid">
-        <div class="stat-item">General (0-200)<strong>${d.gen}</strong></div>
-        <div class="stat-item">Red Dot (0-200)<strong>${d.red}</strong></div>
-        <div class="stat-item">2x Scope<strong>${d.s2x}</strong></div>
-        <div class="stat-item">4x Scope<strong>${d.s4x}</strong></div>
-        <div class="stat-item">Sniper / AWM<strong>${d.awm}</strong></div>
-        <div class="stat-item">Free Look<strong>${d.look}</strong></div>
-        <div class="stat-item">सुरक्षित DPI<strong>${d.dpi}</strong></div>
-        <div class="stat-item">Fire Button Size<strong>${d.btn}</strong></div>
+function selectRam(r, el) {
+  currentRam = r;
+  el.parentElement.querySelectorAll('.ram-chip').forEach(c => c.classList.remove('active'));
+  el.classList.add('active');
+  renderSensi();
+}
+
+function renderSensi() {
+  const board = document.getElementById('liveSensiBoard');
+  if (currentGame === 'ff') {
+    const d = ffSensi[currentRam];
+    const copyStr = `Free Fire MAX (${currentRam.toUpperCase()}) Zoya Sensi: General:${d.gen}, RedDot:${d.red}, 2x:${d.s2x}, 4x:${d.s4x}, Sniper:${d.awm}, Safe DPI:${d.dpi}, Fire Button:${d.btn}`;
+    board.innerHTML = `
+      <div style="font-size:14px; font-weight:900; color:var(--gold); margin-bottom:10px;">🔥 FREE FIRE MAX (${currentRam.toUpperCase()}) • 0–200 SCALE</div>
+      ${makeBar('General (જનરલ)', d.gen, 200)}
+      ${makeBar('Red Dot (રેડ ડોટ)', d.red, 200)}
+      ${makeBar('2x Scope', d.s2x, 200)}
+      ${makeBar('4x Scope', d.s4x, 200)}
+      ${makeBar('AWM / Sniper', d.awm, 200)}
+      <div class="meta-badges">
+        <div class="meta-box"><span>SAFE ANDROID DPI</span><strong>${d.dpi}</strong></div>
+        <div class="meta-box"><span>FIRE BUTTON SIZE</span><strong>${d.btn} (One-Tap)</strong></div>
       </div>
-      <p style="font-size:12px; color:#38bdf8; margin-top:10px;">💡 <strong>मिनी जोया प्रो टिप:</strong> शॉटगन (M1887) और Desert Eagle से वन-टैप के लिए रोटेशन ड्रैग ('J' शेप स्वाइप) का इस्तेमाल करें!</p>
+      <button class="btn-main" style="margin-top:12px;" onclick="copyAny('${copyStr}')">📋 Copy Full ${currentRam.toUpperCase()} Settings</button>
     `;
   } else {
-    const d = bgmiData[ram];
-    box.innerHTML = `
-      <div style="font-weight:800; color:#fbbf24; margin-bottom:6px;">🪖 BGMI (v4.6 Zero Recoil) — ${ram.toUpperCase()} सेटिंग:</div>
-      <div class="stat-grid">
-        <div class="stat-item">TPP No Scope<strong>${d.cam}</strong></div>
-        <div class="stat-item">Red Dot / Holo<strong>${d.red}</strong></div>
-        <div class="stat-item">3x Scope ADS<strong>${d.s3x}</strong></div>
-        <div class="stat-item">4x Scope (M416)<strong>${d.s4x}</strong></div>
-        <div class="stat-item" style="grid-column: span 2;">Gyroscope (0-400)<strong>${d.gyro}</strong></div>
+    const d = bgmiSensi[currentRam];
+    board.innerHTML = `
+      <div style="font-size:14px; font-weight:900; color:#38bdf8; margin-bottom:10px;">🪖 BGMI v4.6 (${currentRam.toUpperCase()}) • ZERO RECOIL</div>
+      ${makeBar('TPP No Scope', d.tpp, 200)}
+      ${makeBar('Red Dot / Holo ADS', d.red, 100)}
+      ${makeBar('3x Scope Spray', d.s3x, 100)}
+      ${makeBar('4x Scope (M416 Laser)', d.s4x, 100)}
+      <div class="meta-badges">
+        <div class="meta-box" style="grid-column:span 2;"><span>GYROSCOPE (0–400 SCALE)</span><strong>${d.gyro}</strong></div>
       </div>
-      <div class="code-box">
-        <div>2026 Working 19-Digit Cloud Code:</div>
-        <div id="bgmiCodeText" style="font-size:17px; margin-top:4px; color:#fff;">${d.code}</div>
-        <button class="copy-btn" onclick="copyText('${d.code}')">📋 1-Click Copy Code</button>
+      <div class="cloud-box">
+        <div style="font-size:11px; color:#a7f3d0; font-weight:800;">✅ 2026 WORKING 19-DIGIT CLOUD CODE:</div>
+        <div class="cloud-code">${d.code}</div>
+        <button class="btn-copy" onclick="copyAny('${d.code}')">📋 1-Click Copy Cloud Code</button>
       </div>
     `;
   }
 }
 
-function calculateCost() {
-  const type = document.getElementById('calcType').value;
-  const lvl = document.getElementById('targetLevel').value;
-  const box = document.getElementById('calcResult');
-  box.style.display = 'block';
-
-  if (type === 'ff_evo') {
-    const map = {
-      "4": { tokens: 210, store: "2,100 💎", crate: "~2,000 💎", mystery: "1,260 💎", tip: "Level 4 सबसे स्मार्ट 'बजट स्टॉप' है क्योंकि यहीं पर गन का मुख्य Double Attribute (Fire Rate + Damage) पूरी तरह खुल जाता है!" },
-      "6": { tokens: 850, store: "8,500 💎", crate: "~8,080 💎", mystery: "5,100 💎", tip: "Level 6 पर गन का फाइनल लुक और स्पेशल एबिलिटी मिल जाती है (Level 7 के इमोट के पीछे 600 एक्स्ट्रा टोकन बचाएं)!" },
-      "7": { tokens: 1450, store: "14,500 💎", crate: "~13,800 💎", mystery: "8,700 💎", tip: "सीधे स्टोर से टोकन कभी मत खरीदो! Mystery Shop (40% Off) का इंतजार करने पर सीधे 5,800 डायमंड्स बचते हैं!" },
-      "8": { tokens: 2150, store: "21,500 💎", crate: "~20,425 💎", mystery: "12,900 💎", tip: "Level 8 केवल कलेक्टर दिखावे के लिए है। कॉम्पिटिटिव गेमप्ले के लिए Level 4 या Level 6 ही काफी है!" }
-    };
-    const d = map[lvl];
-    box.innerHTML = `
-      <div style="font-weight:800; color:#fbbf24;">🔥 Free Fire Evo Gun (Level ${lvl}) का पूरा हिसाब:</div>
-      <div class="stat-grid">
-        <div class="stat-item">बेस गन (Evo Vault)<strong>900 - 1,000 💎</strong></div>
-        <div class="stat-item">कुल जरूरी टोकन<strong>${d.tokens} Tokens</strong></div>
-        <div class="stat-item">सीधा स्टोर खर्च<strong>${d.store}</strong></div>
-        <div class="stat-item" style="border:1px solid #10b981;">मिस्ट्री शॉप खर्च (बचत!)<strong>${d.mystery}</strong></div>
-      </div>
-      <p style="font-size:13px; color:#34d399; margin-top:10px;">💡 <strong>मिनी जोया बचत राज़:</strong> ${d.tip}</p>
-    `;
-  } else if (type === 'bgmi_glacier') {
-    const map = {
-      "4": { mats: "9 Materials", paints: "120 - 155 Paints", uc: "15,000 - 25,000 UC", feat: "Kill Feed Broadcast (एलिमिनेशन मैसेज)" },
-      "6": { mats: "20 Materials", paints: "270 - 405 Paints", uc: "35,000 - 58,000 UC", feat: "Final Frozen Crystal Look (Level 5 पर हिट इफेक्ट खुलता है)" },
-      "7": { mats: "27 Materials", paints: "370 - 605 Paints", uc: "45,000 - 80,900 UC", feat: "Smiling Snowman / Jack-in-the-Box Loot Crate" },
-      "8": { mats: "37 Materials", paints: "845 - 900 Paints", uc: "95,000+ UC", feat: "2026 Glorious Moment Sovereign Ice Statue" }
-    };
-    const d = map[lvl];
-    box.innerHTML = `
-      <div style="font-weight:800; color:#38bdf8;">❄️ BGMI M416 Glacier / The Fool (Level ${lvl}):</div>
-      <div class="stat-grid">
-        <div class="stat-item">कुल Materials<strong>${d.mats}</strong></div>
-        <div class="stat-item">कुल Paints<strong>${d.paints}</strong></div>
-        <div class="stat-item" style="grid-column: span 2;">अनुमानित स्पिन खर्च<strong>${d.uc}</strong></div>
-      </div>
-      <p style="font-size:13px; color:#fbbf24; margin-top:10px;">💡 <strong>मिनी जोया टिप:</strong> सीधे क्रेट स्पिन की जगह शॉप से साप्ताहिक 999 UC Material Pack लें और रोज़ 100 Silver Fragments से फ्री Paint जमा करें!</p>
-    `;
-  } else {
-    box.innerHTML = `
-      <div style="font-weight:800; color:#fbbf24;">👑 BGMI Mythic Forge (300 - 600 UC सीक्रेट गणित):</div>
-      <p style="font-size:13px; margin-top:8px;">सीधे 20 UC के स्पिन से Mythic Forge आउटफिट (जैसे Glacier Set या Invader Set) निकालने में <strong>21,500 UC</strong> बर्बाद होते हैं!</p>
-      <div class="code-box" style="text-align:left; font-family:sans-serif;">
-        ✅ <strong>मिनी जोया का स्मार्ट फॉर्मूला:</strong><br>
-        1. हर हफ्ते का पहला स्पिन: सिर्फ <strong>5 UC</strong><br>
-        2. रोज़ का पहला स्पिन: सिर्फ <strong>10 UC</strong><br>
-        3. Double Forge Progress इवेंट में यही ट्रिक अपनाने पर सिर्फ <strong>300 से 600 UC</strong> में पूरा Mythic Emblem तैयार हो जाता है!
-      </div>
-    `;
-  }
-}
-
-const rewards = [
-  { name: "🐍 MP40 - Predatory Cobra (Lv.7 Max)", game: "Free Fire MAX", val: "14,500 Diamonds" },
-  { name: "❄️ M416 - Glacier (Lv.8 Sovereign)", game: "BGMI", val: "80,900 UC" },
-  { name: "👑 Evo Golden Shade Bundle", game: "Free Fire MAX", val: "4,500 Diamonds" },
-  { name: "🐉 Dravion X-Suit (2026 Molten Gold)", game: "BGMI", val: "65,000 UC" },
-  { name: "🔥 AK47 - Blue Flame Draco (Lv.7)", game: "Free Fire MAX", val: "13,800 Diamonds" },
-  { name: "🃏 M416 - The Fool (Lv.7 Jack-in-the-Box)", game: "BGMI", val: "75,000 UC" },
-  { name: "⚡ M1887 - Evo Sterling Conqueror", game: "Free Fire MAX", val: "14,500 Diamonds" },
-  { name: "🐧 Ninja Penguin (PowNin) + Ice Skates", game: "BGMI 4.x Special", val: "Mythic Rare" }
-];
-
-function spinCrate() {
-  const item = rewards[Math.floor(Math.random() * rewards.length)];
-  const box = document.getElementById('spinResult');
-  box.style.display = 'block';
-  box.innerHTML = `
-    <div style="font-size:12px; color:#94a3b8;">🎉 बधाई हो! आपके वर्चुअल लॉकर में अनलॉक हुआ:</div>
-    <div style="font-size:19px; font-weight:800; color:#fbbf24; margin:8px 0;">${item.name}</div>
-    <div style="font-size:13px; color:#38bdf8;">गेम: ${item.game} • असली गेम वैल्यू: <strong>${item.val}</strong></div>
-    <p style="font-size:12px; color:#34d399; margin-top:8px;">📸 इसका स्क्रीनशॉट लेकर Instagram Story पर लगाएं और <strong>@minizoyaofficial</strong> को टैग करें!</p>
+function makeBar(label, val, max) {
+  const pct = Math.min(100, Math.round((val / max) * 100));
+  return `
+    <div class="bar-row">
+      <div class="bar-top"><span>${label}</span><span class="bar-val">${val} / ${max}</span></div>
+      <div class="bar-track"><div class="bar-fill" style="width:${pct}%"></div></div>
+    </div>
   `;
 }
 
-const presetList = [
+function startVisualSpin() {
+  const items = document.querySelectorAll('.crate-item');
+  let steps = 16 + Math.floor(Math.random() * 8);
+  let idx = 0;
+  const timer = setInterval(() => {
+    items.forEach(i => i.classList.remove('highlight'));
+    items[idx % items.length].classList.add('highlight');
+    idx++;
+    steps--;
+    if (steps <= 0) {
+      clearInterval(timer);
+      const winIdx = (idx - 1) % items.length;
+      const winName = items[winIdx].querySelector('.c-name').innerText;
+      const winVal = items[winIdx].querySelector('.c-tag').innerText;
+      document.getElementById('spinWinBanner').innerHTML = `
+        <div class="vip-card-gold">
+          <div style="font-size:12px; color:#fde047; font-weight:800;">🎉 હા મોજ હા! CONGRATULATIONS!</div>
+          <div style="font-size:20px; font-weight:900; color:#fff; margin:6px 0;">Unlocked: ${winName}</div>
+          <div style="font-size:12px; color:#38bdf8; font-weight:800;">Real In-Game Value: ${winVal}</div>
+          <div style="font-size:11px; color:#fef08a; margin-top:6px;">📸 આનો Screenshot લઈને Instagram Story પર મૂકો અને @minizoyaofficial ને Tag કરો!</div>
+        </div>
+      `;
+    }
+  }, 90);
+}
+
+function setCalcMode(m) {
+  calcMode = m;
+  document.getElementById('cBtnFF').classList.toggle('active', m === 'ff');
+  document.getElementById('cBtnBGMI').classList.toggle('active', m === 'bgmi');
+  renderCalc();
+}
+
+function setCalcLvl(l, el) {
+  calcLvl = l;
+  el.parentElement.querySelectorAll('.ram-chip').forEach(c => c.classList.remove('active'));
+  el.classList.add('active');
+  renderCalc();
+}
+
+function renderCalc() {
+  const box = document.getElementById('calcBoard');
+  if (calcMode === 'ff') {
+    const data = {
+      4: { tok: "210 Tokens", store: "2,100 💎", save: "1,260 💎", msg: "Level 4 બજેટ પ્લેયર્સ માટે બેસ્ટ છે! અહીં Double Attribute (Fire Rate + Damage) ખુલી જાય છે!" },
+      6: { tok: "850 Tokens", store: "8,500 💎", save: "5,100 💎", msg: "Level 6 પર ફાઈનલ લુક અને સ્પેશિયલ પાવર મળી જાય છે!" },
+      7: { tok: "1,450 Tokens", store: "14,500 💎", save: "8,700 💎", msg: "Mystery Shop (40% Off) માં ટોકન લેવાથી સીધા 5,800 ડાયમંડ બચે છે!" },
+      8: { tok: "2,150 Tokens", store: "21,500 💎", save: "12,900 💎", msg: "Level 8 ફક્ત શો-ઓફ માટે છે, ગેમપ્લે માટે Level 4 કે 6 પૂરતું છે!" }
+    }[calcLvl];
+    box.innerHTML = `
+      <div style="font-size:14px; font-weight:900; color:var(--gold);">🔥 Free Fire Evo Gun • Level ${calcLvl} હિસાબ:</div>
+      <div class="meta-badges">
+        <div class="meta-box"><span>જરૂરી ટોકન (Tokens)</span><strong>${data.tok}</strong></div>
+        <div class="meta-box"><span>સીધો સ્ટોર ખર્ચ</span><strong style="color:#f43f5e;">${data.store}</strong></div>
+      </div>
+      <div class="cloud-box">
+        <div style="font-size:12px; color:#a7f3d0; font-weight:800;">💡 મિની ઝોયા બચત ફોર્મ્યુલા (Mystery Shop Cost):</div>
+        <div class="cloud-code" style="color:var(--gold);">ફક્ત ${data.save}</div>
+        <div style="font-size:12px; color:#fff;">${data.msg}</div>
+      </div>
+    `;
+  } else {
+    const data = {
+      4: { mat: "9 Materials", pnt: "120 Paints", uc: "15,000 UC", trick: "Kill Message (Broadcast) અહીં ખુલે છે!" },
+      6: { mat: "20 Materials", pnt: "270 Paints", uc: "38,000 UC", trick: "Level 5 પર Blue Ice On-Hit ઈફેક્ટ ખુલે છે જે સ્મોકની આરપાર દેખાય છે!" },
+      7: { mat: "27 Materials", pnt: "370–605 Paints", uc: "45,000–80,000 UC", trick: "Snowman Loot Crate! સીધા સ્પિન ના કરો, 999 UC નો વીકલી પેક લો!" },
+      8: { mat: "37 Materials", pnt: "845 Paints", uc: "95,000+ UC", trick: "Mythic Forge ટ્રિક: રોજ 10 UC + અઠવાડિયાના 5 UC સ્પિનથી ફક્ત 300–600 UC માં મિથિક સૂટ બને છે!" }
+    }[calcLvl];
+    box.innerHTML = `
+      <div style="font-size:14px; font-weight:900; color:#38bdf8;">❄️ BGMI M416 Glacier & Mythic • Level ${calcLvl}:</div>
+      <div class="meta-badges">
+        <div class="meta-box"><span>કુલ Materials</span><strong>${data.mat}</strong></div>
+        <div class="meta-box"><span>કુલ Paints</span><strong>${data.pnt}</strong></div>
+      </div>
+      <div class="cloud-box">
+        <div style="font-size:12px; color:#fde047; font-weight:800;">💡 મિની ઝોયા સ્માર્ટ ટ્રિક:</div>
+        <div style="font-size:13px; color:#fff; margin-top:4px;">${data.trick}</div>
+      </div>
+    `;
+  }
+}
+
+const gujjuPresets = [
   "હા મોજ હા!",
   "નટખટ કાનુડો",
   "રંગીલા રાજા",
@@ -505,54 +826,60 @@ const presetList = [
   "લડી જ લેવાનું છે"
 ];
 
-function loadPresets() {
-  const container = document.getElementById('presetNames');
-  container.innerHTML = presetList.map(n => `
-    <div class="name-row">
-      <span>${n}</span>
-      <button class="copy-btn" style="margin-top:0;" onclick="copyText('${n}')">Copy</button>
-    </div>
-  `).join('');
-}
-
-function makeCustomNames() {
-  const val = document.getElementById('customNameInput').value.trim() || "ZOYA";
-  const styles = [
-    `★${val}★`,
-    `乂${val}乂`,
-    `👑ᴳᵁʲʲᵁ•${val}`,
-    `⚡ZOYA•${val}⚡`,
-    `『VIP』${val}࿐`
+function renderCustomNames() {
+  const raw = document.getElementById('userIgn').value.trim() || "ZOYA";
+  const list = [
+    `★${raw}★`,
+    `👑ᴳᵁʲʲᵁ•${raw}`,
+    `乂${raw}乂`,
+    `『VIP』${raw}࿐`,
+    `⚡ZOYA•${raw}⚡`
   ];
-  document.getElementById('customNameOutput').innerHTML = styles.map(s => `
-    <div class="name-row">
-      <span>${s}</span>
-      <button class="copy-btn" style="margin-top:0;" onclick="copyText('${s}')">Copy</button>
-    </div>
+  document.getElementById('customNamesBox').innerHTML = list.map(n => `
+    <div class="name-item"><span>${n}</span><button class="btn-copy" onclick="copyAny('${n}')">Copy</button></div>
   `).join('');
 }
 
-function previewVip() {
-  const name = document.getElementById('vipInput').value.trim() || "PRO GAMER";
-  const box = document.getElementById('vipPreview');
-  box.style.display = 'block';
-  box.innerHTML = `
-    <div style="background:linear-gradient(135deg,#422006,#713f12); border:2px solid #fbbf24; border-radius:14px; padding:16px;">
-      <div style="font-size:11px; color:#fde047; font-weight:700;">🏆 ZOYA GAMING LAB • OFFICIAL VIP PASS</div>
-      <div style="font-size:22px; font-weight:900; color:#fff; margin:6px 0;">👑 ${name.toUpperCase()}</div>
-      <div style="font-size:12px; color:#fef08a;">Verified Supporter of @minizoyaofficial</div>
-    </div>
-    <p style="font-size:12px; color:#38bdf8; margin-top:8px;">📸 इसका स्क्रीनशॉट लेकर @minizoyaofficial को टैग करें!</p>
+function loadGujjuNames() {
+  document.getElementById('presetNamesBox').innerHTML = gujjuPresets.map(n => `
+    <div class="name-item"><span>${n}</span><button class="btn-copy" onclick="copyAny('${n}')">Copy</button></div>
+  `).join('');
+}
+
+function calcWorth() {
+  let total = 1500;
+  document.querySelectorAll('#worth input[type="checkbox"]:checked').forEach(cb => {
+    total += parseInt(cb.value, 10);
+  });
+  const rank = total > 25000 ? "👑 GRANDMASTER COLLECTOR" : (total > 12000 ? "🔥 ROYAL VIP ACCOUNT" : "⚡ RISING PRO GAMER");
+  document.getElementById('worthCard').innerHTML = `
+    <div style="font-size:11px; color:#fde047; font-weight:800;">✅ ZOYA GAMING LAB • CERTIFIED ID VALUE</div>
+    <div style="font-size:28px; font-weight:900; color:#fff; margin:6px 0;">₹${total.toLocaleString('en-IN')} INR</div>
+    <div style="font-size:13px; color:#38bdf8; font-weight:800;">Account Tier: ${rank}</div>
+    <div style="font-size:11px; color:#fef08a; margin-top:6px;">📸 Screenshot લઈને મિત્રોને બતાવો અને @minizoyaofficial ને Tag કરો!</div>
   `;
 }
 
-function copyText(txt) {
-  navigator.clipboard.writeText(txt);
-  alert("कॉपी हो गया: " + txt);
+function renderVipBadge() {
+  const u = document.getElementById('vipUserName').value.trim() || "YOUR NAME";
+  document.getElementById('myVipCard').innerHTML = `
+    <div style="font-size:11px; color:#fde047; font-weight:800;">🏆 OFFICIAL GOLDEN VIP MEMBER PASS</div>
+    <div style="font-size:22px; font-weight:900; color:#fff; margin:6px 0;">👑 ${u.toUpperCase()}</div>
+    <div style="font-size:12px; color:#fef08a;">Verified Supporter of Mini Zoya (@minizoyaofficial)</div>
+  `;
 }
 
-loadPresets();
-makeCustomNames();
+function copyAny(txt) {
+  navigator.clipboard.writeText(txt);
+  alert("✅ કોપી થઈ ગયું (Copied): " + txt);
+}
+
+renderSensi();
+renderCalc();
+renderCustomNames();
+loadGujjuNames();
+calcWorth();
+renderVipBadge();
 </script>
 </body>
 </html>

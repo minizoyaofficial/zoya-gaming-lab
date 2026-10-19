@@ -3,173 +3,252 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>Mini Zoya AI | Gaming Companion</title>
+<title>Mini Zoya AI | Official VIP Claim & Live Voting Hub</title>
 <style>
   :root {
-    --bg: #070b14;
-    --panel: #111827;
+    --bg: #050811;
+    --card: #0f172a;
+    --border: #1e293b;
     --gold: #fbbf24;
-    --pink: #f43f5e;
-    --blue: #38bdf8;
+    --gold-glow: rgba(251, 191, 36, 0.35);
     --green: #10b981;
+    --red: #ef4444;
+    --blue: #38bdf8;
+    --pink: #f43f5e;
     --text: #f8fafc;
+    --muted: #94a3b8;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif; -webkit-tap-highlight-color: transparent; }
   body {
-    background: radial-gradient(circle at top, #1e1b4b 0%, var(--bg) 60%);
+    background: radial-gradient(circle at top, #1e1b4b 0%, var(--bg) 55%);
     color: var(--text);
-    height: 100dvh;
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
+    min-height: 100vh;
+    padding-bottom: 40px;
   }
 
-  /* SIMPLE TOP BAR */
+  /* STICKY TOP BAR */
   .top-bar {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(5, 8, 17, 0.94);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(251, 191, 36, 0.35);
+    padding: 10px 14px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 10px 14px;
-    background: rgba(17, 24, 39, 0.9);
-    border-bottom: 1px solid rgba(251, 191, 36, 0.3);
   }
-  .brand { display: flex; align-items: center; gap: 8px; }
-  .avatar-dot {
+  .brand { display: flex; align-items: center; gap: 9px; }
+  .avatar {
     width: 36px; height: 36px; border-radius: 50%;
     background: linear-gradient(135deg, var(--gold), var(--pink));
     display: flex; align-items: center; justify-content: center;
     font-size: 20px; border: 2px solid #fff;
   }
-  .brand-text h1 { font-size: 16px; font-weight: 900; color: #fff; line-height: 1.1; }
-  .online-tag { font-size: 11px; color: #34d399; font-weight: 700; display: flex; align-items: center; gap: 4px; }
-  .dot { width: 7px; height: 7px; background: #10b981; border-radius: 50%; display: inline-block; box-shadow: 0 0 8px #10b981; }
+  .brand h1 { font-size: 15px; font-weight: 900; color: #fff; line-height: 1.1; }
+  .live-dot { font-size: 11px; color: #34d399; font-weight: 800; display: flex; align-items: center; gap: 5px; }
+  .pulse { width: 7px; height: 7px; background: var(--green); border-radius: 50%; box-shadow: 0 0 8px var(--green); }
 
   .lang-switch { display: flex; gap: 4px; }
   .l-btn {
-    background: #1f2937; color: #cbd5e1; border: 1px solid #374151;
-    padding: 4px 9px; border-radius: 99px; font-size: 11px; font-weight: 800; cursor: pointer;
+    background: #1e293b; color: #cbd5e1; border: 1px solid #334155;
+    padding: 5px 10px; border-radius: 99px; font-size: 11px; font-weight: 800; cursor: pointer;
   }
   .l-btn.active { background: var(--gold); color: #000; border-color: #fff; }
 
-  /* MAIN SINGLE SCREEN AREA */
-  .chat-stage {
-    flex: 1;
-    max-width: 520px;
-    width: 100%;
-    margin: 0 auto;
-    padding: 14px;
-    overflow-y: auto;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    gap: 14px;
-  }
+  .container { max-width: 500px; margin: 0 auto; padding: 12px; }
 
-  /* ZOYA MESSAGE CARD */
-  .zoya-card {
-    background: linear-gradient(145deg, #151f32, #0f172a);
+  /* MAIN ONE-TIME CLAIM VAULT CARD */
+  .vault-card {
+    background: linear-gradient(160deg, #131c31 0%, #0b1120 100%);
     border: 2px solid var(--gold);
-    border-radius: 20px;
-    padding: 18px 16px;
-    text-align: center;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+    border-radius: 18px;
+    padding: 16px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.65);
+    margin-bottom: 14px;
   }
-  .zoya-badge {
-    display: inline-block;
-    background: rgba(251, 191, 36, 0.15);
-    color: var(--gold);
-    font-size: 11px;
-    font-weight: 900;
-    padding: 3px 10px;
-    border-radius: 99px;
-    margin-bottom: 8px;
-  }
-  .zoya-msg { font-size: 16px; font-weight: 800; color: #fff; line-height: 1.4; margin-bottom: 12px; }
-
-  /* DYNAMIC OUTPUT BOX INSIDE MAIN CARD */
-  .magic-output {
-    background: #090d16;
-    border: 1px dashed var(--blue);
-    border-radius: 14px;
-    padding: 14px;
-    margin-bottom: 12px;
-    text-align: center;
-  }
-
-  /* 3 SIMPLE BIG MAGIC BUTTONS */
-  .magic-grid {
-    display: flex;
-    flex-direction: column;
-    gap: 9px;
-  }
-  .magic-btn {
-    width: 100%;
-    padding: 13px 14px;
-    border-radius: 14px;
-    border: 1px solid rgba(255,255,255,0.15);
-    background: linear-gradient(90deg, #1e293b, #0f172a);
-    color: #fff;
-    font-size: 14px;
-    font-weight: 800;
-    text-align: left;
+  .vault-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    cursor: pointer;
-    transition: 0.2s;
+    margin-bottom: 8px;
   }
-  .magic-btn:active { transform: scale(0.98); }
-  .magic-btn.gold {
-    background: linear-gradient(90deg, var(--gold), #f59e0b);
-    color: #000;
-    border: none;
+  .security-tag {
+    background: rgba(16, 185, 129, 0.15);
+    border: 1px solid var(--green);
+    color: #34d399;
+    font-size: 10.5px;
     font-weight: 900;
-    box-shadow: 0 4px 15px rgba(251, 191, 36, 0.35);
+    padding: 3px 9px;
+    border-radius: 99px;
+  }
+  .slot-counter {
+    font-size: 11px;
+    font-weight: 900;
+    color: var(--gold);
+  }
+  .vault-title { font-size: 18px; font-weight: 900; color: #fff; margin-bottom: 4px; }
+  .vault-sub { font-size: 12.5px; color: var(--muted); margin-bottom: 12px; line-height: 1.4; }
+
+  /* ACTIVE ONE-TIME CODES TICKER */
+  .code-strip {
+    background: #070b14;
+    border: 1px dashed #334155;
+    border-radius: 12px;
+    padding: 9px 10px;
+    margin-bottom: 12px;
+  }
+  .strip-label { font-size: 11px; font-weight: 800; color: var(--blue); margin-bottom: 6px; display: block; }
+  .code-pills { display: flex; flex-wrap: wrap; gap: 6px; }
+  .c-pill {
+    font-family: monospace;
+    font-size: 12px;
+    font-weight: 900;
+    padding: 4px 8px;
+    border-radius: 6px;
+    background: rgba(16, 185, 129, 0.15);
+    border: 1px solid var(--green);
+    color: #34d399;
+    cursor: pointer;
+  }
+  .c-pill.used {
+    background: rgba(239, 68, 68, 0.12);
+    border-color: var(--red);
+    color: #f87171;
+    text-decoration: line-through;
+    cursor: not-allowed;
   }
 
-  /* CHAT INPUT BAR (BOTTOM LIKE CHATGPT) */
-  .bottom-bar {
-    background: #0f172a;
-    border-top: 1px solid #1e293b;
-    padding: 10px 12px;
+  /* FORM FIELDS */
+  .f-label { display: block; font-size: 12px; font-weight: 800; color: var(--gold); margin: 9px 0 4px; }
+  .game-row { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .g-btn {
+    padding: 10px;
+    border-radius: 10px;
+    border: 1.5px solid #334155;
+    background: #090d16;
+    color: #cbd5e1;
+    font-weight: 900;
+    font-size: 13px;
+    cursor: pointer;
   }
-  .input-wrap {
-    max-width: 520px;
-    margin: 0 auto;
-    display: flex;
-    gap: 8px;
-  }
-  .chat-input {
-    flex: 1;
-    background: #1e293b;
-    border: 1px solid #3b82f6;
+  .g-btn.active {
+    background: linear-gradient(135deg, #ea580c, #e11d48);
+    border-color: var(--gold);
     color: #fff;
-    padding: 12px 14px;
-    border-radius: 99px;
+  }
+
+  .inp, .sel {
+    width: 100%;
+    padding: 11px 12px;
+    border-radius: 10px;
+    border: 1.5px solid #334155;
+    background: #090d16;
+    color: #fff;
     font-size: 14px;
     font-weight: 700;
     outline: none;
   }
-  .send-btn {
-    background: linear-gradient(90deg, var(--pink), var(--gold));
-    color: #000;
+  .inp:focus, .sel:focus { border-color: var(--blue); }
+
+  .claim-btn {
+    width: 100%;
+    margin-top: 14px;
+    padding: 13px;
+    border-radius: 12px;
     border: none;
-    padding: 0 18px;
-    border-radius: 99px;
+    background: linear-gradient(90deg, var(--gold), #f59e0b);
+    color: #000;
+    font-size: 15px;
     font-weight: 900;
-    font-size: 14px;
     cursor: pointer;
+    box-shadow: 0 4px 15px var(--gold-glow);
   }
-  .copy-pill {
-    margin-top: 8px;
+  .claim-btn:disabled {
+    background: #334155;
+    color: #94a3b8;
+    box-shadow: none;
+    cursor: not-allowed;
+  }
+
+  /* ALERT / RESULT BOX */
+  .alert-box {
+    margin-top: 12px;
+    padding: 12px;
+    border-radius: 12px;
+    font-size: 13px;
+    font-weight: 800;
+    display: none;
+    line-height: 1.45;
+  }
+  .alert-error { background: rgba(239, 68, 68, 0.15); border: 1.5px solid var(--red); color: #fca5a5; }
+  .alert-ok { background: rgba(16, 185, 129, 0.14); border: 1.5px solid var(--green); color: #ecfdf5; }
+
+  /* LIVE REGISTERED PLAYERS & VOTING BOARD */
+  .board-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    padding: 15px;
+  }
+  .board-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  .board-title { font-size: 16px; font-weight: 900; color: var(--gold); }
+  .player-row {
+    background: #090d16;
+    border: 1px solid #1e293b;
+    border-radius: 12px;
+    padding: 10px 12px;
+    margin-bottom: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .p-info { font-size: 13px; }
+  .p-name { font-weight: 900; color: #fff; font-size: 14px; }
+  .p-meta { font-size: 11px; color: var(--muted); margin-top: 2px; }
+  .p-wish { font-size: 11px; color: var(--blue); font-weight: 800; margin-top: 2px; }
+  .vote-btn {
+    background: #1e293b;
+    border: 1px solid var(--gold);
+    color: var(--gold);
+    padding: 7px 11px;
+    border-radius: 10px;
+    font-size: 12px;
+    font-weight: 900;
+    cursor: pointer;
+    min-width: 72px;
+    text-align: center;
+  }
+  .vote-btn.voted {
+    background: var(--green);
+    border-color: var(--green);
+    color: #000;
+  }
+
+  .copy-tag-btn {
     background: var(--green);
     color: #000;
     border: none;
-    padding: 7px 16px;
-    border-radius: 99px;
+    padding: 7px 14px;
+    border-radius: 8px;
     font-weight: 900;
     font-size: 12px;
+    margin-top: 8px;
     cursor: pointer;
+  }
+
+  footer {
+    text-align: center;
+    font-size: 11.5px;
+    color: var(--muted);
+    margin-top: 18px;
+    padding: 10px;
   }
 </style>
 </head>
@@ -178,164 +257,366 @@
 <!-- TOP BAR -->
 <div class="top-bar">
   <div class="brand">
-    <div class="avatar-dot">👧</div>
-    <div class="brand-text">
-      <h1>Mini Zoya AI</h1>
-      <div class="online-tag"><span class="dot"></span> <span id="statusTxt">Online • Gaming AI</span></div>
+    <div class="avatar">👧</div>
+    <div>
+      <h1>Mini Zoya Official Hub</h1>
+      <div class="live-dot"><span class="pulse"></span> <span id="topStatus">1-Code 1-Use Security Active</span></div>
     </div>
   </div>
   <div class="lang-switch">
-    <button class="l-btn active" onclick="switchLang('gu', this)">ગુજરાતી</button>
-    <button class="l-btn" onclick="switchLang('hi', this)">हिंदी</button>
-    <button class="l-btn" onclick="switchLang('en', this)">English</button>
+    <button class="l-btn active" onclick="setLang('gu', this)">ગુજરાતી</button>
+    <button class="l-btn" onclick="setLang('hi', this)">हिंदी</button>
+    <button class="l-btn" onclick="setLang('en', this)">English</button>
   </div>
 </div>
 
-<!-- SINGLE SCREEN STAGE -->
-<div class="chat-stage">
-  <div class="zoya-card">
-    <div class="zoya-badge" id="badgeTxt">✨ INDIA'S FIRST GAMING AI FRIEND</div>
-    <div class="zoya-msg" id="greetingTxt">કેમ છો દોસ્ત! 🙏 હું Mini Zoya AI છું. નીચે ફક્ત 1 બટન દબાવો અથવા તમારું નામ લખો!</div>
-
-    <!-- ONE CLEAN DISPLAY BOX -->
-    <div class="magic-output" id="screenBox">
-      <div style="font-size:32px;">🎁</div>
-      <div style="font-size:15px; font-weight:900; color:var(--gold); margin-top:4px;" id="boxTitle">આજનું VIP ગેમિંગ સરપ્રાઈઝ તૈયાર છે!</div>
-      <div style="font-size:12px; color:#94a3b8; margin-top:3px;" id="boxSub">નીચેથી કોઈપણ 1 બટન પર ટચ કરો 👇</div>
+<div class="container">
+  <!-- MAIN ONE-TIME CODE & REWARD CLAIM BOX -->
+  <div class="vault-card">
+    <div class="vault-header">
+      <span class="security-tag" id="secTag">🔒 1 CODE = 1 USER ONLY</span>
+      <span class="slot-counter" id="slotCount">⚡ 3/5 Codes Left Today</span>
     </div>
 
-    <!-- ONLY 3 CLEAR BUTTONS -->
-    <div class="magic-grid">
-      <button class="magic-btn gold" onclick="openSurprise()">
-        <span id="btn1Txt">🎁 1. આજનું VIP સરપ્રાઈઝ ખોલો (Open Gift)</span>
-        <span>➔</span>
-      </button>
-      <button class="magic-btn" onclick="givePhoneCode()">
-        <span id="btn2Txt">🎯 2. મારા ફોનનું Auto-Headshot કોડ આપો</span>
-        <span>➔</span>
-      </button>
-      <button class="magic-btn" onclick="makeMyCard()">
-        <span id="btn3Txt">👑 3. મારા નામનું Golden VIP Card બનાવો</span>
-        <span>➔</span>
-      </button>
+    <div class="vault-title" id="vTitle">🎁 Mini Zoya VIP Reward & Code Claim</div>
+    <p class="vault-sub" id="vSub">દરેક કોડ ફક્ત 1 જ વાર ચાલશે! એક વાર વપરાઈ ગયા પછી તે કોડ તરત જ લોક (Expire) થઈ જશે.</p>
+
+    <!-- LIVE ONE-TIME CODES STRIP -->
+    <div class="code-strip">
+      <span class="strip-label" id="stripLbl">🔑 આજના રિયલ વન-ટાઈમ કોડ્સ (1-Time Drop Codes):</span>
+      <div class="code-pills" id="codePillsBox"></div>
     </div>
 
-    <a href="https://instagram.com/minizoyaofficial" target="_blank" style="display:inline-block; margin-top:12px; font-size:12px; color:var(--gold); font-weight:800; text-decoration:none;">📸 Follow @minizoyaofficial on Instagram ➔</a>
+    <!-- STEP 1: SELECT GAME -->
+    <label class="f-label" id="lbl1">1. તમારી ગેમ પસંદ કરો (Select Game):</label>
+    <div class="game-row">
+      <button class="g-btn active" id="gFF" onclick="pickGame('Free Fire MAX')">🔥 Free Fire MAX</button>
+      <button class="g-btn" id="gBGMI" onclick="pickGame('BGMI / PUBG')">🪖 BGMI / PUBG</button>
+    </div>
+
+    <!-- STEP 2: WHAT DO YOU WANT -->
+    <label class="f-label" id="lbl2">2. તમારે ગેમમાં શું જોઈએ છે? (What You Need):</label>
+    <select class="sel" id="wishSelect">
+      <option value="💎 Weekly Diamond / UC Lucky Drop + Pro Sensi">💎 1. ડાયમંડ / UC લકી ડ્રો + ફોન હેડશોટ કોડ</option>
+      <option value="👑 Evo Gun / Glacier Skin VIP Pass + ID Promotion">👑 2. Evo Gun / Glacier VIP કાર્ડ + રિયલ ID પ્રમોશન</option>
+      <option value="🎯 Personal Phone Lag-Fix + 19-Digit Zero Recoil Code">🎯 3. મારા ફોનનું પર્સનલ Auto-Headshot & 19-Digit કોડ</option>
+    </select>
+
+    <!-- STEP 3: PLAYER NAME & REAL UID -->
+    <label class="f-label" id="lbl3">3. તમારું નામ અને સાચી Game UID (8–12 અંક):</label>
+    <div style="display:grid; grid-template-columns: 1fr 1.2fr; gap:8px;">
+      <input type="text" class="inp" id="pName" placeholder="નામ (e.g. Raj)">
+      <input type="number" class="inp" id="pUid" placeholder="Game UID (e.g. 54892104)">
+    </div>
+
+    <!-- STEP 4: PHONE MODEL & ONE-TIME CODE -->
+    <label class="f-label" id="lbl4">4. ફોન RAM અને 1-Time Secret Code નાખો:</label>
+    <div style="display:grid; grid-template-columns: 1fr 1.3fr; gap:8px;">
+      <select class="sel" id="pRam">
+        <option value="4gb">4GB RAM</option>
+        <option value="6gb">6GB RAM</option>
+        <option value="8gb">8GB RAM</option>
+        <option value="2gb">2GB/3GB RAM</option>
+        <option value="12gb">12GB RAM</option>
+      </select>
+      <input type="text" class="inp" id="secretCodeInp" placeholder="કોડ (e.g. ZOYA-7721)" style="text-transform:uppercase;">
+    </div>
+
+    <button class="claim-btn" id="submitBtn" onclick="verifyAndLockClaim()">🔓 કોડ વેરિફાય કરો અને રિવોર્ડ ખોલો (1-Time Only)</button>
+
+    <!-- RESULT / ERROR ALERT -->
+    <div id="alertBox" class="alert-box"></div>
+  </div>
+
+  <!-- LIVE GAMERS DIRECTORY & VOTING BOARD -->
+  <div class="board-card">
+    <div class="board-head">
+      <div class="board-title" id="bTitle">🏆 Live Registered Gamers & Voting</div>
+      <span style="font-size:11px; color:#34d399; font-weight:800;" id="bSub">Top Vote = Reel Shoutout!</span>
+    </div>
+    <p style="font-size:12px; color:var(--muted); margin-bottom:10px;" id="bDesc">જે પ્લેયરની ID પર સૌથી વધુ વોટ (🔥 Vote) આવશે, મિની ઝોયા આવતી રીલમાં તેની ID પ્રમોટ કરશે!</p>
+
+    <div id="livePlayersList"></div>
+
+    <a href="https://instagram.com/minizoyaofficial" target="_blank" style="display:block; text-align:center; margin-top:12px; padding:10px; border-radius:10px; background:rgba(244,63,94,0.15); border:1px solid var(--pink); color:#fff; font-weight:900; font-size:13px; text-decoration:none;">📸 નવા વન-ટાઈમ કોડ માટે @minizoyaofficial ને Follow કરો ➔</a>
   </div>
 </div>
 
-<!-- BOTTOM CHATGPT-STYLE INPUT BAR -->
-<div class="bottom-bar">
-  <div class="input-wrap">
-    <input type="text" class="chat-input" id="userInput" placeholder="તમારું નામ કે ફોન લખો (e.g. Raj / Vivo)..." onkeydown="if(event.key==='Enter') askZoya()">
-    <button class="send-btn" onclick="askZoya()" id="sendTxt">Ask ✨</button>
-  </div>
-</div>
+<footer>
+  <div>❤️ Official Platform of <strong>Mini Zoya (@minizoyaofficial)</strong></div>
+  <div style="margin-top:3px;">100% Real Single-Use Code Security • No Passwords Asked Ever</div>
+</footer>
 
 <script>
-let lang = 'gu';
+let selectedGame = 'Free Fire MAX';
+let currentLang = 'gu';
 
-const texts = {
-  gu: {
-    statusTxt: "ઓનલાઇન • ગેમિંગ AI",
-    greetingTxt: "કેમ છો દોસ્ત! 🙏 હું Mini Zoya AI છું. નીચે ફક્ત 1 બટન દબાવો અથવા તમારું નામ લખો!",
-    boxTitle: "આજનું VIP ગેમિંગ સરપ્રાઈઝ તૈયાર છે!",
-    boxSub: "નીચેથી કોઈપણ 1 બટન પર ટચ કરો 👇",
-    btn1Txt: "🎁 1. આજનું VIP સરપ્રાઈઝ ખોલો (Open Gift)",
-    btn2Txt: "🎯 2. મારા ફોનનું Auto-Headshot કોડ આપો",
-    btn3Txt: "👑 3. મારા નામનું Golden VIP Card બનાવો",
-    placeholder: "તમારું નામ કે ફોન લખો (e.g. Raj / Vivo)..."
-  },
-  hi: {
-    statusTxt: "ऑनलाइन • गेमिंग AI",
-    greetingTxt: "केम छो दोस्त! 🙏 मैं Mini Zoya AI हूँ। नीचे सिर्फ 1 बटन दबाएं या अपना नाम लिखें!",
-    boxTitle: "आज का VIP गेमिंग सरप्राइज तैयार है!",
-    boxSub: "नीचे से किसी भी 1 बटन को टच करें 👇",
-    btn1Txt: "🎁 1. आज का VIP सरप्राइज खोलें (Open Gift)",
-    btn2Txt: "🎯 2. मेरे फोन का Auto-Headshot कोड दें",
-    btn3Txt: "👑 3. मेरे नाम का Golden VIP Card बनाएं",
-    placeholder: "अपना नाम या फोन लिखें (जैसे: Raj / Vivo)..."
-  },
-  en: {
-    statusTxt: "Online • Gaming AI",
-    greetingTxt: "Hello Gamer! 🙏 I am Mini Zoya AI. Tap just 1 button below or type your name!",
-    boxTitle: "Today's VIP Gaming Surprise is Ready!",
-    boxSub: "Tap any 1 button below to unlock 👇",
-    btn1Txt: "🎁 1. Open Today's VIP Mystery Gift",
-    btn2Txt: "🎯 2. Give My Phone's Headshot & Zero-Recoil Code",
-    btn3Txt: "👑 3. Generate My Golden VIP Gamer Card",
-    placeholder: "Type your Name or Phone (e.g. Raj / Vivo)..."
-  }
-};
-
-function switchLang(l, btn) {
-  lang = l;
-  document.querySelectorAll('.l-btn').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
-  const t = texts[l];
-  document.getElementById('statusTxt').innerText = t.statusTxt;
-  document.getElementById('greetingTxt').innerText = t.greetingTxt;
-  document.getElementById('boxTitle').innerText = t.boxTitle;
-  document.getElementById('boxSub').innerText = t.boxSub;
-  document.getElementById('btn1Txt').innerText = t.btn1Txt;
-  document.getElementById('btn2Txt').innerText = t.btn2Txt;
-  document.getElementById('btn3Txt').innerText = t.btn3Txt;
-  document.getElementById('userInput').placeholder = t.placeholder;
-}
-
-const gifts = [
-  { item: "🐍 MP40 Cobra Lv.7 + 👑 હા મોજ હા! Tag", trick: "Evo Gun Level 4 (210 Tokens) પર જ Double Damage ખુલે છે — 14,500 ડાયમંડ બગાડશો નહીં!" },
-  { item: "❄️ M416 Glacier Lv.8 + 🐧 Ninja Penguin", trick: "Mythic Forge માં રોજ 10 UC સ્પિન કરવાથી ફક્ત 300 UC માં મિથિક સૂટ મળે છે!" },
-  { item: "🐉 Dravion X-Suit 2026 + ★Gujju WØRRIER★", trick: "One-Tap Headshot માટે Fire Button સાઈઝ 45% અને DPI 440 રાખો!" }
+// INITIAL ONE-TIME CODES (2 ALREADY USED BY OTHER PLAYERS, 3 AVAILABLE FOR SINGLE USE)
+const defaultCodes = [
+  { code: "ZOYA-1049", used: true, usedBy: "★Gujju WØRRIER★" },
+  { code: "ZOYA-3382", used: true, usedBy: "નટખટ કાનુડો" },
+  { code: "ZOYA-7721", used: false, usedBy: null },
+  { code: "ZOYA-5590", used: false, usedBy: null },
+  { code: "ZOYA-8841", used: false, usedBy: null }
 ];
 
-function openSurprise() {
-  const g = gifts[Math.floor(Math.random() * gifts.length)];
-  document.getElementById('screenBox').innerHTML = `
-    <div style="font-size:12px; color:#34d399; font-weight:900;">🎉 હા મોજ હા! MYSTERY BOX UNLOCKED:</div>
-    <div style="font-size:18px; font-weight:900; color:var(--gold); margin:6px 0;">${g.item}</div>
-    <div style="font-size:13px; color:#e2e8f0; background:#1e293b; padding:8px; border-radius:8px;">💡 <strong>Zoya Secret:</strong> ${g.trick}</div>
-    <button class="copy-pill" onclick="copyTxt('${g.item}')">📋 Copy Reward & Tag</button>
-  `;
+const defaultPlayers = [
+  { id: "p1", name: "★Gujju WØRRIER★", game: "Free Fire MAX", uid: "2491****82", wish: "👑 Evo Gun VIP + ID Promotion", votes: 42 },
+  { id: "p2", name: "નટખટ કાનુડો", game: "BGMI / PUBG", uid: "5182****19", wish: "💎 Weekly UC Drop + 19-Digit Code", votes: 38 },
+  { id: "p3", name: "રંગીલા રાજા (GJ)", game: "Free Fire MAX", uid: "6810****44", wish: "🎯 Personal 4GB Auto-Headshot", votes: 29 }
+];
+
+function getCodes() {
+  const saved = localStorage.getItem('zoya_v4_codes');
+  return saved ? JSON.parse(saved) : defaultCodes;
+}
+function saveCodes(arr) {
+  localStorage.setItem('zoya_v4_codes', JSON.stringify(arr));
 }
 
-function givePhoneCode() {
-  const code = "7309-1086-6844-4312-478";
-  document.getElementById('screenBox').innerHTML = `
-    <div style="font-size:12px; color:var(--blue); font-weight:900;">🎯 2026 UNIVERSAL PRO SETTING (ALL PHONES):</div>
-    <div style="font-size:14px; font-weight:800; color:#fff; margin:6px 0;">🔥 Free Fire: General 184 • Red Dot 180 • Fire Btn 45%</div>
-    <div style="font-size:13px; color:var(--gold); font-weight:900;">🪖 BGMI Code: ${code}</div>
-    <button class="copy-pill" onclick="copyTxt('${code}')">📋 1-Click Copy Code</button>
-  `;
+function getPlayers() {
+  const saved = localStorage.getItem('zoya_v4_players');
+  return saved ? JSON.parse(saved) : defaultPlayers;
+}
+function savePlayers(arr) {
+  localStorage.setItem('zoya_v4_players', JSON.stringify(arr));
 }
 
-function makeMyCard() {
-  const val = document.getElementById('userInput').value.trim() || "ROYAL GAMER";
-  showVipCard(val);
+function getVotedIds() {
+  const saved = localStorage.getItem('zoya_v4_voted');
+  return saved ? JSON.parse(saved) : [];
 }
 
-function askZoya() {
-  const q = document.getElementById('userInput').value.trim();
-  if (!q) { openSurprise(); return; }
-  showVipCard(q);
+function renderCodePills() {
+  const codes = getCodes();
+  const left = codes.filter(c => !c.used).length;
+  document.getElementById('slotCount').innerText = `⚡ ${left}/${codes.length} Codes Left`;
+  const box = document.getElementById('codePillsBox');
+  box.innerHTML = codes.map(c => {
+    if (c.used) {
+      return `<span class="c-pill used" title="Already Used">${c.code} (USED 🔒)</span>`;
+    } else {
+      return `<span class="c-pill" onclick="fillCode('${c.code}')">${c.code} (OPEN ✅)</span>`;
+    }
+  }).join('');
 }
 
-function showVipCard(name) {
-  const stylish = `👑ᴳᵁʲʲᵁ•${name.toUpperCase()}★`;
-  document.getElementById('screenBox').innerHTML = `
-    <div style="background:linear-gradient(135deg,#422006,#78350f); border:2px solid var(--gold); border-radius:12px; padding:12px;">
-      <div style="font-size:10px; color:#fde047; font-weight:900;">🏆 MINI ZOYA OFFICIAL VIP PASS</div>
-      <div style="font-size:20px; font-weight:900; color:#fff; margin:4px 0;">${stylish}</div>
-      <div style="font-size:11px; color:#34d399; font-weight:800;">✅ Pro Sensitivity: 185 | 19-Digit Code: 7298-1074-6823-4301-468</div>
+function fillCode(c) {
+  const inp = document.getElementById('secretCodeInp');
+  if (!inp.disabled) inp.value = c;
+}
+
+function pickGame(g) {
+  selectedGame = g;
+  document.getElementById('gFF').classList.toggle('active', g === 'Free Fire MAX');
+  document.getElementById('gBGMI').classList.toggle('active', g === 'BGMI / PUBG');
+}
+
+const sensiDB = {
+  "2gb": { ff: "General: 196 • Red Dot: 192 • Fire Btn: 42% • DPI: 400", bgmi: "7285-1061-6808-4288-454" },
+  "4gb": { ff: "General: 184 • Red Dot: 180 • Fire Btn: 47% • DPI: 440", bgmi: "7309-1086-6844-4312-478" },
+  "6gb": { ff: "General: 175 • Red Dot: 170 • Fire Btn: 46% • DPI: 540", bgmi: "7298-1074-6823-4301-468" },
+  "8gb": { ff: "General: 162 • Red Dot: 156 • Fire Btn: 45% • DPI: 560", bgmi: "7321-1098-6857-4329-491" },
+  "12gb":{ ff: "General: 148 • Red Dot: 142 • Fire Btn: 42% • DPI: 610", bgmi: "7307-2094-8821-5315-120" }
+};
+
+function verifyAndLockClaim() {
+  const alertEl = document.getElementById('alertBox');
+  alertEl.style.display = 'block';
+
+  // 1. CHECK IF THIS DEVICE ALREADY CLAIMED ONCE
+  const existingClaim = localStorage.getItem('zoya_v4_my_claim');
+  if (existingClaim) {
+    const prev = JSON.parse(existingClaim);
+    alertEl.className = 'alert-box alert-error';
+    alertEl.innerHTML = `⛔ <strong>1-User 1-Claim Security Lock:</strong><br>દોસ્ત, તમે પહેલા જ કોડ <strong>${prev.code}</strong> થી તમારી Game UID (<strong>${prev.uid}</strong>) રજીસ્ટર કરી લીધી છે! એક ફોન પરથી ફક્ત 1 જ વાર કોડ ચાલે છે.`;
+    return;
+  }
+
+  const name = document.getElementById('pName').value.trim();
+  const uid = document.getElementById('pUid').value.trim();
+  const wish = document.getElementById('wishSelect').value;
+  const ram = document.getElementById('pRam').value;
+  const codeEntered = document.getElementById('secretCodeInp').value.trim().toUpperCase();
+
+  // ADMIN SECRET MODE FOR OWNER
+  if (codeEntered === "ZOYABOSS") {
+    localStorage.removeItem('zoya_v4_codes');
+    localStorage.removeItem('zoya_v4_my_claim');
+    renderCodePills();
+    alertEl.className = 'alert-box alert-ok';
+    alertEl.innerHTML = `👑 <strong>Boss Admin Mode:</strong> બધા વન-ટાઈમ કોડ્સ ફરીથી રીસેટ (Reset) થઈ ગયા છે!`;
+    return;
+  }
+
+  // 2. VALIDATE REAL NAME & UID
+  if (name.length < 2) {
+    alertEl.className = 'alert-box alert-error';
+    alertEl.innerHTML = `⚠️ કૃપા કરીને તમારું સાચું નામ લખો (Please enter your real Game Name)!`;
+    return;
+  }
+  if (uid.length < 7 || uid.length > 13) {
+    alertEl.className = 'alert-box alert-error';
+    alertEl.innerHTML = `⚠️ ખોટી UID! કૃપા કરીને તમારી સાચી 8 થી 12 અંકની Free Fire અથવા BGMI UID નાખો!`;
+    return;
+  }
+
+  // 3. CHECK ONE-TIME CODE VALIDITY
+  const codes = getCodes();
+  const foundIdx = codes.findIndex(c => c.code === codeEntered);
+
+  if (foundIdx === -1) {
+    alertEl.className = 'alert-box alert-error';
+    alertEl.innerHTML = `❌ <strong>Invalid Code!</strong> "${codeEntered || 'Empty'}" નામનો કોઈ કોડ નથી! ઉપર લીલા રંગમાં દેખાતા <strong>OPEN ✅</strong> કોડમાંથી અથવા મિની ઝોયાની રીલમાંથી સાચો કોડ નાખો.`;
+    return;
+  }
+
+  if (codes[foundIdx].used) {
+    alertEl.className = 'alert-box alert-error';
+    alertEl.innerHTML = `🔒 <strong>Code Already Used (Expired)!</strong><br>સોરી દોસ્ત! કોડ <strong>${codeEntered}</strong> પહેલા જ <strong>${codes[foundIdx].usedBy}</strong> દ્વારા વાપરી લેવામાં આવ્યો છે! એક કોડ ફક્ત 1 જ વાર ચાલે છે. બીજો OPEN કોડ ટ્રાય કરો!`;
+    return;
+  }
+
+  // 4. BURN / LOCK THE CODE PERMANENTLY (1-TIME USE)
+  codes[foundIdx].used = true;
+  codes[foundIdx].usedBy = name;
+  saveCodes(codes);
+  renderCodePills();
+
+  // 5. ADD PLAYER TO LIVE BOARD
+  const maskedUid = uid.substring(0, 4) + "****" + uid.substring(uid.length - 2);
+  const newPlayer = {
+    id: "p_" + Date.now(),
+    name: name,
+    game: selectedGame,
+    uid: maskedUid,
+    wish: wish,
+    votes: 1
+  };
+  const players = getPlayers();
+  players.unshift(newPlayer);
+  savePlayers(players);
+  renderPlayers();
+
+  // 6. SAVE DEVICE LOCK & GENERATE UNIQUE VERIFIED TICKET
+  const ticketId = "MZ-" + Math.floor(100000 + Math.random() * 900000);
+  const sData = sensiDB[ram];
+  const claimRecord = { ticketId, name, uid, game: selectedGame, wish, code: codeEntered, ram };
+  localStorage.setItem('zoya_v4_my_claim', JSON.stringify(claimRecord));
+
+  // DISABLE FORM SO IT CANNOT BE CLICKED AGAIN
+  document.getElementById('submitBtn').disabled = true;
+  document.getElementById('submitBtn').innerText = "🔒 Claim Locked (1-Time Used)";
+
+  alertEl.className = 'alert-box alert-ok';
+  alertEl.innerHTML = `
+    <div style="font-size:14px; color:var(--gold); font-weight:900;">✅ VERIFIED! કોડ ${codeEntered} તમારા નામે લોક થઈ ગયો!</div>
+    <div style="margin:6px 0; font-size:12px;">🎫 <strong>Unique Ticket:</strong> #${ticketId} | <strong>UID:</strong> ${uid}</div>
+    <div style="background:#090d16; padding:9px; border-radius:8px; border:1px solid #38bdf8; margin-top:6px;">
+      <div style="color:#38bdf8; font-weight:900; font-size:11.5px;">🎯 તમારી ${ram.toUpperCase()} પર્સનલ પ્રો સેટિંગ & કોડ:</div>
+      <div style="font-size:12.5px; color:#fff; margin-top:3px;">🔥 FF MAX: ${sData.ff}</div>
+      <div style="font-size:12.5px; color:var(--gold); margin-top:2px;">🪖 BGMI 19-Digit Code: ${sData.bgmi}</div>
     </div>
-    <button class="copy-pill" onclick="copyTxt('${stylish}')">📋 Copy My VIP Name</button>
+    <button class="copy-tag-btn" onclick="copyText('${sData.bgmi}')">📋 Copy 19-Digit Code</button>
+    <button class="copy-tag-btn" style="background:var(--gold); margin-left:6px;" onclick="copyText('Mini Zoya Verified Ticket #${ticketId} | UID: ${uid} | Code: ${codeEntered}')">📋 Copy My VIP Ticket</button>
   `;
 }
 
-function copyTxt(t) {
+function renderPlayers() {
+  const list = getPlayers();
+  const voted = getVotedIds();
+  const box = document.getElementById('livePlayersList');
+  box.innerHTML = list.slice(0, 8).map(p => {
+    const isVoted = voted.includes(p.id);
+    return `
+      <div class="player-row">
+        <div class="p-info">
+          <div class="p-name">👑 ${p.name} <span style="font-size:11px; color:var(--gold);">(${p.game})</span></div>
+          <div class="p-meta">UID: ${p.uid}</div>
+          <div class="p-wish">${p.wish}</div>
+        </div>
+        <button class="vote-btn ${isVoted ? 'voted' : ''}" onclick="votePlayer('${p.id}')">
+          ${isVoted ? '✅ Voted' : '🔥 Vote'} (${p.votes})
+        </button>
+      </div>
+    `;
+  }).join('');
+}
+
+function votePlayer(pid) {
+  const voted = getVotedIds();
+  if (voted.includes(pid)) {
+    alert("⚠️ તમે આ પ્લેયરને પહેલા જ 1 વોટ આપી દીધો છે! (1 Vote Per Player Only)");
+    return;
+  }
+  const players = getPlayers();
+  const idx = players.findIndex(p => p.id === pid);
+  if (idx !== -1) {
+    players[idx].votes += 1;
+    savePlayers(players);
+    voted.push(pid);
+    localStorage.setItem('zoya_v4_voted', JSON.stringify(voted));
+    renderPlayers();
+  }
+}
+
+function copyText(t) {
   navigator.clipboard.writeText(t);
   alert("✅ કોપી થઈ ગયું: " + t);
 }
+
+const langData = {
+  gu: {
+    vTitle: "🎁 Mini Zoya VIP Reward & Code Claim",
+    vSub: "દરેક કોડ ફક્ત 1 જ વાર ચાલશે! એક વાર વપરાઈ ગયા પછી તે કોડ તરત જ લોક (Expire) થઈ જશે.",
+    stripLbl: "🔑 આજના રિયલ વન-ટાઈમ કોડ્સ (1-Time Drop Codes):",
+    lbl1: "1. તમારી ગેમ પસંદ કરો (Select Game):",
+    lbl2: "2. તમારે ગેમમાં શું જોઈએ છે? (What You Need):",
+    lbl3: "3. તમારું નામ અને સાચી Game UID (8–12 અંક):",
+    lbl4: "4. ફોન RAM અને 1-Time Secret Code નાખો:",
+    submitBtn: "🔓 કોડ વેરિફાય કરો અને રિવોર્ડ ખોલો (1-Time Only)",
+    bTitle: "🏆 Live Registered Gamers & Voting",
+    bDesc: "જે પ્લેયરની ID પર સૌથી વધુ વોટ (🔥 Vote) આવશે, મિની ઝોયા આવતી રીલમાં તેની ID પ્રમોટ કરશે!"
+  },
+  hi: {
+    vTitle: "🎁 Mini Zoya VIP Reward & Code Claim",
+    vSub: "हर कोड सिर्फ 1 ही बार चलेगा! एक बार इस्तेमाल होने के बाद वह कोड तुरंत लॉक (Expire) हो जाएगा।",
+    stripLbl: "🔑 आज के रियल वन-टाइम कोड्स (1-Time Drop Codes):",
+    lbl1: "1. अपना गेम चुनें (Select Game):",
+    lbl2: "2. आपको गेम में क्या चाहिए? (What You Need):",
+    lbl3: "3. अपना नाम और असली Game UID (8–12 अंक):",
+    lbl4: "4. फोन RAM और 1-Time Secret Code डालें:",
+    submitBtn: "🔓 कोड वेरिफाई करें और रिवॉर्ड खोलें (1-Time Only)",
+    bTitle: "🏆 Live Registered Gamers & Voting",
+    bDesc: "जिस प्लेयर की ID पर सबसे ज्यादा वोट (🔥 Vote) आएंगे, मिनी जोया अगली रील में उसकी ID प्रमोट करेगी!"
+  },
+  en: {
+    vTitle: "🎁 Mini Zoya VIP Reward & Code Claim",
+    vSub: "Every code works ONLY ONCE! Once claimed by a player, that code is permanently locked.",
+    stripLbl: "🔑 Today's Single-Use Drop Codes (1-Time Only):",
+    lbl1: "1. Select Your Game:",
+    lbl2: "2. What Do You Need in Game?",
+    lbl3: "3. Your Name & Real Game UID (8–12 Digits):",
+    lbl4: "4. Phone RAM & 1-Time Secret Code:",
+    submitBtn: "🔓 Verify 1-Time Code & Unlock Reward",
+    bTitle: "🏆 Live Registered Gamers & Voting",
+    bDesc: "The player ID with the highest votes (🔥 Vote) gets featured in Mini Zoya's next Instagram Reel!"
+  }
+};
+
+function setLang(l, btn) {
+  currentLang = l;
+  document.querySelectorAll('.l-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  const d = langData[l];
+  Object.keys(d).forEach(k => {
+    const el = document.getElementById(k);
+    if (el && !el.disabled) el.innerText = d[k];
+  });
+}
+
+renderCodePills();
+renderPlayers();
 </script>
 </body>
 </html>

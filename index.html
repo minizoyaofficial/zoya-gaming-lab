@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>Mini Zoya 360° Real 3D Battle Royale Lobby | @minizoyacreator</title>
+<title>Mini Zoya Official | Coming Soon</title>
 
 <script type="importmap">
 {
@@ -16,8 +16,8 @@
 
 <style>
   :root {
-    --bg: #050811;
-    --glass: rgba(10, 15, 29, 0.84);
+    --bg: #05070e;
+    --glass: rgba(10, 14, 26, 0.84);
     --gold: #fbbf24;
     --cyan: #00f2fe;
     --pink: #f43f5e;
@@ -44,263 +44,348 @@
     flex-direction: column;
   }
 
-  /* 1. TOP HEADER */
+  /* TOP HEADER WITH OFFICIAL LOGO & SETTINGS */
   .top-header {
-    height: 48px;
-    background: rgba(5, 8, 17, 0.95);
-    border-bottom: 1px solid rgba(251, 191, 36, 0.35);
+    height: 54px;
+    background: rgba(5, 7, 14, 0.94);
+    border-bottom: 1.5px solid rgba(251, 191, 36, 0.4);
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0 10px;
+    padding: 0 12px;
     z-index: 100;
     flex-shrink: 0;
-    transition: opacity 0.35s ease;
   }
-  .brand { display: flex; align-items: center; gap: 8px; }
-  .badge-3d {
-    background: linear-gradient(135deg, var(--gold), var(--pink));
-    color: #000;
+  .brand-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .logo-emblem {
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    background: linear-gradient(135deg, var(--gold), var(--orange), var(--pink));
+    padding: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0 14px rgba(251, 191, 36, 0.5);
+  }
+  .logo-inner {
+    width: 100%;
+    height: 100%;
+    background: #080c18;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     font-weight: 900;
-    font-size: 10.5px;
-    padding: 4px 7px;
-    border-radius: 7px;
+    font-size: 13px;
+    color: var(--gold);
+    letter-spacing: 0.5px;
   }
-  .b-title { font-size: 13px; font-weight: 900; color: #fff; line-height: 1.1; }
-  .b-sub { font-size: 9.5px; color: var(--cyan); font-weight: 800; }
+  .brand-titles {
+    display: flex;
+    flex-direction: column;
+  }
+  .b-name {
+    font-size: 14px;
+    font-weight: 900;
+    color: #ffffff;
+    letter-spacing: 0.5px;
+    line-height: 1.1;
+  }
+  .b-tag {
+    font-size: 10px;
+    font-weight: 800;
+    color: var(--cyan);
+    margin-top: 2px;
+  }
 
+  .header-right {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
   .lang-bar {
-    display: flex; gap: 3px;
-    background: #111827; padding: 2px;
-    border-radius: 99px; border: 1px solid #1f2937;
+    display: flex;
+    gap: 3px;
+    background: #111827;
+    padding: 3px;
+    border-radius: 99px;
+    border: 1px solid #1f2937;
   }
   .l-btn {
-    border: none; background: transparent; color: #cbd5e1;
-    font-size: 10px; font-weight: 800; padding: 4px 7px;
-    border-radius: 99px; cursor: pointer;
+    border: none;
+    background: transparent;
+    color: #cbd5e1;
+    font-size: 10.5px;
+    font-weight: 800;
+    padding: 4px 8px;
+    border-radius: 99px;
+    cursor: pointer;
   }
-  .l-btn.active { background: var(--gold); color: #000; }
+  .l-btn.active {
+    background: var(--gold);
+    color: #000;
+  }
+  .settings-btn {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: #111827;
+    border: 1px solid rgba(251, 191, 36, 0.5);
+    color: var(--gold);
+    font-size: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+  }
 
-  /* 2. COMING SOON STATUS BAR */
-  .coming-bar {
-    background: linear-gradient(90deg, #1e1b4b, #0f172a, #1e1b4b);
+  /* COMING SOON BANNER (NO NUMBERS) */
+  .coming-banner {
+    background: linear-gradient(90deg, rgba(255, 94, 0, 0.2), rgba(10, 14, 26, 0.95), rgba(0, 242, 254, 0.2));
     border-bottom: 1.5px solid var(--gold);
-    padding: 6px 12px;
+    padding: 7px 14px;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 8px;
     z-index: 95;
     flex-shrink: 0;
-    transition: opacity 0.35s ease;
   }
-  .cs-left { display: flex; align-items: center; gap: 7px; }
-  .cs-tag {
-    background: var(--gold);
+  .cs-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: linear-gradient(90deg, var(--gold), #f59e0b);
     color: #000;
-    font-size: 9.5px;
+    font-size: 10.5px;
     font-weight: 900;
-    padding: 3px 7px;
-    border-radius: 6px;
-    white-space: nowrap;
+    padding: 3px 10px;
+    border-radius: 99px;
+    letter-spacing: 0.4px;
+    box-shadow: 0 0 12px rgba(251, 191, 36, 0.45);
   }
-  .cs-msg { font-size: 10.5px; font-weight: 800; color: #f8fafc; line-height: 1.25; }
-  .cs-pct { font-size: 10px; font-weight: 900; color: var(--green); white-space: nowrap; }
+  .pulse-dot {
+    width: 7px;
+    height: 7px;
+    background: #10b981;
+    border-radius: 50%;
+    box-shadow: 0 0 8px #10b981;
+  }
+  .cs-text {
+    font-size: 11.5px;
+    font-weight: 800;
+    color: #f8fafc;
+  }
 
-  /* 3. 3D WEBGL LOBBY STAGE */
-  .lobby-stage {
+  /* SETTINGS MODAL DRAWER */
+  .settings-panel {
+    position: absolute;
+    top: 98px;
+    right: 12px;
+    background: rgba(10, 14, 26, 0.95);
+    backdrop-filter: blur(14px);
+    border: 1.5px solid var(--gold);
+    border-radius: 14px;
+    padding: 12px;
+    z-index: 120;
+    display: none;
+    flex-direction: column;
+    gap: 8px;
+    width: 210px;
+    box-shadow: 0 12px 30px rgba(0,0,0,0.8);
+  }
+  .settings-panel.open { display: flex; }
+  .set-title {
+    font-size: 11.5px;
+    font-weight: 900;
+    color: var(--gold);
+    border-bottom: 1px solid #1e293b;
+    padding-bottom: 5px;
+  }
+  .set-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 11px;
+    font-weight: 800;
+    color: #e2e8f0;
+  }
+  .set-toggle {
+    background: #1e293b;
+    border: 1px solid var(--cyan);
+    color: var(--cyan);
+    padding: 4px 10px;
+    border-radius: 99px;
+    font-size: 10px;
+    font-weight: 900;
+    cursor: pointer;
+  }
+
+  /* MAIN IN-GAME BATTLEGROUNDS VIEWPORT */
+  .game-stage {
     position: relative;
     flex: 1;
     width: 100%;
     overflow: hidden;
     touch-action: none;
   }
-  #webglCanvasBox {
+  #webglBox {
     width: 100%;
     height: 100%;
   }
 
-  /* LOADING SCREEN */
+  /* LOADING SCREEN (NO NUMBERS) */
   .loading-overlay {
     position: absolute;
     inset: 0;
-    background: radial-gradient(circle at center, #1b2436 0%, #050811 100%);
+    background: radial-gradient(circle at center, #1b2436 0%, #05070e 100%);
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    z-index: 60;
-    transition: opacity 0.4s ease;
+    z-index: 80;
+    transition: opacity 0.45s ease;
+  }
+  .loader-emblem {
+    width: 56px;
+    height: 56px;
+    border-radius: 16px;
+    background: linear-gradient(135deg, var(--gold), var(--orange), var(--pink));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 900;
+    font-size: 22px;
+    color: #000;
+    margin-bottom: 12px;
+    box-shadow: 0 0 25px rgba(251, 191, 36, 0.5);
   }
   .loader-title {
     font-size: 15px;
     font-weight: 900;
     color: var(--gold);
     margin-bottom: 10px;
-    text-align: center;
-    padding: 0 16px;
+    letter-spacing: 0.6px;
   }
   .loader-bar-wrap {
-    width: 220px; height: 8px;
+    width: 210px;
+    height: 7px;
     background: #1e293b;
     border-radius: 99px;
     overflow: hidden;
     border: 1px solid rgba(251, 191, 36, 0.45);
   }
   .loader-bar-fill {
-    width: 15%; height: 100%;
+    width: 30%;
+    height: 100%;
     background: linear-gradient(90deg, var(--cyan), var(--gold));
-    transition: width 0.2s ease;
+    transition: width 0.25s ease;
   }
-  .loader-sub { font-size: 11px; color: var(--muted); margin-top: 8px; font-weight: 700; }
+  .loader-sub {
+    font-size: 11px;
+    color: var(--muted);
+    margin-top: 8px;
+    font-weight: 700;
+  }
 
-  /* FLOATING HUD LEFT */
-  .lobby-hud-left {
+  /* FLOATING IN-GAME LOGO WATERMARK */
+  .ingame-watermark {
     position: absolute;
-    top: 10px; left: 10px;
+    top: 10px;
+    left: 12px;
     background: var(--glass);
     backdrop-filter: blur(10px);
-    border: 1px solid rgba(0, 242, 254, 0.45);
+    border: 1px solid rgba(251, 191, 36, 0.4);
     border-left: 3.5px solid var(--gold);
     border-radius: 10px;
-    padding: 6px 10px;
+    padding: 6px 12px;
     pointer-events: none;
     z-index: 20;
-    transition: opacity 0.35s ease;
   }
-  .lh-title { font-size: 11px; font-weight: 900; color: var(--gold); }
-  .lh-sub { font-size: 9.5px; color: #cbd5e1; font-weight: 700; margin-top: 2px; }
-
-  /* FLOATING HUD RIGHT */
-  .lobby-hud-right {
-    position: absolute;
-    top: 10px; right: 10px;
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-    z-index: 20;
-    transition: opacity 0.35s ease;
-  }
-  .hud-btn {
-    background: var(--glass);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(251, 191, 36, 0.5);
-    color: #fff;
-    padding: 6px 10px;
-    border-radius: 8px;
-    font-size: 10.5px;
-    font-weight: 800;
-    cursor: pointer;
-    text-align: right;
-  }
-  .hud-btn:active { background: var(--gold); color: #000; }
-
-  /* SHOW UI BUTTON (FOR REELS RECORDING MODE) */
-  #showUiBtn {
-    position: absolute;
-    top: 10px; right: 10px;
-    z-index: 80;
-    display: none;
-    background: rgba(5, 8, 17, 0.85);
-    border: 1.5px solid var(--gold);
-    color: var(--gold);
-    padding: 7px 12px;
-    border-radius: 8px;
-    font-size: 11px;
+  .wm-title {
+    font-size: 11.5px;
     font-weight: 900;
-    cursor: pointer;
+    color: var(--gold);
+    letter-spacing: 0.4px;
+  }
+  .wm-sub {
+    font-size: 10px;
+    color: #e2e8f0;
+    font-weight: 700;
+    margin-top: 1px;
   }
 
-  /* AIRDROP UNLOCK TOAST */
-  #airdropToast {
-    position: absolute;
-    bottom: 36px; left: 50%;
-    transform: translateX(-50%) translateY(15px);
-    background: rgba(10, 15, 29, 0.94);
-    border: 1.5px solid var(--cyan);
-    border-radius: 14px;
-    padding: 10px 16px;
-    text-align: center;
-    width: 88%;
-    max-width: 380px;
-    box-shadow: 0 0 25px rgba(0, 242, 254, 0.4);
-    opacity: 0;
-    pointer-events: none;
-    transition: all 0.35s ease;
-    z-index: 30;
-  }
-  #airdropToast.visible {
-    opacity: 1;
-    transform: translateX(-50%) translateY(0);
-  }
-  #airdropToast h3 { font-size: 13px; color: var(--gold); font-weight: 900; margin-bottom: 3px; }
-  #airdropToast p { font-size: 11px; color: #e2e8f0; font-weight: 700; line-height: 1.35; }
-
+  /* TOUCH HINT PILL (NO NUMBERS) */
   .gesture-pill {
     position: absolute;
-    bottom: 7px; left: 50%;
+    bottom: 8px;
+    left: 50%;
     transform: translateX(-50%);
-    background: rgba(5, 8, 17, 0.86);
+    background: rgba(5, 7, 14, 0.85);
     border: 1px solid rgba(0, 242, 254, 0.4);
     color: #bae6fd;
-    padding: 4px 12px;
+    padding: 5px 14px;
     border-radius: 99px;
-    font-size: 9.5px;
+    font-size: 10.5px;
     font-weight: 800;
     white-space: nowrap;
     pointer-events: none;
     z-index: 20;
-    transition: opacity 0.35s ease;
   }
 
-  /* 4. BOTTOM CONTROL DOCK */
+  /* CLEAN BOTTOM DOCK (NO NUMBERS) */
   .bottom-dock {
-    background: rgba(7, 10, 20, 0.98);
+    background: rgba(6, 9, 18, 0.98);
     border-top: 1.5px solid rgba(251, 191, 36, 0.4);
-    padding: 8px 10px 10px;
+    padding: 9px 12px 11px;
     z-index: 100;
     flex-shrink: 0;
-    transition: opacity 0.35s ease;
   }
   .dock-inner {
     max-width: 500px;
     margin: 0 auto;
     display: flex;
     flex-direction: column;
-    gap: 6px;
+    gap: 7px;
   }
-  .model-tabs {
+  .mode-tabs {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 5px;
+    gap: 6px;
   }
   .m-tab {
-    background: #151f32;
+    background: #141c2f;
     border: 1px solid #334155;
     color: #cbd5e1;
-    padding: 8px 3px;
-    border-radius: 9px;
-    font-size: 10.5px;
+    padding: 9px 4px;
+    border-radius: 10px;
+    font-size: 11px;
     font-weight: 800;
     text-align: center;
     cursor: pointer;
+    transition: all 0.2s ease;
   }
   .m-tab.active {
     background: linear-gradient(135deg, var(--gold), #f59e0b);
     color: #000;
     border-color: #fff;
     font-weight: 900;
+    box-shadow: 0 0 12px rgba(251, 191, 36, 0.4);
   }
   .social-row {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 7px;
+    gap: 8px;
   }
   .s-link {
     text-decoration: none;
     padding: 9px;
-    border-radius: 9px;
-    font-size: 11px;
+    border-radius: 10px;
+    font-size: 11.5px;
     font-weight: 900;
     text-align: center;
     color: #fff;
@@ -311,80 +396,77 @@
 </head>
 <body>
 
-<!-- 1. TOP HEADER -->
-<header class="top-header" id="uiHeader">
-  <div class="brand">
-    <span class="badge-3d">REAL .GLB 3D</span>
-    <div>
-      <div class="b-title">Mini Zoya 360° Game Lobby</div>
-      <div class="b-sub" id="hdrSub">Gemini 4 Argon • PBR + HDRI Skybox</div>
+<!-- TOP HEADER WITH OFFICIAL LOGO & SETTINGS -->
+<header class="top-header">
+  <div class="brand-logo">
+    <div class="logo-emblem"><div class="logo-inner">MZ</div></div>
+    <div class="brand-titles">
+      <div class="b-name">MINI ZOYA STUDIO</div>
+      <div class="b-tag" id="hdrSub">OFFICIAL BATTLE ROYALE ENGINE</div>
     </div>
   </div>
-  <div class="lang-bar">
-    <button class="l-btn active" onclick="window.setAppLang('gu', this)">ગુજરાતી</button>
-    <button class="l-btn" onclick="window.setAppLang('hi', this)">हिंदी</button>
-    <button class="l-btn" onclick="window.setAppLang('en', this)">English</button>
+  <div class="header-right">
+    <div class="lang-bar">
+      <button class="l-btn active" onclick="window.setAppLang('gu', this)">ગુજરાતી</button>
+      <button class="l-btn" onclick="window.setAppLang('hi', this)">हिंदी</button>
+      <button class="l-btn" onclick="window.setAppLang('en', this)">English</button>
+    </div>
+    <button class="settings-btn" onclick="window.toggleSettings()" title="Settings">⚙️</button>
   </div>
 </header>
 
-<!-- 2. COMING SOON STATUS BAR -->
-<div class="coming-bar" id="uiComing">
-  <div class="cs-left">
-    <span class="cs-tag" id="csTag">🚧 COMING SOON</span>
-    <span class="cs-msg" id="csMsg">અમારા 3D ગેમિંગ પ્રોજેક્ટનું કામ ચાલુ છે • નીચે અસલી 360° 3D લોબી જુઓ!</span>
-  </div>
-  <span class="cs-pct">⚙️ 90%</span>
+<!-- COMING SOON STATUS BAR (ZERO NUMBERS) -->
+<div class="coming-banner">
+  <span class="cs-badge"><span class="pulse-dot"></span> <span id="csTag">COMING SOON</span></span>
+  <span class="cs-text" id="csMsg">અમારું કામ ચાલુ છે • અસલી ગેમિંગ ગ્રાફિક્સ જુઓ!</span>
 </div>
 
-<!-- 3. MAIN 3D STAGE -->
-<div class="lobby-stage">
-  <div id="webglCanvasBox"></div>
+<!-- SETTINGS DRAWER -->
+<div class="settings-panel" id="settingsPanel">
+  <div class="set-title" id="setHdr">⚙️ ગ્રાફિક્સ સેટિંગ (Settings)</div>
+  <div class="set-row">
+    <span id="setSpinLbl">ઓટો રൊટેશન (Auto Rotate)</span>
+    <button class="set-toggle" id="btnSpinToggle" onclick="window.toggleSpin()">ON</button>
+  </div>
+  <div class="set-row">
+    <span id="setSkyLbl">વાતાવરણ (Weather)</span>
+    <button class="set-toggle" id="btnWeatherToggle" onclick="window.toggleWeather()">SUNSET</button>
+  </div>
+</div>
 
-  <!-- LOADING BAR -->
+<!-- MAIN BATTLEGROUNDS VIEWPORT -->
+<div class="game-stage">
+  <div id="webglBox"></div>
+
+  <!-- LOADING OVERLAY -->
   <div class="loading-overlay" id="loaderBox">
-    <div class="loader-title" id="loaderTxt">⚡ Loading Real 3D .GLB & 360° HDRI Skybox...</div>
+    <div class="loader-emblem">MZ</div>
+    <div class="loader-title" id="loaderTxt">LOADING BATTLEGROUNDS GRAPHICS...</div>
     <div class="loader-bar-wrap"><div class="loader-bar-fill" id="loaderFill"></div></div>
-    <div class="loader-sub">PBR Metallic Shaders • Ground-Projected Arena</div>
+    <div class="loader-sub" id="loaderSub">Preparing Real In-Game Squad & Terrain</div>
   </div>
 
-  <!-- SHOW UI BUTTON (WHEN IN REELS MODE) -->
-  <button id="showUiBtn" onclick="window.toggleReelsMode(false)">👁️ Show Buttons</button>
-
-  <!-- LEFT INFO HUD -->
-  <div class="lobby-hud-left" id="uiLeft">
-    <div class="lh-title" id="hudModelName">🤖 Expressive Hero Avatar (.GLB)</div>
-    <div class="lh-sub" id="hudEnvName">🌍 360° HDRI: Sunset Esplanade</div>
+  <!-- IN-GAME WATERMARK -->
+  <div class="ingame-watermark">
+    <div class="wm-title" id="wmTitle">🪖 BATTLE ROYALE SQUAD</div>
+    <div class="wm-sub" id="wmSub">🔥 COMING SOON • WORK IN PROGRESS</div>
   </div>
 
-  <!-- RIGHT ACTION BUTTONS -->
-  <div class="lobby-hud-right" id="uiRight">
-    <button class="hud-btn" onclick="window.cycleAnimation()" id="animBtn">💃 Action: Wave / Dance</button>
-    <button class="hud-btn" onclick="window.switchHdriEnv()" id="hdriBtn">🌅 Change 360° Skybox</button>
-    <button class="hud-btn" onclick="window.toggleTurntable()" id="spinBtn">🔄 360° Spin: ON</button>
-    <button class="hud-btn" onclick="window.toggleReelsMode(true)">🎥 Reels Mode (Hide UI)</button>
-  </div>
-
-  <!-- AIRDROP POPUP TOAST -->
-  <div id="airdropToast">
-    <h3 id="toastTitle">🎁 SECRET AIRDROP UNLOCKED!</h3>
-    <p id="toastDesc">મિની ઝોયાનું નવું 3D બેટલગ્રાઉન્ડ અને VIP ટૂલ બહુ જલ્દી ખુલી રહ્યું છે! જોડાયેલા રહો @minizoyacreator પર!</p>
-  </div>
-
-  <div class="gesture-pill" id="gestureTxt">👆 1 આંગળીથી 360° લોબી ફેરવો • 2 આંગળીથી અંદર Zoom કરો!</div>
+  <div class="gesture-pill" id="gestureTxt">👆 આંગળીથી ચારેય બાજુ ફેરવો અને અંદર Zoom કરો!</div>
 </div>
 
-<!-- 4. BOTTOM CONTROL DOCK -->
-<div class="bottom-dock" id="uiBottom">
+<!-- BOTTOM IN-GAME VIEW CONTROLS (ZERO NUMBERS) -->
+<div class="bottom-dock">
   <div class="dock-inner">
-    <div class="model-tabs">
-      <button class="m-tab active" onclick="window.loadLobbyModel('robot', this)">🤖 1. Hero Bot</button>
-      <button class="m-tab" onclick="window.loadLobbyModel('soldier', this)">🏃‍♂️ 2. Pro Soldier</button>
-      <button class="m-tab" onclick="window.loadLobbyModel('helmet', this)">🪖 3. Lv.3 Helmet</button>
-      <button class="m-tab" onclick="window.zoomToAirdrop(this)">📦 4. Airdrop</button>
+    <div class="mode-tabs">
+      <button class="m-tab active" onclick="window.setGameMode('squad', this)" id="tabSquad">🪖 સ્ક્વોડ લોબી</button>
+      <button class="m-tab" onclick="window.setGameMode('run', this)" id="tabRun">🏃‍♂️ રનિંગ એક્શન</button>
+      <button class="m-tab" onclick="window.setGameMode('airdrop', this)" id="tabDrop">📦 એરડ્રોપ લૂટ</button>
+      <button class="m-tab" onclick="window.setGameMode('helmet', this)" id="tabArmor">🛡️ આર્મર ગિયર</button>
     </div>
     <div class="social-row">
       <a href="https://instagram.com/minizoyacreator" target="_blank" class="s-link s-insta">📸 Instagram @minizoyacreator</a>
-      <a href="https://x.com/minizoyacreator" target="_blank" class="s-link s-x">🐦 Follow on X (@minizoyacreator)</a>
+      <a href="https://x.com/minizoyacreator" target="_blank" class="s-link s-x">🐦 Follow X @minizoyacreator</a>
     </div>
   </div>
 </div>
@@ -394,105 +476,155 @@ import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import { RGBELoader } from 'three/addons/loaders/RGBELoader.js';
-import { GroundProjectedSkybox } from 'three/addons/objects/GroundProjectedSkybox.js';
+import * as SkeletonUtils from 'three/addons/utils/SkeletonUtils.js';
 import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js';
 import { RenderPass } from 'three/addons/postprocessing/RenderPass.js';
 import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js';
 
 let scene, camera, renderer, composer, controls, clock;
-let currentModel = null, mixer = null, actions = [], activeActionIdx = 0;
-let skybox = null, podiumGroup, auraRing, crateLight, emberGeo;
+let squadGroup, helmetMesh, airdropGroup, smokePoints, emberPoints, grassInstanced, zoneWall;
+let mixers = [];
+let soldierAnimations = {};
 let autoRotate = true;
-let envIndex = 0;
-const emberCount = 140;
-const emberSpeeds = new Float32Array(emberCount);
+let isNightMode = false;
+let currentMode = 'squad';
 
-const hdriList = [
-  { name: "🌍 360° HDRI: Sunset Esplanade", url: "https://cdn.jsdelivr.net/gh/mrdoob/three.js@r160/examples/textures/equirectangular/venice_sunset_1k.hdr" },
-  { name: "🏛️ 360° HDRI: Royal Arena", url: "https://cdn.jsdelivr.net/gh/mrdoob/three.js@r160/examples/textures/equirectangular/royal_esplanade_1k.hdr" }
-];
-
-const modelCatalog = {
-  robot: {
-    title: "🤖 Expressive Hero Avatar (.GLB)",
-    url: "https://cdn.jsdelivr.net/gh/mrdoob/three.js@r160/examples/models/gltf/RobotExpressive/RobotExpressive.glb",
-    scale: 0.58,
-    posY: 0.18,
-    rotY: 0,
-    defaultClip: "Wave"
-  },
-  soldier: {
-    title: "🏃‍♂️ Battle Royale Pro Soldier (.GLB)",
-    url: "https://cdn.jsdelivr.net/gh/mrdoob/three.js@r160/examples/models/gltf/Soldier.glb",
-    scale: 1.5,
-    posY: 0.18,
-    rotY: Math.PI,
-    defaultClip: "Idle"
-  },
-  helmet: {
-    title: "🪖 Max Armor Sci-Fi Helmet (.GLTF)",
-    url: "https://cdn.jsdelivr.net/gh/mrdoob/three.js@r160/examples/models/gltf/DamagedHelmet/glTF/DamagedHelmet.gltf",
-    scale: 1.35,
-    posY: 1.45,
-    rotY: 0.4,
-    defaultClip: null
-  }
+const ASSETS = {
+  SOLDIER: 'https://cdn.jsdelivr.net/gh/mrdoob/three.js@r160/examples/models/gltf/Soldier.glb',
+  HELMET: 'https://cdn.jsdelivr.net/gh/mrdoob/three.js@r160/examples/models/gltf/DamagedHelmet/glTF/DamagedHelmet.gltf',
+  HDRI: 'https://cdn.jsdelivr.net/gh/mrdoob/three.js@r160/examples/textures/equirectangular/venice_sunset_1k.hdr',
+  GRASS: 'https://cdn.jsdelivr.net/gh/mrdoob/three.js@r160/examples/textures/terrain/grasslight-big.jpg',
+  CRATE: 'https://cdn.jsdelivr.net/gh/mrdoob/three.js@r160/examples/textures/crate.gif',
+  BRICK: 'https://cdn.jsdelivr.net/gh/mrdoob/three.js@r160/examples/textures/brick_diffuse.jpg'
 };
 
-function initReal3DLobby() {
-  const container = document.getElementById('webglCanvasBox');
+function createBattleSkyTexture(night) {
+  const c = document.createElement('canvas');
+  c.width = 1024;
+  c.height = 512;
+  const ctx = c.getContext('2d');
+  const g = ctx.createLinearGradient(0, 0, 0, 512);
+  if (night) {
+    g.addColorStop(0, '#02040a');
+    g.addColorStop(0.45, '#0b1528');
+    g.addColorStop(0.75, '#1e1b4b');
+    g.addColorStop(1, '#090d16');
+  } else {
+    g.addColorStop(0, '#0f172a');
+    g.addColorStop(0.35, '#1e3a8a');
+    g.addColorStop(0.62, '#9a3412');
+    g.addColorStop(0.78, '#f97316');
+    g.addColorStop(1, '#1f2937');
+  }
+  ctx.fillStyle = g;
+  ctx.fillRect(0, 0, 1024, 512);
+
+  // Glowing Sun / Moon Disc on Horizon
+  const sunGrad = ctx.createRadialGradient(512, 340, 10, 512, 340, 140);
+  sunGrad.addColorStop(0, night ? 'rgba(56, 189, 248, 0.9)' : 'rgba(254, 240, 138, 0.95)');
+  sunGrad.addColorStop(0.4, night ? 'rgba(14, 165, 233, 0.35)' : 'rgba(249, 115, 22, 0.45)');
+  sunGrad.addColorStop(1, 'rgba(0,0,0,0)');
+  ctx.fillStyle = sunGrad;
+  ctx.fillRect(0, 0, 1024, 512);
+
+  // Distant Battleground Mountain Silhouettes along Horizon
+  ctx.fillStyle = night ? '#050811' : '#1c1917';
+  ctx.beginPath();
+  ctx.moveTo(0, 395);
+  const peaks = [0, 90, 180, 270, 360, 460, 560, 660, 760, 860, 960, 1024];
+  const heights = [360, 330, 368, 322, 355, 338, 365, 318, 350, 332, 362, 358];
+  for (let i = 0; i < peaks.length; i++) {
+    ctx.lineTo(peaks[i], heights[i]);
+  }
+  ctx.lineTo(1024, 512);
+  ctx.lineTo(0, 512);
+  ctx.closePath();
+  ctx.fill();
+
+  const tex = new THREE.CanvasTexture(c);
+  tex.mapping = THREE.EquirectangularReflectionMapping;
+  tex.colorSpace = THREE.SRGBColorSpace;
+  return tex;
+}
+
+function initBattlegrounds() {
+  const container = document.getElementById('webglBox');
   const w = container.clientWidth || window.innerWidth;
-  const h = container.clientHeight || (window.innerHeight - 170);
+  const h = container.clientHeight || (window.innerHeight - 165);
 
   clock = new THREE.Clock();
   scene = new THREE.Scene();
+  scene.background = createBattleSkyTexture(false);
+  scene.fog = new THREE.FogExp2(0x1f1924, 0.025);
 
-  camera = new THREE.PerspectiveCamera(45, w / h, 0.1, 150);
-  camera.position.set(0, 1.85, 5.2);
+  camera = new THREE.PerspectiveCamera(44, w / h, 0.1, 160);
+  camera.position.set(0, 1.65, 4.6);
 
-  renderer = new THREE.WebGLRenderer({ antialias: true, powerPreference: "high-performance" });
+  renderer = new THREE.WebGLRenderer({ antialias: true, powerPreference: 'high-performance' });
   renderer.setSize(w, h);
   renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
   renderer.toneMapping = THREE.ACESFilmicToneMapping;
-  renderer.toneMappingExposure = 1.08;
+  renderer.toneMappingExposure = 1.15;
   renderer.outputColorSpace = THREE.SRGBColorSpace;
   renderer.shadowMap.enabled = true;
   renderer.shadowMap.type = THREE.PCFSoftShadowMap;
   container.innerHTML = '';
   container.appendChild(renderer.domElement);
 
-  const renderScene = new RenderPass(scene, camera);
-  const bloomPass = new UnrealBloomPass(new THREE.Vector2(w / 2, h / 2), 0.32, 0.4, 0.82);
   composer = new EffectComposer(renderer);
-  composer.addPass(renderScene);
+  composer.addPass(new RenderPass(scene, camera));
+  const bloomPass = new UnrealBloomPass(new THREE.Vector2(w / 2, h / 2), 0.38, 0.4, 0.8);
   composer.addPass(bloomPass);
 
   controls = new OrbitControls(camera, renderer.domElement);
-  controls.target.set(0, 1.15, 0);
+  controls.target.set(0, 1.05, 0);
   controls.enableDamping = true;
   controls.dampingFactor = 0.05;
-  controls.minDistance = 2.2;
-  controls.maxDistance = 9.5;
-  controls.maxPolarAngle = Math.PI / 2 - 0.03;
+  controls.minDistance = 2.0;
+  controls.maxDistance = 9.0;
+  controls.maxPolarAngle = Math.PI / 2 - 0.04;
 
-  // 3-Point Studio & Rim Lighting
-  const hemiLight = new THREE.HemisphereLight(0xffd6a5, 0x1e293b, 0.65);
+  // Cinematic Battle Royale Lighting
+  const hemiLight = new THREE.HemisphereLight(0xffedd5, 0x1e293b, 0.75);
   scene.add(hemiLight);
 
-  const dirLight = new THREE.DirectionalLight(0xfffbeb, 2.2);
-  dirLight.position.set(4, 8, 5);
-  dirLight.castShadow = true;
-  dirLight.shadow.mapSize.width = 1024;
-  dirLight.shadow.mapSize.height = 1024;
-  scene.add(dirLight);
+  const sunLight = new THREE.DirectionalLight(0xffb86c, 2.5);
+  sunLight.position.set(5, 10, 6);
+  sunLight.castShadow = true;
+  sunLight.shadow.mapSize.width = 1024;
+  sunLight.shadow.mapSize.height = 1024;
+  const d = 8;
+  sunLight.shadow.camera.left = -d;
+  sunLight.shadow.camera.right = d;
+  sunLight.shadow.camera.top = d;
+  sunLight.shadow.camera.bottom = -d;
+  scene.add(sunLight);
 
-  const rimLight = new THREE.SpotLight(0x00f2fe, 4.8, 16, Math.PI / 3, 0.5);
-  rimLight.position.set(-3, 4.2, -3.5);
-  scene.add(rimLight);
+  const rimCyan = new THREE.SpotLight(0x00f2fe, 5.0, 16, Math.PI / 3, 0.5);
+  rimCyan.position.set(-3.5, 3.8, -3.5);
+  scene.add(rimCyan);
 
-  buildLobbyStageAndAirdrop();
-  loadHdriEnvironment(hdriList[0].url);
-  window.loadLobbyModel('robot', document.querySelectorAll('.m-tab')[0]);
+  const manager = new THREE.LoadingManager();
+  const loaderFill = document.getElementById('loaderFill');
+  const loaderBox = document.getElementById('loaderBox');
+
+  manager.onProgress = (url, loaded, total) => {
+    const pct = Math.min(100, Math.round((loaded / total) * 100));
+    loaderFill.style.width = Math.max(30, pct) + '%';
+  };
+  manager.onLoad = () => {
+    loaderBox.style.opacity = '0';
+    setTimeout(() => { loaderBox.style.display = 'none'; }, 450);
+  };
+
+  // Load HDRI ONLY for realistic metallic & armor reflections (NOT background tourists!)
+  new RGBELoader(manager).load(ASSETS.HDRI, (hdrTex) => {
+    hdrTex.mapping = THREE.EquirectangularReflectionMapping;
+    scene.environment = hdrTex;
+  });
+
+  buildBattlefieldEnvironment(manager);
+  loadSquadAndGear(manager);
 
   window.addEventListener('resize', () => {
     const nw = container.clientWidth;
@@ -503,254 +635,327 @@ function initReal3DLobby() {
     composer.setSize(nw, nh);
   });
 
-  animateLobby();
+  animateBattleground();
 }
 
-function buildLobbyStageAndAirdrop() {
-  podiumGroup = new THREE.Group();
-  scene.add(podiumGroup);
+function buildBattlefieldEnvironment(manager) {
+  const texLoader = new THREE.TextureLoader(manager);
 
-  const matMetal = new THREE.MeshStandardMaterial({
-    color: 0x0f172a,
-    metalness: 0.88,
-    roughness: 0.18
-  });
-  const matGold = new THREE.MeshStandardMaterial({
-    color: 0xfbbf24,
-    emissive: 0xf59e0b,
-    emissiveIntensity: 0.85,
-    metalness: 0.9,
-    roughness: 0.1
-  });
-  const matCyan = new THREE.MeshBasicMaterial({ color: 0x00f2fe });
+  // 1. Real Photographic Grass Terrain
+  const grassTex = texLoader.load(ASSETS.GRASS);
+  grassTex.wrapS = THREE.RepeatWrapping;
+  grassTex.wrapT = THREE.RepeatWrapping;
+  grassTex.repeat.set(28, 28);
+  grassTex.colorSpace = THREE.SRGBColorSpace;
 
-  const pad = new THREE.Mesh(new THREE.CylinderGeometry(1.45, 1.68, 0.18, 48), matMetal);
-  pad.position.y = 0.09;
+  const groundMat = new THREE.MeshStandardMaterial({
+    map: grassTex,
+    roughness: 0.88,
+    metalness: 0.05,
+    color: 0x7c856b
+  });
+  const ground = new THREE.Mesh(new THREE.CircleGeometry(55, 64), groundMat);
+  ground.rotation.x = -Math.PI / 2;
+  ground.receiveShadow = true;
+  scene.add(ground);
+
+  // 2. Tactical Squad Pedestal (Metallic Pad + Glowing Rings)
+  const padMat = new THREE.MeshStandardMaterial({ color: 0x161d2a, metalness: 0.85, roughness: 0.22 });
+  const pad = new THREE.Mesh(new THREE.CylinderGeometry(2.1, 2.35, 0.12, 48), padMat);
+  pad.position.y = 0.06;
   pad.receiveShadow = true;
-  podiumGroup.add(pad);
+  scene.add(pad);
 
-  const ring1 = new THREE.Mesh(new THREE.TorusGeometry(1.48, 0.035, 16, 64), matGold);
-  ring1.rotation.x = Math.PI / 2;
-  ring1.position.y = 0.18;
-  podiumGroup.add(ring1);
+  const goldRing = new THREE.Mesh(
+    new THREE.TorusGeometry(2.14, 0.028, 16, 64),
+    new THREE.MeshBasicMaterial({ color: 0xfbbf24 })
+  );
+  goldRing.rotation.x = Math.PI / 2;
+  goldRing.position.y = 0.12;
+  scene.add(goldRing);
 
-  auraRing = new THREE.Mesh(new THREE.TorusGeometry(1.18, 0.022, 16, 64), matCyan);
-  auraRing.rotation.x = Math.PI / 2;
-  auraRing.position.y = 0.21;
-  podiumGroup.add(auraRing);
+  // 3. Textured Wooden Military Supply Crates & Brick Ruins
+  const crateTex = texLoader.load(ASSETS.CRATE);
+  crateTex.colorSpace = THREE.SRGBColorSpace;
+  const crateMat = new THREE.MeshStandardMaterial({ map: crateTex, roughness: 0.65 });
 
-  // Battle Royale Airdrop Supply Crate next to Pedestal
-  const airdrop = new THREE.Group();
-  airdrop.position.set(2.05, 0, -1.1);
-  airdrop.rotation.y = -0.45;
+  const c1 = new THREE.Mesh(new THREE.BoxGeometry(0.85, 0.85, 0.85), crateMat);
+  c1.position.set(-2.3, 0.425, -1.2);
+  c1.rotation.y = 0.35;
+  c1.castShadow = true;
+  c1.receiveShadow = true;
+  scene.add(c1);
 
-  const crateBody = new THREE.Mesh(
-    new THREE.BoxGeometry(0.95, 0.88, 0.95),
+  const c2 = new THREE.Mesh(new THREE.BoxGeometry(0.65, 0.65, 0.65), crateMat);
+  c2.position.set(-1.95, 1.17, -1.15);
+  c2.rotation.y = -0.2;
+  c2.castShadow = true;
+  scene.add(c2);
+
+  // Weathered Brick Battleground Cover Walls in Background
+  const brickTex = texLoader.load(ASSETS.BRICK);
+  brickTex.wrapS = THREE.RepeatWrapping;
+  brickTex.wrapT = THREE.RepeatWrapping;
+  brickTex.repeat.set(2, 1);
+  brickTex.colorSpace = THREE.SRGBColorSpace;
+  const brickMat = new THREE.MeshStandardMaterial({ map: brickTex, roughness: 0.85, color: 0x9ca3af });
+
+  for (let i = 0; i < 8; i++) {
+    const ang = (i / 8) * Math.PI * 2 + 0.4;
+    const rad = 11.5;
+    const h = 1.8 + (i % 3) * 0.9;
+    const wall = new THREE.Mesh(new THREE.BoxGeometry(2.2, h, 0.45), brickMat);
+    wall.position.set(Math.cos(ang) * rad, h / 2, Math.sin(ang) * rad);
+    wall.rotation.y = -ang + Math.PI / 2;
+    wall.castShadow = true;
+    wall.receiveShadow = true;
+    scene.add(wall);
+  }
+
+  // 4. Battle Royale Red/Blue Airdrop Supply Crate + Rising Red Flare Smoke
+  airdropGroup = new THREE.Group();
+  airdropGroup.position.set(2.2, 0, -1.4);
+  airdropGroup.rotation.y = -0.5;
+
+  const dropBody = new THREE.Mesh(
+    new THREE.BoxGeometry(1.05, 0.95, 1.05),
     new THREE.MeshStandardMaterial({ color: 0xb91c1c, roughness: 0.4, metalness: 0.45 })
   );
-  crateBody.position.y = 0.44;
-  crateBody.castShadow = true;
-  crateBody.receiveShadow = true;
-  airdrop.add(crateBody);
+  dropBody.position.y = 0.475;
+  dropBody.castShadow = true;
+  dropBody.receiveShadow = true;
+  airdropGroup.add(dropBody);
 
-  const crateTop = new THREE.Mesh(
-    new THREE.BoxGeometry(1.02, 0.24, 1.02),
+  const dropTop = new THREE.Mesh(
+    new THREE.BoxGeometry(1.12, 0.26, 1.12),
     new THREE.MeshStandardMaterial({ color: 0x1d4ed8, roughness: 0.55, metalness: 0.2 })
   );
-  crateTop.position.y = 0.92;
-  crateTop.castShadow = true;
-  airdrop.add(crateTop);
+  dropTop.position.y = 1.0;
+  dropTop.castShadow = true;
+  airdropGroup.add(dropTop);
 
   const beacon = new THREE.Mesh(
-    new THREE.BoxGeometry(1.04, 0.06, 1.04),
+    new THREE.BoxGeometry(1.14, 0.06, 1.14),
     new THREE.MeshBasicMaterial({ color: 0xffaa00 })
   );
-  beacon.position.y = 0.76;
-  airdrop.add(beacon);
+  beacon.position.y = 0.82;
+  airdropGroup.add(beacon);
 
-  crateLight = new THREE.PointLight(0xff5500, 3.2, 7);
-  crateLight.position.set(2.05, 1.4, -1.1);
-  scene.add(crateLight);
-  scene.add(airdrop);
+  const dropLight = new THREE.PointLight(0xff4500, 3.5, 8);
+  dropLight.position.set(0, 1.5, 0);
+  airdropGroup.add(dropLight);
+  scene.add(airdropGroup);
 
-  // GPU Fire Ember Particles rising around Lobby
-  emberGeo = new THREE.BufferGeometry();
-  const emberPos = new Float32Array(emberCount * 3);
-  for (let i = 0; i < emberCount; i++) {
-    emberPos[i * 3] = (Math.random() - 0.5) * 6.5;
-    emberPos[i * 3 + 1] = Math.random() * 5.0;
-    emberPos[i * 3 + 2] = (Math.random() - 0.5) * 6.5;
-    emberSpeeds[i] = 0.35 + Math.random() * 0.75;
+  // Red Airdrop Smoke Plume
+  const sGeo = new THREE.BufferGeometry();
+  const sCount = 65;
+  const sPos = new Float32Array(sCount * 3);
+  for (let i = 0; i < sCount; i++) {
+    sPos[i * 3] = (Math.random() - 0.5) * 0.7;
+    sPos[i * 3 + 1] = 1.1 + Math.random() * 4.5;
+    sPos[i * 3 + 2] = (Math.random() - 0.5) * 0.7;
   }
-  emberGeo.setAttribute('position', new THREE.BufferAttribute(emberPos, 3));
-  const emberMat = new THREE.PointsMaterial({
-    color: 0xffaa22,
-    size: 0.075,
-    transparent: true,
-    opacity: 0.85,
-    blending: THREE.AdditiveBlending
-  });
-  const embers = new THREE.Points(emberGeo, emberMat);
-  scene.add(embers);
-}
-
-function loadHdriEnvironment(hdrUrl) {
-  const rgbeLoader = new RGBELoader();
-  rgbeLoader.load(hdrUrl, (hdrTexture) => {
-    hdrTexture.mapping = THREE.EquirectangularReflectionMapping;
-    scene.environment = hdrTexture;
-
-    if (skybox) scene.remove(skybox);
-    skybox = new GroundProjectedSkybox(hdrTexture);
-    skybox.scale.setScalar(40);
-    skybox.radius = 28;
-    skybox.height = 4.5;
-    scene.add(skybox);
-  });
-}
-
-window.loadLobbyModel = function(key, btnEl) {
-  if (btnEl) {
-    document.querySelectorAll('.m-tab').forEach(b => b.classList.remove('active'));
-    btnEl.classList.add('active');
-  }
-
-  document.getElementById('airdropToast').classList.remove('visible');
-  controls.target.set(0, 1.15, 0);
-  camera.position.set(0, 1.85, 5.2);
-
-  const info = modelCatalog[key];
-  document.getElementById('hudModelName').innerText = info.title;
-
-  const loaderBox = document.getElementById('loaderBox');
-  const loaderFill = document.getElementById('loaderFill');
-  loaderBox.style.opacity = '1';
-  loaderBox.style.pointerEvents = 'auto';
-  loaderFill.style.width = '20%';
-
-  if (currentModel) {
-    scene.remove(currentModel);
-    currentModel = null;
-  }
-  if (mixer) {
-    mixer.stopAllAction();
-    mixer = null;
-  }
-  actions = [];
-
-  const gltfLoader = new GLTFLoader();
-  gltfLoader.load(
-    info.url,
-    (gltf) => {
-      currentModel = gltf.scene;
-      currentModel.scale.setScalar(info.scale);
-      currentModel.position.set(0, info.posY, 0);
-      currentModel.rotation.y = info.rotY;
-
-      currentModel.traverse((child) => {
-        if (child.isMesh) {
-          child.castShadow = true;
-          child.receiveShadow = true;
-        }
-      });
-
-      scene.add(currentModel);
-
-      if (gltf.animations && gltf.animations.length > 0) {
-        mixer = new THREE.AnimationMixer(currentModel);
-        actions = gltf.animations.map(clip => mixer.clipAction(clip));
-        activeActionIdx = 0;
-
-        if (info.defaultClip) {
-          const foundIdx = gltf.animations.findIndex(c => c.name.toLowerCase() === info.defaultClip.toLowerCase());
-          if (foundIdx !== -1) activeActionIdx = foundIdx;
-        }
-
-        actions[activeActionIdx].play();
-        document.getElementById('animBtn').innerText = `🎬 Action: ${gltf.animations[activeActionIdx].name}`;
-      } else {
-        document.getElementById('animBtn').innerText = `✨ 360° PBR Showcase`;
-      }
-
-      loaderFill.style.width = '100%';
-      setTimeout(() => {
-        loaderBox.style.opacity = '0';
-        loaderBox.style.pointerEvents = 'none';
-      }, 250);
-    },
-    (xhr) => {
-      if (xhr.total > 0) {
-        const pct = Math.round((xhr.loaded / xhr.total) * 100);
-        loaderFill.style.width = Math.max(25, pct) + '%';
-      }
-    }
+  sGeo.setAttribute('position', new THREE.BufferAttribute(sPos, 3));
+  smokePoints = new THREE.Points(
+    sGeo,
+    new THREE.PointsMaterial({ color: 0xef4444, size: 0.32, transparent: true, opacity: 0.65 })
   );
-};
+  airdropGroup.add(smokePoints);
 
-window.cycleAnimation = function() {
-  if (!mixer || actions.length === 0) return;
-  actions[activeActionIdx].fadeOut(0.25);
-  activeActionIdx = (activeActionIdx + 1) % actions.length;
-  actions[activeActionIdx].reset().fadeIn(0.25).play();
-  const clipName = actions[activeActionIdx].getClip().name;
-  document.getElementById('animBtn').innerText = `🎬 Action: ${clipName}`;
-};
-
-window.zoomToAirdrop = function(btnEl) {
-  if (btnEl) {
-    document.querySelectorAll('.m-tab').forEach(b => b.classList.remove('active'));
-    btnEl.classList.add('active');
+  // 5. Instanced Grass Blades across Battleground
+  const bladeCount = 2000;
+  const bladeGeo = new THREE.ConeGeometry(0.04, 0.42, 3);
+  bladeGeo.translate(0, 0.21, 0);
+  const bladeMat = new THREE.MeshStandardMaterial({ color: 0x4d6b38, roughness: 0.8 });
+  grassInstanced = new THREE.InstancedMesh(bladeGeo, bladeMat, bladeCount);
+  const dummy = new THREE.Object3D();
+  for (let i = 0; i < bladeCount; i++) {
+    const r = 2.55 + Math.random() * 14;
+    const t = Math.random() * Math.PI * 2;
+    dummy.position.set(Math.cos(t) * r, 0, Math.sin(t) * r);
+    const sc = 0.6 + Math.random() * 1.1;
+    dummy.scale.set(sc, sc, sc);
+    dummy.rotation.y = Math.random() * Math.PI;
+    dummy.updateMatrix();
+    grassInstanced.setMatrixAt(i, dummy.matrix);
   }
-  controls.target.set(1.6, 0.85, -0.8);
-  camera.position.set(2.2, 1.65, 3.2);
-  const toast = document.getElementById('airdropToast');
-  toast.classList.add('visible');
-  setTimeout(() => {
-    toast.classList.remove('visible');
-  }, 5500);
-};
+  scene.add(grassInstanced);
 
-window.switchHdriEnv = function() {
-  envIndex = (envIndex + 1) % hdriList.length;
-  document.getElementById('hudEnvName').innerText = hdriList[envIndex].name;
-  loadHdriEnvironment(hdriList[envIndex].url);
-};
-
-window.toggleTurntable = function() {
-  autoRotate = !autoRotate;
-  document.getElementById('spinBtn').innerText = autoRotate ? "🔄 360° Spin: ON" : "⏸️ 360° Spin: OFF";
-};
-
-window.toggleReelsMode = function(hide) {
-  const ids = ['uiHeader', 'uiComing', 'uiLeft', 'uiRight', 'uiBottom', 'gestureTxt'];
-  ids.forEach(id => {
-    const el = document.getElementById(id);
-    if (el) el.style.display = hide ? 'none' : '';
+  // 6. Glowing Blue Safe Zone Forcefield Wall in Distance
+  const zGeo = new THREE.CylinderGeometry(18, 18, 12, 48, 1, true);
+  const zMat = new THREE.MeshBasicMaterial({
+    color: 0x00f2fe,
+    transparent: true,
+    opacity: 0.1,
+    side: THREE.DoubleSide
   });
-  document.getElementById('showUiBtn').style.display = hide ? 'block' : 'none';
+  zoneWall = new THREE.Mesh(zGeo, zMat);
+  zoneWall.position.y = 6;
+  scene.add(zoneWall);
+
+  // 7. Floating Fire Embers
+  const eGeo = new THREE.BufferGeometry();
+  const eCount = 120;
+  const ePos = new Float32Array(eCount * 3);
+  for (let i = 0; i < eCount; i++) {
+    ePos[i * 3] = (Math.random() - 0.5) * 8;
+    ePos[i * 3 + 1] = Math.random() * 5;
+    ePos[i * 3 + 2] = (Math.random() - 0.5) * 8;
+  }
+  eGeo.setAttribute('position', new THREE.BufferAttribute(ePos, 3));
+  emberPoints = new THREE.Points(
+    eGeo,
+    new THREE.PointsMaterial({ color: 0xffaa22, size: 0.065, transparent: true, opacity: 0.85, blending: THREE.AdditiveBlending })
+  );
+  scene.add(emberPoints);
+}
+
+function loadSquadAndGear(manager) {
+  squadGroup = new THREE.Group();
+  scene.add(squadGroup);
+
+  const gltfLoader = new GLTFLoader(manager);
+
+  // Load Real Battle Royale Military Soldier & Clone into a Full 3-Player Squad!
+  gltfLoader.load(ASSETS.SOLDIER, (gltf) => {
+    const baseModel = gltf.scene;
+    baseModel.traverse((c) => {
+      if (c.isMesh) {
+        c.castShadow = true;
+        c.receiveShadow = true;
+      }
+    });
+
+    const clips = gltf.animations;
+
+    // Squad Formation: Center Leader + Left Flank + Right Flank
+    const positions = [
+      { x: 0, z: 0.25, rotY: Math.PI, scale: 1.48 },
+      { x: -1.15, z: -0.45, rotY: Math.PI - 0.25, scale: 1.38 },
+      { x: 1.15, z: -0.45, rotY: Math.PI + 0.25, scale: 1.38 }
+    ];
+
+    positions.forEach((p, idx) => {
+      const clone = SkeletonUtils.clone(baseModel);
+      clone.scale.setScalar(p.scale);
+      clone.position.set(p.x, 0.12, p.z);
+      clone.rotation.y = p.rotY;
+      squadGroup.add(clone);
+
+      const mixer = new THREE.AnimationMixer(clone);
+      const actionMap = {};
+      clips.forEach((clip) => {
+        actionMap[clip.name] = mixer.clipAction(clip);
+      });
+      if (actionMap['Idle']) actionMap['Idle'].play();
+      mixers.push({ mixer, actionMap, offset: idx * 0.4 });
+    });
+  });
+
+  // Load High-Detail PBR Combat Armor Helmet (Hidden initially)
+  gltfLoader.load(ASSETS.HELMET, (gltf) => {
+    helmetMesh = gltf.scene;
+    helmetMesh.scale.setScalar(1.35);
+    helmetMesh.position.set(0, 1.45, 0);
+    helmetMesh.visible = false;
+    helmetMesh.traverse((c) => {
+      if (c.isMesh) {
+        c.castShadow = true;
+        c.receiveShadow = true;
+      }
+    });
+    scene.add(helmetMesh);
+  });
+}
+
+window.setGameMode = function(mode, btn) {
+  currentMode = mode;
+  document.querySelectorAll('.m-tab').forEach(b => b.classList.remove('active'));
+  if (btn) btn.classList.add('active');
+
+  if (mode === 'squad') {
+    if (squadGroup) squadGroup.visible = true;
+    if (helmetMesh) helmetMesh.visible = false;
+    controls.target.set(0, 1.05, 0);
+    camera.position.set(0, 1.65, 4.6);
+    mixers.forEach(m => {
+      if (m.actionMap['Run']) m.actionMap['Run'].fadeOut(0.3);
+      if (m.actionMap['Idle']) m.actionMap['Idle'].reset().fadeIn(0.3).play();
+    });
+  } else if (mode === 'run') {
+    if (squadGroup) squadGroup.visible = true;
+    if (helmetMesh) helmetMesh.visible = false;
+    controls.target.set(0, 1.0, 0.2);
+    camera.position.set(1.4, 1.45, 3.6);
+    mixers.forEach(m => {
+      if (m.actionMap['Idle']) m.actionMap['Idle'].fadeOut(0.3);
+      if (m.actionMap['Run']) m.actionMap['Run'].reset().fadeIn(0.3).play();
+    });
+  } else if (mode === 'airdrop') {
+    if (squadGroup) squadGroup.visible = true;
+    if (helmetMesh) helmetMesh.visible = false;
+    controls.target.set(1.9, 0.9, -1.2);
+    camera.position.set(2.6, 1.6, 2.5);
+  } else if (mode === 'helmet') {
+    if (squadGroup) squadGroup.visible = false;
+    if (helmetMesh) helmetMesh.visible = true;
+    controls.target.set(0, 1.45, 0);
+    camera.position.set(0, 1.55, 3.2);
+  }
+};
+
+window.toggleSettings = function() {
+  document.getElementById('settingsPanel').classList.toggle('open');
+};
+
+window.toggleSpin = function() {
+  autoRotate = !autoRotate;
+  document.getElementById('btnSpinToggle').innerText = autoRotate ? 'ON' : 'OFF';
+};
+
+window.toggleWeather = function() {
+  isNightMode = !isNightMode;
+  scene.background = createBattleSkyTexture(isNightMode);
+  scene.fog.color.setHex(isNightMode ? 0x060a14 : 0x1f1924);
+  document.getElementById('btnWeatherToggle').innerText = isNightMode ? 'NIGHT' : 'SUNSET';
 };
 
 const langDict = {
   gu: {
-    csTag: "🚧 COMING SOON",
-    csMsg: "અમારા 3D ગેમિંગ પ્રોજેક્ટનું કામ ચાલુ છે • નીચે અસલી 360° 3D લોબી જુઓ!",
-    gestureTxt: "👆 1 આંગળીથી 360° લોબી ફેરવો • 2 આંગળીથી અંદર Zoom કરો!",
-    toastTitle: "🎁 SECRET AIRDROP UNLOCKED!",
-    toastDesc: "મિની ઝોયાનું નવું 3D બેટલગ્રાઉન્ડ અને VIP ટૂલ બહુ જલ્દી ખુલી રહ્યું છે! જોડાયેલા રહો @minizoyacreator પર!"
+    hdrSub: "OFFICIAL BATTLE ROYALE ENGINE",
+    csTag: "COMING SOON",
+    csMsg: "અમારું કામ ચાલુ છે • અસલી ગેમિંગ ગ્રાફિક્સ જુઓ!",
+    wmTitle: "🪖 BATTLE ROYALE SQUAD",
+    wmSub: "🔥 COMING SOON • કામ ચાલુ છે",
+    gestureTxt: "👆 આંગળીથી ચારેય બાજુ ફેરવો અને અંદર Zoom કરો!",
+    tabSquad: "🪖 સ્ક્વોડ લોબી",
+    tabRun: "🏃‍♂️ રનિંગ એક્શન",
+    tabDrop: "📦 એરડ્રોપ લૂટ",
+    tabArmor: "🛡️ આર્મર ગિયર"
   },
   hi: {
-    csTag: "🚧 COMING SOON",
-    csMsg: "हमारे 3D गेमिंग प्रोजेक्ट का काम चालू है • नीचे असली 360° 3D लॉबी देखें!",
-    gestureTxt: "👆 1 उंगली से 360° लॉबी घुमाएं • 2 उंगली से अंदर Zoom करें!",
-    toastTitle: "🎁 सीक्रेट एयरड्रॉप अनलॉक!",
-    toastDesc: "मिनी जोया का नया 3D बैटलग्राउंड और गेमिंग मिशन जल्द आ रहा है! जुड़े रहें @minizoyacreator पर!"
+    hdrSub: "OFFICIAL BATTLE ROYALE ENGINE",
+    csTag: "COMING SOON",
+    csMsg: "हमारा काम चालू है • असली गेमिंग ग्राफिक्स देखें!",
+    wmTitle: "🪖 BATTLE ROYALE SQUAD",
+    wmSub: "🔥 COMING SOON • काम चालू है",
+    gestureTxt: "👆 उंगली से चारों तरफ घुमाएं और अंदर Zoom करें!",
+    tabSquad: "🪖 स्क्वाड लॉबी",
+    tabRun: "🏃‍♂️ रनिंग एक्शन",
+    tabDrop: "📦 एयरड्रॉप लूट",
+    tabArmor: "🛡️ आर्मर गियर"
   },
   en: {
-    csTag: "🚧 COMING SOON",
-    csMsg: "Our 3D Gaming Project is Under Construction • Explore the Real 360° Lobby!",
-    gestureTxt: "👆 Drag 1 Finger to Orbit 360° • Pinch 2 Fingers to Zoom!",
-    toastTitle: "🎁 SECRET AIRDROP UNLOCKED!",
-    toastDesc: "Mini Zoya's new 3D Battlegrounds & VIP gaming hub is launching soon! Follow @minizoyacreator!"
+    hdrSub: "OFFICIAL BATTLE ROYALE ENGINE",
+    csTag: "COMING SOON",
+    csMsg: "Work in Progress • Explore Real In-Game Graphics!",
+    wmTitle: "🪖 BATTLE ROYALE SQUAD",
+    wmSub: "🔥 COMING SOON • WORK IN PROGRESS",
+    gestureTxt: "👆 Drag to Rotate Around Squad • Pinch to Zoom In!",
+    tabSquad: "🪖 Squad Lobby",
+    tabRun: "🏃‍♂️ Running Action",
+    tabDrop: "📦 Airdrop Loot",
+    tabArmor: "🛡️ Armor Gear"
   }
 };
 
@@ -758,46 +963,62 @@ window.setAppLang = function(l, btn) {
   document.querySelectorAll('.l-btn').forEach(b => b.classList.remove('active'));
   btn.classList.add('active');
   const d = langDict[l];
+  document.getElementById('hdrSub').innerText = d.hdrSub;
   document.getElementById('csTag').innerText = d.csTag;
   document.getElementById('csMsg').innerText = d.csMsg;
+  document.getElementById('wmTitle').innerText = d.wmTitle;
+  document.getElementById('wmSub').innerText = d.wmSub;
   document.getElementById('gestureTxt').innerText = d.gestureTxt;
-  document.getElementById('toastTitle').innerText = d.toastTitle;
-  document.getElementById('toastDesc').innerText = d.toastDesc;
+  document.getElementById('tabSquad').innerText = d.tabSquad;
+  document.getElementById('tabRun').innerText = d.tabRun;
+  document.getElementById('tabDrop').innerText = d.tabDrop;
+  document.getElementById('tabArmor').innerText = d.tabArmor;
 };
 
-function animateLobby() {
-  requestAnimationFrame(animateLobby);
+function animateBattleground() {
+  requestAnimationFrame(animateBattleground);
   const delta = clock.getDelta();
-  const elapsed = clock.getElapsedTime();
 
-  if (mixer) mixer.update(delta);
+  mixers.forEach(m => m.mixer.update(delta));
 
   if (autoRotate && scene) {
-    scene.rotation.y += 0.0035;
+    scene.rotation.y += 0.003;
   }
 
-  if (auraRing) {
-    auraRing.scale.setScalar(1 + Math.sin(elapsed * 3.5) * 0.05);
-  }
-
-  if (crateLight) {
-    crateLight.intensity = 2.8 + Math.sin(elapsed * 5) * 1.1;
-  }
-
-  if (emberGeo) {
-    const posArr = emberGeo.attributes.position.array;
-    for (let i = 0; i < emberCount; i++) {
-      posArr[i * 3 + 1] += emberSpeeds[i] * delta;
-      if (posArr[i * 3 + 1] > 4.8) posArr[i * 3 + 1] = 0.1;
+  // Animate Red Airdrop Smoke
+  if (smokePoints) {
+    const sArr = smokePoints.geometry.attributes.position.array;
+    for (let i = 0; i < sArr.length; i += 3) {
+      sArr[i + 1] += 0.025;
+      if (sArr[i + 1] > 5.5) sArr[i + 1] = 1.1;
     }
-    emberGeo.attributes.position.needsUpdate = true;
+    smokePoints.geometry.attributes.position.needsUpdate = true;
+  }
+
+  // Animate Rising Embers
+  if (emberPoints) {
+    const eArr = emberPoints.geometry.attributes.position.array;
+    for (let i = 0; i < eArr.length; i += 3) {
+      eArr[i + 1] += 0.015;
+      if (eArr[i + 1] > 4.8) eArr[i + 1] = 0.1;
+    }
+    emberPoints.geometry.attributes.position.needsUpdate = true;
+  }
+
+  // If in Running mode, scroll grass texture under squad's boots so it looks like real running across the map!
+  if (currentMode === 'run') {
+    scene.traverse(obj => {
+      if (obj.isMesh && obj.material && obj.material.map && obj.geometry.type === 'CircleGeometry') {
+        obj.material.map.offset.y -= delta * 0.6;
+      }
+    });
   }
 
   controls.update();
   composer.render();
 }
 
-window.addEventListener('load', initReal3DLobby);
+window.addEventListener('load', initBattlegrounds);
 </script>
 </body>
 </html>

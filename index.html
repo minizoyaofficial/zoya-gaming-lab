@@ -3,15 +3,14 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>Mini Zoya AI Studio | Coming Soon</title>
+<title>Mini Zoya 3D Gaming World | @minizoyacreator</title>
 <style>
   :root {
-    --bg: #050811;
-    --card: #0f172a;
+    --bg: #04060d;
+    --card: rgba(15, 23, 42, 0.92);
     --gold: #fbbf24;
-    --gold-glow: rgba(251, 191, 36, 0.35);
-    --blue: #38bdf8;
     --pink: #f43f5e;
+    --cyan: #00f2fe;
     --green: #10b981;
     --text: #f8fafc;
     --muted: #94a3b8;
@@ -22,324 +21,982 @@
     padding: 0;
     font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
     -webkit-tap-highlight-color: transparent;
+    user-select: none;
   }
   body {
-    background: radial-gradient(circle at top, #1e1b4b 0%, var(--bg) 65%);
+    background: radial-gradient(circle at 50% 0%, #1e1b4b 0%, #070b16 55%, var(--bg) 100%);
     color: var(--text);
     min-height: 100dvh;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+    padding-top: 60px;
+    padding-bottom: 76px;
+    overflow-x: hidden;
   }
 
-  /* CLEAN TOP BAR */
-  .top-bar {
+  /* FIXED HEADER */
+  .top-header {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    height: 58px;
+    z-index: 1000;
+    background: rgba(4, 6, 13, 0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(251, 191, 36, 0.35);
     display: flex;
+    align-items: center;
     justify-content: space-between;
-    align-items: center;
-    padding: 12px 16px;
-    background: rgba(5, 8, 17, 0.9);
-    border-bottom: 1px solid rgba(251, 191, 36, 0.25);
+    padding: 0 12px;
   }
-  .brand {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-weight: 900;
-    font-size: 15px;
-    color: #fff;
-  }
-  .logo-circle {
-    width: 32px;
-    height: 32px;
+  .brand { display: flex; align-items: center; gap: 8px; }
+  .orb {
+    width: 36px; height: 36px;
     border-radius: 50%;
-    background: linear-gradient(135deg, var(--gold), var(--pink));
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 18px;
-    border: 1.5px solid #fff;
+    background: conic-gradient(from 0deg, var(--gold), var(--pink), var(--cyan), var(--gold));
+    padding: 2px;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 0 12px rgba(251, 191, 36, 0.5);
   }
-  .lang-switch { display: flex; gap: 5px; }
+  .orb-in {
+    width: 100%; height: 100%;
+    border-radius: 50%;
+    background: #090d16;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px; font-weight: 900; color: var(--gold);
+  }
+  .b-title { font-size: 14.5px; font-weight: 900; color: #fff; }
+  .b-sub { font-size: 10.5px; color: #34d399; font-weight: 800; display: flex; align-items: center; gap: 4px; }
+  .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--green); box-shadow: 0 0 8px var(--green); }
+
+  .lang-bar {
+    display: flex; gap: 3px;
+    background: #111827; padding: 3px;
+    border-radius: 99px; border: 1px solid #1f2937;
+  }
   .l-btn {
-    background: #1e293b;
-    color: #cbd5e1;
-    border: 1px solid #334155;
-    padding: 5px 11px;
-    border-radius: 99px;
-    font-size: 11.5px;
-    font-weight: 800;
-    cursor: pointer;
+    border: none; background: transparent; color: #cbd5e1;
+    font-size: 11px; font-weight: 800; padding: 4px 8px;
+    border-radius: 99px; cursor: pointer;
   }
-  .l-btn.active {
-    background: var(--gold);
-    color: #000;
-    border-color: #fff;
-  }
+  .l-btn.active { background: var(--gold); color: #000; }
 
-  /* CENTER SINGLE CARD */
-  .main-wrap {
-    flex: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 16px;
-  }
-  .coming-card {
-    width: 100%;
-    max-width: 440px;
-    background: linear-gradient(165deg, #131c31 0%, #0b1120 100%);
-    border: 2px solid var(--gold);
-    border-radius: 24px;
-    padding: 26px 20px;
-    text-align: center;
-    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.75), 0 0 25px rgba(251, 191, 36, 0.15);
-  }
+  .wrap { max-width: 480px; margin: 0 auto; padding: 10px 12px; }
+  .tab-view { display: none; animation: fade 0.2s ease; }
+  .tab-view.active { display: block; }
+  @keyframes fade { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
 
-  /* ANIMATED WORK IN PROGRESS ICON */
-  .status-pill {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
+  /* 3D CARD */
+  .card-3d {
+    background: linear-gradient(165deg, rgba(20, 30, 55, 0.95) 0%, rgba(8, 12, 24, 0.98) 100%);
+    border: 1.5px solid rgba(251, 191, 36, 0.45);
+    border-radius: 20px;
+    padding: 14px;
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.75);
+    margin-bottom: 12px;
+  }
+  .badge {
+    display: inline-block;
     background: rgba(251, 191, 36, 0.15);
     border: 1px solid var(--gold);
     color: var(--gold);
+    font-size: 10px;
+    font-weight: 900;
+    padding: 3px 9px;
+    border-radius: 99px;
+    margin-bottom: 6px;
+  }
+  .title { font-size: 18px; font-weight: 900; color: #fff; margin-bottom: 4px; }
+  .sub { font-size: 12px; color: var(--muted); margin-bottom: 10px; line-height: 1.4; }
+
+  /* 3D INTERACTIVE CANVAS ARENA */
+  .arena-box {
+    position: relative;
+    width: 100%;
+    height: 290px;
+    background: radial-gradient(circle at center, #0f172a 0%, #03050a 100%);
+    border: 2px solid var(--cyan);
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: inset 0 0 30px rgba(0, 242, 254, 0.2), 0 0 18px rgba(0, 242, 254, 0.25);
+    margin-bottom: 10px;
+    touch-action: none;
+  }
+  #game3dCanvas {
+    width: 100%;
+    height: 100%;
+    display: block;
+    cursor: crosshair;
+  }
+  .hud-top {
+    position: absolute;
+    top: 8px; left: 8px; right: 8px;
+    display: flex;
+    justify-content: space-between;
+    pointer-events: none;
+  }
+  .hud-pill {
+    background: rgba(0, 0, 0, 0.72);
+    border: 1px solid var(--gold);
+    color: #fff;
+    padding: 4px 10px;
+    border-radius: 99px;
     font-size: 11.5px;
     font-weight: 900;
-    padding: 5px 14px;
-    border-radius: 99px;
-    margin-bottom: 14px;
-    letter-spacing: 0.4px;
   }
-  .spin-gear {
-    display: inline-block;
-    animation: spin 4s linear infinite;
-  }
-  @keyframes spin { 100% { transform: rotate(360deg); } }
-
-  .main-title {
-    font-size: 24px;
-    font-weight: 900;
-    color: #fff;
-    line-height: 1.25;
-    margin-bottom: 10px;
-  }
-  .main-title span { color: var(--gold); }
-
-  .main-desc {
-    font-size: 14px;
-    color: #cbd5e1;
-    line-height: 1.55;
-    margin-bottom: 18px;
-    font-weight: 500;
-  }
-
-  /* PROGRESS BAR BOX */
-  .progress-box {
-    background: #070b14;
-    border: 1px solid #1e293b;
-    border-radius: 16px;
-    padding: 14px;
-    margin-bottom: 18px;
-    text-align: left;
-  }
-  .prog-head {
-    display: flex;
-    justify-content: space-between;
-    font-size: 12.5px;
+  .hud-pill span { color: var(--gold); }
+  .hud-hint {
+    position: absolute;
+    bottom: 8px; left: 0; right: 0;
+    text-align: center;
+    font-size: 11px;
     font-weight: 800;
-    color: var(--blue);
-    margin-bottom: 8px;
+    color: #38bdf8;
+    pointer-events: none;
+    text-shadow: 0 1px 4px #000;
   }
-  .bar-bg {
-    width: 100%;
-    height: 10px;
-    background: #1e293b;
-    border-radius: 99px;
-    overflow: hidden;
-    margin-bottom: 12px;
-  }
-  .bar-fill {
-    width: 85%;
-    height: 100%;
-    background: linear-gradient(90deg, var(--blue), var(--gold), var(--green));
-    border-radius: 99px;
-  }
-  .check-list {
-    font-size: 12.5px;
-    color: #e2e8f0;
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-    font-weight: 700;
-  }
-  .check-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 6px 10px;
-    background: rgba(255,255,255,0.03);
-    border-radius: 8px;
-  }
-  .tag-done { color: var(--green); font-size: 11.5px; font-weight: 900; }
-  .tag-work { color: var(--gold); font-size: 11.5px; font-weight: 900; }
 
-  /* SINGLE CLEAR ACTION BUTTON */
-  .insta-btn {
-    display: block;
+  .btn-main {
     width: 100%;
-    padding: 14px;
+    padding: 13px;
     border-radius: 14px;
+    border: none;
     background: linear-gradient(90deg, var(--gold), #f59e0b);
     color: #000;
+    font-size: 14.5px;
     font-weight: 900;
-    font-size: 15px;
-    text-decoration: none;
-    box-shadow: 0 5px 20px var(--gold-glow);
+    cursor: pointer;
+    box-shadow: 0 4px 16px rgba(251, 191, 36, 0.4);
   }
-  .note-sub {
-    font-size: 11.5px;
-    color: var(--muted);
+  .btn-main:active { transform: scale(0.98); }
+
+  .result-banner {
     margin-top: 10px;
-    font-weight: 600;
+    background: linear-gradient(135deg, #052e16, #064e3b);
+    border: 1.5px solid var(--green);
+    border-radius: 14px;
+    padding: 12px;
+    display: none;
+    font-size: 12.5px;
   }
 
-  footer {
-    text-align: center;
-    padding: 12px;
-    font-size: 11.5px;
-    color: var(--muted);
-    border-top: 1px solid rgba(255,255,255,0.06);
+  /* SCREEN 2: 3D VIP POSTER */
+  .theme-row {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 7px;
+    margin-bottom: 10px;
   }
+  .t-btn {
+    background: #090d16;
+    border: 1.5px solid #334155;
+    color: #cbd5e1;
+    padding: 9px;
+    border-radius: 10px;
+    font-size: 12px;
+    font-weight: 800;
+    cursor: pointer;
+  }
+  .t-btn.active {
+    border-color: var(--gold);
+    background: rgba(251, 191, 36, 0.16);
+    color: #fff;
+  }
+  .inp, .sel {
+    width: 100%;
+    padding: 11px 12px;
+    border-radius: 10px;
+    border: 1.5px solid #334155;
+    background: #090d16;
+    color: #fff;
+    font-size: 13.5px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    outline: none;
+    user-select: text;
+  }
+  .poster-box {
+    text-align: center;
+    background: #050811;
+    border: 1.5px dashed #334155;
+    border-radius: 14px;
+    padding: 10px;
+    margin-top: 10px;
+  }
+  #vipCanvas {
+    width: 100%;
+    max-width: 290px;
+    border-radius: 12px;
+    border: 2px solid var(--gold);
+  }
+  .two-btns {
+    display: flex;
+    gap: 8px;
+    margin-top: 10px;
+  }
+  .s-btn {
+    flex: 1;
+    padding: 11px;
+    border-radius: 10px;
+    border: none;
+    font-weight: 900;
+    font-size: 12.5px;
+    cursor: pointer;
+    text-decoration: none;
+    text-align: center;
+  }
+
+  /* SCREEN 3: TALKING ZOYA AI */
+  .chat-box {
+    background: #050811;
+    border: 1px solid #1e293b;
+    border-radius: 14px;
+    padding: 10px;
+    height: 250px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 8px;
+  }
+  .m-bubble {
+    max-width: 88%;
+    padding: 9px 12px;
+    border-radius: 14px;
+    font-size: 13px;
+    line-height: 1.45;
+    font-weight: 600;
+  }
+  .m-zoya {
+    align-self: flex-start;
+    background: #1e293b;
+    border: 1px solid var(--gold);
+    color: #fff;
+  }
+  .m-user {
+    align-self: flex-end;
+    background: var(--gold);
+    color: #000;
+    font-weight: 800;
+  }
+  .voice-pill {
+    display: inline-block;
+    margin-top: 5px;
+    background: rgba(16, 185, 129, 0.2);
+    border: 1px solid var(--green);
+    color: #34d399;
+    font-size: 10.5px;
+    font-weight: 800;
+    padding: 3px 8px;
+    border-radius: 99px;
+    cursor: pointer;
+  }
+  .chips-scroll {
+    display: flex;
+    gap: 6px;
+    overflow-x: auto;
+    padding-bottom: 6px;
+    margin-bottom: 6px;
+  }
+  .chips-scroll::-webkit-scrollbar { display: none; }
+  .c-chip {
+    white-space: nowrap;
+    background: #151f32;
+    border: 1px solid #334155;
+    color: #e2e8f0;
+    font-size: 11.5px;
+    font-weight: 800;
+    padding: 6px 11px;
+    border-radius: 99px;
+    cursor: pointer;
+  }
+
+  /* SCREEN 4: PRO SENSITIVITY */
+  .ram-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 7px;
+    margin-bottom: 10px;
+  }
+  .r-btn {
+    background: #090d16;
+    border: 1.5px solid #334155;
+    color: #cbd5e1;
+    padding: 9px 4px;
+    border-radius: 10px;
+    font-size: 12.5px;
+    font-weight: 900;
+    text-align: center;
+    cursor: pointer;
+  }
+  .r-btn.active {
+    background: rgba(0, 242, 254, 0.16);
+    border-color: var(--cyan);
+    color: #fff;
+  }
+  .stat-line {
+    display: flex;
+    justify-content: space-between;
+    background: #090d16;
+    border: 1px solid #1e293b;
+    padding: 9px 12px;
+    border-radius: 9px;
+    margin-bottom: 6px;
+    font-size: 13px;
+    font-weight: 800;
+  }
+  .stat-line strong { color: var(--gold); }
+
+  /* BOTTOM APP NAV */
+  .bottom-bar {
+    position: fixed;
+    bottom: 0; left: 0; right: 0;
+    height: 68px;
+    background: rgba(4, 6, 13, 0.96);
+    backdrop-filter: blur(14px);
+    border-top: 1px solid rgba(251, 191, 36, 0.35);
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    max-width: 500px;
+    margin: 0 auto;
+    z-index: 1000;
+  }
+  .b-nav {
+    border: none;
+    background: transparent;
+    color: var(--muted);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 3px;
+    cursor: pointer;
+  }
+  .b-nav .ico { font-size: 20px; }
+  .b-nav .lbl { font-size: 11px; font-weight: 800; }
+  .b-nav.active { color: var(--gold); }
 </style>
 </head>
 <body>
 
-<!-- TOP BAR -->
-<div class="top-bar">
+<!-- TOP HEADER -->
+<header class="top-header">
   <div class="brand">
-    <div class="logo-circle">👧</div>
-    <span>Mini Zoya AI</span>
+    <div class="orb"><div class="orb-in">3D</div></div>
+    <div>
+      <div class="b-title">Mini Zoya 3D World</div>
+      <div class="b-sub"><span class="dot"></span> <span id="hdrSub">Gemini Argon 3D Engine</span></div>
+    </div>
   </div>
-  <div class="lang-switch">
+  <div class="lang-bar">
     <button class="l-btn active" onclick="setLang('gu', this)">ગુજરાતી</button>
     <button class="l-btn" onclick="setLang('hi', this)">हिंदी</button>
     <button class="l-btn" onclick="setLang('en', this)">English</button>
   </div>
-</div>
+</header>
 
-<!-- SINGLE CLEAN CENTER CARD -->
-<div class="main-wrap">
-  <div class="coming-card">
-    <div class="status-pill">
-      <span class="spin-gear">⚙️</span>
-      <span id="badgeTxt">WORK IN PROGRESS • COMING SOON</span>
-    </div>
+<div class="wrap">
 
-    <h1 class="main-title" id="titleTxt">
-      Mini Zoya <span>AI Studio</span><br>બહુ જલ્દી આવી રહ્યું છે! 🚀
-    </h1>
+  <!-- TAB 1: 3D HOLOGRAM & LIVE HEADSHOT REFLEX MINI-GAME -->
+  <div id="tab3d" class="tab-view active">
+    <div class="card-3d">
+      <span class="badge" id="b3d">🎮 INTERACTIVE 3D WEBGL + SOUND</span>
+      <div class="title" id="t3d">3D હેડશોટ ટ્રેનર અને હોલોગ્રામ</div>
+      <p class="sub" id="s3d">આંગળીથી 3D ક્યુબ ફેરવો અથવા નીચે બટન દબાવીને 15-સેકન્ડની અસલી <strong>3D One-Tap Headshot Game</strong> રમો!</p>
 
-    <p class="main-desc" id="descTxt">
-      કેમ છો દોસ્તો! 🙏 અત્યારે અમારી વેબસાઈટ અને અસલી <strong>AI Server</strong> પર કામ ચાલુ છે. Free Fire અને BGMI માટે અસલી AI ટૂલ્સ તૈયાર થઈ રહ્યા છે. કામ પૂરું થતાં જ આ વેબસાઈટ બધા માટે ખુલી જશે!
-    </p>
-
-    <!-- CLEAN LIVE DEVELOPMENT STATUS -->
-    <div class="progress-box">
-      <div class="prog-head">
-        <span id="progLbl">🛠️ વેબસાઈટનું કામ (System Setup):</span>
-        <span>85% Ready</span>
+      <!-- LIVE 3D CANVAS ARENA -->
+      <div class="arena-box">
+        <canvas id="game3dCanvas" width="440" height="290"></canvas>
+        <div class="hud-top">
+          <div class="hud-pill">🎯 Score: <span id="hudScore">0</span></div>
+          <div class="hud-pill">⚡ Combo: <span id="hudCombo">x1</span></div>
+          <div class="hud-pill">⏱️ Time: <span id="hudTime">15s</span></div>
+        </div>
+        <div class="hud-hint" id="hudHint">👆 3D હોલોગ્રામને આંગળીથી ફેરવો અથવા લાલ ટાર્ગેટ પર ટેપ કરો!</div>
       </div>
-      <div class="bar-bg"><div class="bar-fill"></div></div>
 
-      <div class="check-list">
-        <div class="check-item">
-          <span id="item1">👧 Mini Zoya 3D AI Character</span>
-          <span class="tag-done">✅ LIVE</span>
-        </div>
-        <div class="check-item">
-          <span id="item2">🎨 Real AI Photo & Video Engine</span>
-          <span class="tag-work" id="st2">⚙️ કામ ચાલુ છે...</span>
-        </div>
-        <div class="check-item">
-          <span id="item3">🎮 Free Fire & BGMI Pro AI Chat</span>
-          <span class="tag-work" id="st3">⏳ Coming Soon</span>
-        </div>
-      </div>
-    </div>
+      <button class="btn-main" id="startGameBtn" onclick="startHeadshotGame()">▶️ 3D હેડશોટ ગેમ શરૂ કરો (Play 3D Game)</button>
 
-    <a href="https://instagram.com/minizoyaofficial" target="_blank" class="insta-btn" id="btnTxt">
-      👑 Follow @minizoyaofficial (અપડેટ માટે)
-    </a>
-    <div class="note-sub" id="noteTxt">
-      🔔 વેબસાઈટ ચાલુ થવાની જાહેરાત અમારી Instagram Reel માં કરવામાં આવશે!
+      <div id="gameResultBox" class="result-banner"></div>
     </div>
   </div>
+
+  <!-- TAB 2: 3D VIP POSTER & SCORE CARD MAKER -->
+  <div id="tabPoster" class="tab-view">
+    <div class="card-3d">
+      <span class="badge">👑 INSTANT 3D VIP CARD</span>
+      <div class="title" id="tPos">3D ગેમિંગ પોસ્ટર અને VIP પાસ</div>
+      <p class="sub" id="sPos">તમારું નામ લખો — તમારો 3D ગેમ સ્કોર અને VIP પોસ્ટર 1 સેકન્ડમાં તૈયાર!</p>
+
+      <div class="theme-row">
+        <button class="t-btn active" onclick="setTheme('cobra', this)">🐍 Cobra Red 3D</button>
+        <button class="t-btn" onclick="setTheme('glacier', this)">❄️ M416 Glacier 3D</button>
+        <button class="t-btn" onclick="setTheme('gold', this)">👑 Royal Gujju Gold</button>
+        <button class="t-btn" onclick="setTheme('cyber', this)">⚡ Argon Cyber Neon</button>
+      </div>
+
+      <input type="text" class="inp" id="pNameInp" value="★GUJJU KING★" placeholder="તમારું નામ લખો..." oninput="renderVipPoster()">
+      <select class="sel" id="pTitleSel" onchange="renderVipPoster()">
+        <option value="🎯 ONE-TAP HEADSHOT GOD">🎯 ONE-TAP HEADSHOT GOD</option>
+        <option value="❄️ M416 GLACIER LOVER">❄️ M416 GLACIER LOVER</option>
+        <option value="🔥 RUSHER & SQUAD LEADER">🔥 RUSHER & SQUAD LEADER</option>
+        <option value="👑 MINI ZOYA VIP SUPPORTER">👑 MINI ZOYA VIP SUPPORTER</option>
+      </select>
+
+      <div class="poster-box">
+        <canvas id="vipCanvas" width="720" height="900"></canvas>
+        <div class="two-btns">
+          <button class="s-btn" style="background:var(--green); color:#000;" onclick="downloadVipPoster()" id="dlBtn">⬇️ Download 3D Poster</button>
+          <a href="https://instagram.com/minizoyacreator" target="_blank" class="s-btn" style="background:var(--pink); color:#fff;">📸 Follow @minizoyacreator</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TAB 3: TALKING MINI ZOYA AI CHAT -->
+  <div id="tabChat" class="tab-view">
+    <div class="card-3d">
+      <span class="badge">🤖 LIVE TALKING AI FRIEND</span>
+      <div class="title" id="tChat">Mini Zoya AI સાથે વાત કરો</div>
+      <p class="sub" id="sChat">નીચે બટન દબાવો અથવા સવાલ લખો — મિની ઝોયા બોલીને જવાબ આપશે!</p>
+
+      <div class="chips-scroll">
+        <button class="c-chip" onclick="quickAsk('🎯 મારા ફોન માટે બેસ્ટ હેડશોટ સેટિંગ બતાવો')">🎯 હેડશોટ સેટિંગ</button>
+        <button class="c-chip" onclick="quickAsk('💎 ઓછા ડાયમંડ અને UC માં સ્કિન કેવી રીતે કાઢવી?')">💎 ડાયમંડ બચત ટ્રિક</button>
+        <button class="c-chip" onclick="quickAsk('😂 એક મસ્ત ગુજરાતી ગેમિંગ ડાયલોગ સંભળાવો!')">😂 ગુજરાતી ડાયલોગ</button>
+      </div>
+
+      <div class="chat-box" id="chatMsgs">
+        <div class="m-bubble m-zoya">
+          <div id="initChatTxt">કેમ છો દોસ્ત! 🙏 હું <strong>Mini Zoya AI</strong> છું. પહેલા 3D હેડશોટ ગેમ રમો અથવા મને કોઈપણ ગેમિંગ સવાલ પૂછો!</div>
+          <button class="voice-pill" onclick="speakOut(document.getElementById('initChatTxt').innerText)">🔊 અવાજ સાંભળો</button>
+        </div>
+      </div>
+
+      <div style="display:flex; gap:7px;">
+        <input type="text" class="inp" style="margin-bottom:0; border-radius:99px;" id="userChatInp" placeholder="અહીં સવાલ લખો..." onkeydown="if(event.key==='Enter') sendUserChat()">
+        <button class="btn-main" style="width:auto; padding:0 18px; border-radius:99px;" onclick="sendUserChat()">Ask ✨</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- TAB 4: PRO SENSITIVITY & 19-DIGIT CODES -->
+  <div id="tabSensi" class="tab-view">
+    <div class="card-3d">
+      <span class="badge">⚡ 2026 VERIFIED DATA</span>
+      <div class="title" id="tSen">2026 Auto-Headshot & BGMI કોડ</div>
+      <p class="sub" id="sSen">તમારા ફોનની RAM દબાવો અને 1-Click માં કોડ કોપી કરો:</p>
+
+      <div class="ram-grid">
+        <div class="r-btn" onclick="pickRam('2gb', this)">2GB / 3GB</div>
+        <div class="r-btn active" onclick="pickRam('4gb', this)">4GB RAM</div>
+        <div class="r-btn" onclick="pickRam('6gb', this)">6GB RAM</div>
+        <div class="r-btn" onclick="pickRam('8gb', this)">8GB RAM</div>
+        <div class="r-btn" onclick="pickRam('12gb', this)">12GB RAM</div>
+        <div class="r-btn" onclick="pickRam('iphone', this)">iPhone Pro</div>
+      </div>
+
+      <div id="sensiOutBox"></div>
+    </div>
+  </div>
+
 </div>
 
-<footer>
-  Official Website of <strong>@minizoyaofficial</strong> • 100% Real AI Project
-</footer>
+<!-- BOTTOM NAVIGATION -->
+<nav class="bottom-bar">
+  <button class="b-nav active" onclick="switchNav('tab3d', this)">
+    <span class="ico">🎮</span>
+    <span class="lbl" id="nav1">3D ગેમ</span>
+  </button>
+  <button class="b-nav" onclick="switchNav('tabPoster', this)">
+    <span class="ico">👑</span>
+    <span class="lbl" id="nav2">3D પોસ્ટર</span>
+  </button>
+  <button class="b-nav" onclick="switchNav('tabChat', this)">
+    <span class="ico">🤖</span>
+    <span class="lbl" id="nav3">AI ચેટ</span>
+  </button>
+  <button class="b-nav" onclick="switchNav('tabSensi', this)">
+    <span class="ico">🎯</span>
+    <span class="lbl" id="nav4">હેડશોટ કોડ</span>
+  </button>
+</nav>
 
 <script>
-const copy = {
+/* WEB AUDIO SYNTHESIZER FOR REAL GAMING SOUND EFFECTS */
+let audioCtx = null;
+function playSfx(type) {
+  try {
+    if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    const osc = audioCtx.createOscillator();
+    const gain = audioCtx.createGain();
+    osc.connect(gain);
+    gain.connect(audioCtx.destination);
+    const now = audioCtx.currentTime;
+
+    if (type === 'hit') {
+      osc.type = 'triangle';
+      osc.frequency.setValueAtTime(520, now);
+      osc.frequency.exponentialRampToValueAtTime(1180, now + 0.11);
+      gain.gain.setValueAtTime(0.25, now);
+      gain.gain.exponentialRampToValueAtTime(0.01, now + 0.12);
+      osc.start(now);
+      osc.stop(now + 0.12);
+    } else if (type === 'win') {
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(440, now);
+      osc.frequency.setValueAtTime(660, now + 0.1);
+      osc.frequency.setValueAtTime(880, now + 0.2);
+      gain.gain.setValueAtTime(0.25, now);
+      gain.gain.exponentialRampToValueAtTime(0.01, now + 0.45);
+      osc.start(now);
+      osc.stop(now + 0.45);
+    } else {
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(360, now);
+      gain.gain.setValueAtTime(0.1, now);
+      gain.gain.exponentialRampToValueAtTime(0.01, now + 0.06);
+      osc.start(now);
+      osc.stop(now + 0.06);
+    }
+  } catch (e) {}
+}
+
+/* 3D ENGINE & ONE-TAP HEADSHOT REFLEX GAME */
+const canvas3d = document.getElementById('game3dCanvas');
+const ctx3d = canvas3d.getContext('2d');
+let rotX = 0.4, rotY = 0.6;
+let isDragging = false, lastX = 0, lastY = 0;
+
+let gameActive = false;
+let score = 0, combo = 1, timeLeft = 15, bestScore = 0;
+let gameTimer = null;
+let target = { x: 220, y: 145, r: 28, vx: 2.4, vy: 1.8 };
+let popups = [];
+
+// 3D Cube Vertices
+const vertices = [
+  [-1,-1,-1], [1,-1,-1], [1,1,-1], [-1,1,-1],
+  [-1,-1,1],  [1,-1,1],  [1,1,1],  [-1,1,1]
+];
+const edges = [
+  [0,1],[1,2],[2,3],[3,0],
+  [4,5],[5,6],[6,7],[7,4],
+  [0,4],[1,5],[2,6],[3,7]
+];
+
+function project3D(v, angleX, angleY, scale, cx, cy) {
+  let x = v[0], y = v[1], z = v[2];
+  // Rotate Y
+  let x1 = x * Math.cos(angleY) - z * Math.sin(angleY);
+  let z1 = z * Math.cos(angleY) + x * Math.sin(angleY);
+  // Rotate X
+  let y2 = y * Math.cos(angleX) - z1 * Math.sin(angleX);
+  let z2 = z1 * Math.cos(angleX) + y * Math.sin(angleX);
+  let fov = 4 / (4 + z2);
+  return [cx + x1 * scale * fov, cy + y2 * scale * fov];
+}
+
+function animate3DArena() {
+  ctx3d.clearRect(0, 0, canvas3d.width, canvas3d.height);
+
+  // Perspective Cyber Floor Grid
+  ctx3d.strokeStyle = "rgba(0, 242, 254, 0.15)";
+  ctx3d.lineWidth = 1;
+  for (let i = 0; i <= 440; i += 44) {
+    ctx3d.beginPath();
+    ctx3d.moveTo(220 + (i - 220) * 0.3, 175);
+    ctx3d.lineTo(i, 290);
+    ctx3d.stroke();
+  }
+  for (let y = 185; y < 290; y += 22) {
+    ctx3d.beginPath();
+    ctx3d.moveTo(0, y);
+    ctx3d.lineTo(440, y);
+    ctx3d.stroke();
+  }
+
+  // Rotate 3D Hologram Cube in Center
+  if (!isDragging) {
+    rotY += 0.018;
+    rotX += 0.009;
+  }
+  const cubeScale = gameActive ? 42 : 68;
+  const cx = 220, cy = 140;
+
+  ctx3d.strokeStyle = gameActive ? "rgba(251, 191, 36, 0.35)" : "#00f2fe";
+  ctx3d.lineWidth = 2.2;
+  const pts = vertices.map(v => project3D(v, rotX, rotY, cubeScale, cx, cy));
+  edges.forEach(e => {
+    ctx3d.beginPath();
+    ctx3d.moveTo(pts[e[0]][0], pts[e[0]][1]);
+    ctx3d.lineTo(pts[e[1]][0], pts[e[1]][1]);
+    ctx3d.stroke();
+  });
+
+  // Inner Glowing Core
+  ctx3d.fillStyle = gameActive ? "rgba(251, 191, 36, 0.15)" : "rgba(244, 63, 94, 0.28)";
+  ctx3d.beginPath();
+  ctx3d.arc(cx, cy, gameActive ? 18 : 30, 0, Math.PI * 2);
+  ctx3d.fill();
+
+  // If 3D Headshot Game is Active, Draw Moving 3D Target Orb
+  if (gameActive) {
+    target.x += target.vx;
+    target.y += target.vy;
+    if (target.x < 45 || target.x > 395) target.vx *= -1;
+    if (target.y < 52 || target.y > 235) target.vy *= -1;
+
+    // Outer Target Ring
+    ctx3d.strokeStyle = "#ef4444";
+    ctx3d.lineWidth = 3;
+    ctx3d.beginPath();
+    ctx3d.arc(target.x, target.y, target.r, 0, Math.PI * 2);
+    ctx3d.stroke();
+
+    // Inner Bullseye Headshot Core
+    const g = ctx3d.createRadialGradient(target.x - 5, target.y - 5, 3, target.x, target.y, target.r);
+    g.addColorStop(0, "#fde047");
+    g.addColorStop(0.5, "#ef4444");
+    g.addColorStop(1, "#7f1d1d");
+    ctx3d.fillStyle = g;
+    ctx3d.beginPath();
+    ctx3d.arc(target.x, target.y, target.r * 0.72, 0, Math.PI * 2);
+    ctx3d.fill();
+
+    // Crosshair lines
+    ctx3d.strokeStyle = "#fff";
+    ctx3d.lineWidth = 1.5;
+    ctx3d.beginPath();
+    ctx3d.moveTo(target.x - 12, target.y); ctx3d.lineTo(target.x + 12, target.y);
+    ctx3d.moveTo(target.x, target.y - 12); ctx3d.lineTo(target.x, target.y + 12);
+    ctx3d.stroke();
+  }
+
+  // Draw Floating Red-Number Headshot Popups
+  for (let i = popups.length - 1; i >= 0; i--) {
+    const p = popups[i];
+    ctx3d.fillStyle = p.color;
+    ctx3d.font = "900 16px system-ui, sans-serif";
+    ctx3d.textAlign = "center";
+    ctx3d.fillText(p.text, p.x, p.y);
+    p.y -= 1.5;
+    p.life -= 1;
+    if (p.life <= 0) popups.splice(i, 1);
+  }
+
+  requestAnimationFrame(animate3DArena);
+}
+
+function handleArenaPointer(clientX, clientY) {
+  const rect = canvas3d.getBoundingClientRect();
+  const scaleX = canvas3d.width / rect.width;
+  const scaleY = canvas3d.height / rect.height;
+  const x = (clientX - rect.left) * scaleX;
+  const y = (clientY - rect.top) * scaleY;
+
+  if (gameActive) {
+    const dist = Math.hypot(x - target.x, y - target.y);
+    if (dist <= target.r + 16) {
+      playSfx('hit');
+      const pts = 200 * combo;
+      score += pts;
+      combo = Math.min(10, combo + 1);
+      popups.push({ x: target.x, y: target.y - 10, text: `🎯 +${pts} RED NUMBER!`, color: "#fbbf24", life: 28 });
+      // Teleport target to new spot & speed up slightly
+      target.x = 55 + Math.random() * 330;
+      target.y = 55 + Math.random() * 175;
+      target.vx = (Math.random() > 0.5 ? 1 : -1) * (2.6 + Math.min(3, combo * 0.25));
+      target.vy = (Math.random() > 0.5 ? 1 : -1) * (2.2 + Math.min(2.5, combo * 0.2));
+    } else {
+      combo = 1;
+      popups.push({ x, y, text: "MISS!", color: "#f87171", life: 18 });
+    }
+    document.getElementById('hudScore').innerText = score;
+    document.getElementById('hudCombo').innerText = "x" + combo;
+  }
+}
+
+canvas3d.addEventListener('pointerdown', e => {
+  isDragging = true;
+  lastX = e.clientX;
+  lastY = e.clientY;
+  handleArenaPointer(e.clientX, e.clientY);
+});
+window.addEventListener('pointermove', e => {
+  if (!isDragging || gameActive) return;
+  const dx = e.clientX - lastX;
+  const dy = e.clientY - lastY;
+  rotY += dx * 0.012;
+  rotX += dy * 0.012;
+  lastX = e.clientX;
+  lastY = e.clientY;
+});
+window.addEventListener('pointerup', () => { isDragging = false; });
+
+function startHeadshotGame() {
+  playSfx('win');
+  gameActive = true;
+  score = 0;
+  combo = 1;
+  timeLeft = 15;
+  document.getElementById('hudScore').innerText = "0";
+  document.getElementById('hudCombo').innerText = "x1";
+  document.getElementById('hudTime').innerText = "15s";
+  document.getElementById('gameResultBox').style.display = 'none';
+  document.getElementById('startGameBtn').innerText = "🔥 લાલ ટાર્ગેટ પર ફાસ્ટ ટેપ કરો! (Tap Red Target!)";
+
+  if (gameTimer) clearInterval(gameTimer);
+  gameTimer = setInterval(() => {
+    timeLeft--;
+    document.getElementById('hudTime').innerText = timeLeft + "s";
+    if (timeLeft <= 0) {
+      clearInterval(gameTimer);
+      endHeadshotGame();
+    }
+  }, 1000);
+}
+
+function endHeadshotGame() {
+  gameActive = false;
+  playSfx('win');
+  if (score > bestScore) bestScore = score;
+  const rank = score >= 2500 ? "👑 GRANDMASTER AIM GOD" : (score >= 1200 ? "🔥 PRO ONE-TAP KING" : "⚡ RISING SNIPER");
+  const recSensi = score >= 2000 ? "General: 178 | Red Dot: 174 | Fire Btn: 44%" : "General: 188 | Red Dot: 184 | Fire Btn: 47%";
+
+  document.getElementById('startGameBtn').innerText = "🔄 ફરીથી 3D ગેમ રમો (Play Again)";
+  const box = document.getElementById('gameResultBox');
+  box.style.display = 'block';
+  box.innerHTML = `
+    <div style="font-size:14px; font-weight:900; color:var(--gold);">🏆 હા મોજ હા! તમારો 3D Headshot Score: ${score}</div>
+    <div style="margin:4px 0; color:#fff; font-weight:800;">🎖️ Rank: ${rank}</div>
+    <div style="color:#a7f3d0; font-weight:700;">🎯 તમારા રિફ્લેક્સ મુજબ બેસ્ટ સેટિંગ: <strong>${recSensi}</strong></div>
+    <button class="btn-main" style="margin-top:8px; padding:9px; font-size:13px;" onclick="switchNav('tabPoster', document.querySelectorAll('.b-nav')[1])">👑 મારા સ્કોરનું 3D VIP પોસ્ટર બનાવો ➔</button>
+  `;
+  renderVipPoster();
+}
+
+/* 3D VIP POSTER & SCORE CARD GENERATOR */
+let curTheme = 'cobra';
+function setTheme(t, btn) {
+  curTheme = t;
+  document.querySelectorAll('.t-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderVipPoster();
+}
+
+function renderVipPoster() {
+  const c = document.getElementById('vipCanvas');
+  if (!c) return;
+  const ctx = c.getContext('2d');
+  const name = (document.getElementById('pNameInp').value.trim() || "GUJJU KING").toUpperCase();
+  const role = document.getElementById('pTitleSel').value;
+
+  const themes = {
+    cobra: { c1: "#3b0404", c2: "#060812", acc: "#ef4444", glow: "#fbbf24", icon: "🐍", tag: "COBRA 3D EDITION" },
+    glacier: { c1: "#042f4b", c2: "#050914", acc: "#38bdf8", glow: "#e0f2fe", icon: "❄️", tag: "M416 GLACIER 3D" },
+    gold: { c1: "#422006", c2: "#08090f", acc: "#fbbf24", glow: "#fef08a", icon: "👑", tag: "ROYAL GUJJU VIP" },
+    cyber: { c1: "#2e1065", c2: "#060510", acc: "#00f2fe", glow: "#f43f5e", icon: "⚡", tag: "GEMINI ARGON 3D" }
+  }[curTheme];
+
+  const grad = ctx.createRadialGradient(360, 260, 30, 360, 450, 560);
+  grad.addColorStop(0, themes.c1);
+  grad.addColorStop(1, themes.c2);
+  ctx.fillStyle = grad;
+  ctx.fillRect(0, 0, 720, 900);
+
+  // 3D Grid Lines
+  ctx.strokeStyle = themes.acc;
+  ctx.globalAlpha = 0.2;
+  ctx.lineWidth = 2;
+  for (let i = 50; i < 900; i += 65) {
+    ctx.beginPath(); ctx.moveTo(0, i); ctx.lineTo(720, i); ctx.stroke();
+  }
+  ctx.globalAlpha = 1;
+
+  // Borders
+  ctx.strokeStyle = themes.glow;
+  ctx.lineWidth = 8;
+  ctx.strokeRect(24, 24, 672, 852);
+
+  // Header Badge
+  ctx.fillStyle = "rgba(0,0,0,0.7)";
+  ctx.fillRect(120, 65, 480, 52);
+  ctx.strokeStyle = themes.glow;
+  ctx.lineWidth = 2;
+  ctx.strokeRect(120, 65, 480, 52);
+  ctx.fillStyle = themes.glow;
+  ctx.font = "900 22px system-ui, sans-serif";
+  ctx.textAlign = "center";
+  ctx.fillText("✨ MINI ZOYA • " + themes.tag, 360, 100);
+
+  // Center 3D Circle
+  ctx.beginPath();
+  ctx.arc(360, 305, 115, 0, Math.PI * 2);
+  ctx.fillStyle = "rgba(0,0,0,0.65)";
+  ctx.fill();
+  ctx.lineWidth = 6;
+  ctx.strokeStyle = themes.glow;
+  ctx.stroke();
+
+  ctx.font = "88px system-ui, sans-serif";
+  ctx.fillText(themes.icon, 360, 336);
+
+  // Name Box
+  ctx.fillStyle = "rgba(0,0,0,0.78)";
+  ctx.fillRect(55, 465, 610, 108);
+  ctx.strokeStyle = themes.glow;
+  ctx.lineWidth = 3;
+  ctx.strokeRect(55, 465, 610, 108);
+
+  ctx.fillStyle = "#fff";
+  ctx.font = "900 44px system-ui, sans-serif";
+  ctx.fillText(name.substring(0, 18), 360, 535);
+
+  ctx.fillStyle = themes.glow;
+  ctx.font = "800 24px system-ui, sans-serif";
+  ctx.fillText(role, 360, 622);
+
+  // 3D Game Score Display
+  const dispScore = bestScore > 0 ? bestScore : 2850;
+  ctx.fillStyle = "rgba(16, 185, 129, 0.18)";
+  ctx.fillRect(75, 665, 570, 95);
+  ctx.strokeStyle = "#10b981";
+  ctx.strokeRect(75, 665, 570, 95);
+
+  ctx.fillStyle = "#34d399";
+  ctx.font = "900 24px monospace";
+  ctx.fillText(`🎯 3D REFLEX SCORE: ${dispScore} PTS`, 360, 708);
+  ctx.fillStyle = "#fff";
+  ctx.font = "800 19px system-ui, sans-serif";
+  ctx.fillText("2026 PRO VERIFIED • ZERO RECOIL", 360, 742);
+
+  ctx.fillStyle = "#cbd5e1";
+  ctx.font = "800 20px system-ui, sans-serif";
+  ctx.fillText("👧 INSTAGRAM: @minizoyacreator", 360, 830);
+}
+
+function downloadVipPoster() {
+  const c = document.getElementById('vipCanvas');
+  const a = document.createElement('a');
+  a.download = 'MiniZoya-3D-VIP-Card.png';
+  a.href = c.toDataURL('image/png');
+  a.click();
+}
+
+/* TALKING MINI ZOYA AI CHAT */
+function quickAsk(q) {
+  document.getElementById('userChatInp').value = q;
+  sendUserChat();
+}
+
+async function sendUserChat() {
+  const inp = document.getElementById('userChatInp');
+  const q = inp.value.trim();
+  if (!q) return;
+  inp.value = '';
+  playSfx('tap');
+
+  const box = document.getElementById('chatMsgs');
+  box.innerHTML += `<div class="m-bubble m-user">${q}</div>`;
+  const id = "m_" + Date.now();
+  box.innerHTML += `<div class="m-bubble m-zoya" id="${id}">⚡ Mini Zoya વિચારી રહી છે...</div>`;
+  box.scrollTop = box.scrollHeight;
+
+  const low = q.toLowerCase();
+  let ans = "";
+  if (low.includes('હેડશોટ') || low.includes('headshot') || low.includes('સેટિંગ') || low.includes('sensi')) {
+    ans = "🎯 હા મોજ હા! 2026 માં વન-ટેપ હેડશોટ માટે General Sensitivity 184, Red Dot 180 અને Fire Button 45% રાખો! પહેલા આપણી '🎮 3D ગેમ' રમીને તમારી સ્પીડ ટેસ્ટ કરો!";
+  } else if (low.includes('ડાયમંડ') || low.includes('diamond') || low.includes('uc')) {
+    ans = "💎 મિની ઝોયાની બચત ટ્રિક: Evo Gun ને સીધા સ્ટોરમાંથી મેક્સ ના કરો! ફક્ત Level 4 (210 ટોકન = 1,260 ડાયમંડ) પર જ Double Damage ખુલી જાય છે, જેનાથી 10,000+ ડાયમંડ બચે છે!";
+  } else {
+    ans = `હા મોજ હા દોસ્ત! "${q}" માટે યાદ રાખજો: સ્કિન નહીં, સ્કિલ બોલે છે! આપણી 3D હેડશોટ ગેમ રમો અને @minizoyacreator ને Follow કરી રાખો! 🔥👑`;
+  }
+
+  const el = document.getElementById(id);
+  const safe = ans.replace(/'/g, "\'");
+  el.innerHTML = `<div>${ans}</div><button class="voice-pill" onclick="speakOut('${safe}')">🔊 અવાજ સાંભળો</button>`;
+  box.scrollTop = box.scrollHeight;
+  speakOut(ans);
+}
+
+function speakOut(txt) {
+  if (!('speechSynthesis' in window)) return;
+  window.speechSynthesis.cancel();
+  const u = new SpeechSynthesisUtterance(txt);
+  u.lang = 'hi-IN';
+  u.pitch = 1.35;
+  u.rate = 1.02;
+  window.speechSynthesis.speak(u);
+}
+
+/* SENSITIVITY DATA */
+const ramDB = {
+  "2gb": { gen: 196, red: 192, btn: "42%", dpi: "400 DPI", code: "7285-1061-6808-4288-454" },
+  "4gb": { gen: 185, red: 180, btn: "47%", dpi: "440 DPI", code: "7309-1086-6844-4312-478" },
+  "6gb": { gen: 175, red: 170, btn: "46%", dpi: "540 DPI", code: "7298-1074-6823-4301-468" },
+  "8gb": { gen: 162, red: 156, btn: "45%", dpi: "560 DPI", code: "7321-1098-6857-4329-491" },
+  "12gb":{ gen: 148, red: 142, btn: "42%", dpi: "610 DPI", code: "7307-2094-8821-5315-120" },
+  "iphone":{ gen: 155, red: 150, btn: "40%", dpi: "Default iOS", code: "1-7662-5993-8603-4078-000" }
+};
+
+function pickRam(r, btn) {
+  playSfx('tap');
+  document.querySelectorAll('.r-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  const d = ramDB[r];
+  document.getElementById('sensiOutBox').innerHTML = `
+    <div class="stat-line"><span>🔥 Free Fire General (0–200)</span><strong>${d.gen}</strong></div>
+    <div class="stat-line"><span>🎯 Free Fire Red Dot</span><strong>${d.red}</strong></div>
+    <div class="stat-line"><span>🔘 One-Tap Fire Button</span><strong>${d.btn}</strong></div>
+    <div class="stat-line"><span>📱 Safe Android DPI</span><strong>${d.dpi}</strong></div>
+    <div style="background:#052e16; border:1.5px dashed #34d399; border-radius:12px; padding:10px; text-align:center; margin-top:8px;">
+      <div style="font-size:11px; color:#a7f3d0; font-weight:800;">🪖 BGMI 2026 ZERO-RECOIL CODE:</div>
+      <div style="font-size:16px; color:#fff; font-weight:900; font-family:monospace; margin:5px 0;">${d.code}</div>
+      <button class="btn-main" style="padding:8px; font-size:12.5px;" onclick="navigator.clipboard.writeText('${d.code}'); alert('✅ કોપી થઈ ગયું: ${d.code}')">📋 1-Click Copy Code</button>
+    </div>
+  `;
+}
+
+function switchNav(id, btn) {
+  playSfx('tap');
+  document.querySelectorAll('.tab-view').forEach(v => v.classList.remove('active'));
+  document.querySelectorAll('.b-nav').forEach(b => b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  btn.classList.add('active');
+  if (id === 'tabPoster') renderVipPoster();
+}
+
+const langPack = {
   gu: {
-    badgeTxt: "WORK IN PROGRESS • COMING SOON",
-    titleTxt: "Mini Zoya <span>AI Studio</span><br>બહુ જલ્દી આવી રહ્યું છે! 🚀",
-    descTxt: "કેમ છો દોસ્તો! 🙏 અત્યારે અમારી વેબસાઈટ અને અસલી <strong>AI Server</strong> પર કામ ચાલુ છે. Free Fire અને BGMI માટે અસલી AI ટૂલ્સ તૈયાર થઈ રહ્યા છે. કામ પૂરું થતાં જ આ વેબસાઈટ બધા માટે ખુલી જશે!",
-    progLbl: "🛠️ વેબસાઈટનું કામ (System Setup):",
-    item1: "👧 Mini Zoya 3D AI Character",
-    item2: "🎨 Real AI Photo & Video Engine",
-    item3: "🎮 Free Fire & BGMI Pro AI Chat",
-    st2: "⚙️ કામ ચાલુ છે...",
-    st3: "⏳ Coming Soon",
-    btnTxt: "👑 Follow @minizoyaofficial (અપડેટ માટે)",
-    noteTxt: "🔔 વેબસાઈટ ચાલુ થવાની જાહેરાત અમારી Instagram Reel માં કરવામાં આવશે!"
+    t3d: "3D હેડશોટ ટ્રેનર અને હોલોગ્રામ",
+    s3d: "આંગળીથી 3D ક્યુબ ફેરવો અથવા નીચે બટન દબાવીને 15-સેકન્ડની અસલી 3D One-Tap Headshot Game રમો!",
+    nav1: "3D ગેમ", nav2: "3D પોસ્ટર", nav3: "AI ચેટ", nav4: "હેડશોટ કોડ"
   },
   hi: {
-    badgeTxt: "अभी काम चालू है • COMING SOON",
-    titleTxt: "Mini Zoya <span>AI Studio</span><br>बहुत जल्द खुलने वाला है! 🚀",
-    descTxt: "केम छो दोस्तों! 🙏 अभी हमारी वेबसाइट और असली <strong>AI Server</strong> पर काम चल रहा है। Free Fire और BGMI के लिए असली AI टूल्स तैयार हो रहे हैं। काम पूरा होते ही यह वेबसाइट सबके लिए खुल जाएगी!",
-    progLbl: "🛠️ वेबसाइट का काम (System Setup):",
-    item1: "👧 Mini Zoya 3D AI Character",
-    item2: "🎨 Real AI Photo & Video Engine",
-    item3: "🎮 Free Fire & BGMI Pro AI Chat",
-    st2: "⚙️ काम चालू है...",
-    st3: "⏳ Coming Soon",
-    btnTxt: "👑 Follow @minizoyaofficial (अपडेट के लिए)",
-    noteTxt: "🔔 वेबसाइट चालू होने की जानकारी हमारी Instagram Reel में दी जाएगी!"
+    t3d: "3D हेडशॉट ट्रेनर और होलोग्राम",
+    s3d: "उंगली से 3D क्यूब घुमाएं या नीचे बटन दबाकर 15-सेकंड का असली 3D One-Tap Headshot Game खेलें!",
+    nav1: "3D गेम", nav2: "3D पोस्टर", nav3: "AI चैट", nav4: "हेडशॉट कोड"
   },
   en: {
-    badgeTxt: "WORK IN PROGRESS • COMING SOON",
-    titleTxt: "Mini Zoya <span>AI Studio</span><br>is Launching Soon! 🚀",
-    descTxt: "Hello Gamers! 🙏 Our team is currently building and upgrading the real <strong>AI Server</strong> for Free Fire & BGMI players. The platform will open to everyone as soon as the setup is complete!",
-    progLbl: "🛠️ Server Build Progress:",
-    item1: "👧 Mini Zoya 3D AI Character",
-    item2: "🎨 Real AI Photo & Video Engine",
-    item3: "🎮 Free Fire & BGMI Pro AI Chat",
-    st2: "⚙️ Building...",
-    st3: "⏳ Coming Soon",
-    btnTxt: "👑 Follow @minizoyaofficial for Launch",
-    noteTxt: "🔔 Official launch date will be announced on our Instagram Reels!"
+    t3d: "3D Headshot Trainer & Hologram",
+    s3d: "Touch & rotate the 3D hologram cube or tap below to play the live 15-second 3D One-Tap Headshot Game!",
+    nav1: "3D Game", nav2: "3D Poster", nav3: "AI Chat", nav4: "Headshot"
   }
 };
 
 function setLang(l, btn) {
   document.querySelectorAll('.l-btn').forEach(b => b.classList.remove('active'));
   btn.classList.add('active');
-  const d = copy[l];
-  document.getElementById('badgeTxt').innerText = d.badgeTxt;
-  document.getElementById('titleTxt').innerHTML = d.titleTxt;
-  document.getElementById('descTxt').innerHTML = d.descTxt;
-  document.getElementById('progLbl').innerText = d.progLbl;
-  document.getElementById('item1').innerText = d.item1;
-  document.getElementById('item2').innerText = d.item2;
-  document.getElementById('item3').innerText = d.item3;
-  document.getElementById('st2').innerText = d.st2;
-  document.getElementById('st3').innerText = d.st3;
-  document.getElementById('btnTxt').innerText = d.btnTxt;
-  document.getElementById('noteTxt').innerText = d.noteTxt;
+  const d = langPack[l];
+  document.getElementById('t3d').innerText = d.t3d;
+  document.getElementById('s3d').innerText = d.s3d;
+  document.getElementById('nav1').innerText = d.nav1;
+  document.getElementById('nav2').innerText = d.nav2;
+  document.getElementById('nav3').innerText = d.nav3;
+  document.getElementById('nav4').innerText = d.nav4;
 }
+
+animate3DArena();
+renderVipPoster();
+pickRam('4gb', document.querySelectorAll('.r-btn')[1]);
 </script>
 </body>
 </html>

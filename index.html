@@ -3,11 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>Mini Zoya 3D Gaming World | @minizoyacreator</title>
+<title>Mini Zoya 360° 3D Graphic Studio | @minizoyacreator</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <style>
   :root {
-    --bg: #04060d;
-    --card: rgba(15, 23, 42, 0.92);
+    --bg: #04060e;
+    --card: rgba(13, 19, 36, 0.94);
     --gold: #fbbf24;
     --pink: #f43f5e;
     --cyan: #00f2fe;
@@ -24,22 +25,22 @@
     user-select: none;
   }
   body {
-    background: radial-gradient(circle at 50% 0%, #1e1b4b 0%, #070b16 55%, var(--bg) 100%);
+    background: radial-gradient(circle at 50% 0%, #1e1b4b 0%, #060a17 55%, var(--bg) 100%);
     color: var(--text);
     min-height: 100dvh;
-    padding-top: 60px;
-    padding-bottom: 76px;
+    padding-top: 58px;
+    padding-bottom: 74px;
     overflow-x: hidden;
   }
 
-  /* FIXED HEADER */
+  /* HEADER */
   .top-header {
     position: fixed;
     top: 0; left: 0; right: 0;
-    height: 58px;
+    height: 56px;
     z-index: 1000;
-    background: rgba(4, 6, 13, 0.92);
-    backdrop-filter: blur(12px);
+    background: rgba(4, 6, 14, 0.94);
+    backdrop-filter: blur(14px);
     border-bottom: 1px solid rgba(251, 191, 36, 0.35);
     display: flex;
     align-items: center;
@@ -53,14 +54,14 @@
     background: conic-gradient(from 0deg, var(--gold), var(--pink), var(--cyan), var(--gold));
     padding: 2px;
     display: flex; align-items: center; justify-content: center;
-    box-shadow: 0 0 12px rgba(251, 191, 36, 0.5);
+    box-shadow: 0 0 12px rgba(0, 242, 254, 0.5);
   }
   .orb-in {
     width: 100%; height: 100%;
     border-radius: 50%;
-    background: #090d16;
+    background: #070b16;
     display: flex; align-items: center; justify-content: center;
-    font-size: 14px; font-weight: 900; color: var(--gold);
+    font-size: 12px; font-weight: 900; color: var(--cyan);
   }
   .b-title { font-size: 14.5px; font-weight: 900; color: #fff; }
   .b-sub { font-size: 10.5px; color: #34d399; font-weight: 800; display: flex; align-items: center; gap: 4px; }
@@ -78,178 +79,213 @@
   }
   .l-btn.active { background: var(--gold); color: #000; }
 
-  .wrap { max-width: 480px; margin: 0 auto; padding: 10px 12px; }
-  .tab-view { display: none; animation: fade 0.2s ease; }
+  .wrap { max-width: 480px; margin: 0 auto; padding: 8px 10px; }
+  .tab-view { display: none; }
   .tab-view.active { display: block; }
-  @keyframes fade { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
 
-  /* 3D CARD */
-  .card-3d {
-    background: linear-gradient(165deg, rgba(20, 30, 55, 0.95) 0%, rgba(8, 12, 24, 0.98) 100%);
+  .studio-card {
+    background: var(--card);
     border: 1.5px solid rgba(251, 191, 36, 0.45);
     border-radius: 20px;
-    padding: 14px;
-    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.75);
+    padding: 12px;
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.8);
     margin-bottom: 12px;
   }
-  .badge {
-    display: inline-block;
-    background: rgba(251, 191, 36, 0.15);
-    border: 1px solid var(--gold);
-    color: var(--gold);
-    font-size: 10px;
-    font-weight: 900;
-    padding: 3px 9px;
-    border-radius: 99px;
-    margin-bottom: 6px;
-  }
-  .title { font-size: 18px; font-weight: 900; color: #fff; margin-bottom: 4px; }
-  .sub { font-size: 12px; color: var(--muted); margin-bottom: 10px; line-height: 1.4; }
 
-  /* 3D INTERACTIVE CANVAS ARENA */
-  .arena-box {
+  /* 360° 3D VIEWPORT */
+  .viewport-wrap {
     position: relative;
     width: 100%;
-    height: 290px;
-    background: radial-gradient(circle at center, #0f172a 0%, #03050a 100%);
-    border: 2px solid var(--cyan);
+    height: 330px;
     border-radius: 16px;
     overflow: hidden;
-    box-shadow: inset 0 0 30px rgba(0, 242, 254, 0.2), 0 0 18px rgba(0, 242, 254, 0.25);
-    margin-bottom: 10px;
+    background: radial-gradient(circle at 50% 35%, #172554 0%, #050814 70%);
+    border: 2px solid var(--cyan);
+    box-shadow: inset 0 0 35px rgba(0, 242, 254, 0.25), 0 0 20px rgba(0, 242, 254, 0.2);
     touch-action: none;
   }
-  #game3dCanvas {
+  #webglContainer {
     width: 100%;
     height: 100%;
-    display: block;
-    cursor: crosshair;
   }
-  .hud-top {
+  .hud-overlay-top {
     position: absolute;
     top: 8px; left: 8px; right: 8px;
     display: flex;
     justify-content: space-between;
+    align-items: center;
     pointer-events: none;
   }
-  .hud-pill {
+  .badge-360 {
     background: rgba(0, 0, 0, 0.72);
     border: 1px solid var(--gold);
+    color: var(--gold);
+    padding: 4px 10px;
+    border-radius: 99px;
+    font-size: 11px;
+    font-weight: 900;
+  }
+  .auto-spin-btn {
+    pointer-events: auto;
+    background: rgba(0, 242, 254, 0.18);
+    border: 1px solid var(--cyan);
     color: #fff;
     padding: 4px 10px;
     border-radius: 99px;
-    font-size: 11.5px;
-    font-weight: 900;
-  }
-  .hud-pill span { color: var(--gold); }
-  .hud-hint {
-    position: absolute;
-    bottom: 8px; left: 0; right: 0;
-    text-align: center;
     font-size: 11px;
     font-weight: 800;
-    color: #38bdf8;
-    pointer-events: none;
-    text-shadow: 0 1px 4px #000;
-  }
-
-  .btn-main {
-    width: 100%;
-    padding: 13px;
-    border-radius: 14px;
-    border: none;
-    background: linear-gradient(90deg, var(--gold), #f59e0b);
-    color: #000;
-    font-size: 14.5px;
-    font-weight: 900;
     cursor: pointer;
-    box-shadow: 0 4px 16px rgba(251, 191, 36, 0.4);
-  }
-  .btn-main:active { transform: scale(0.98); }
-
-  .result-banner {
-    margin-top: 10px;
-    background: linear-gradient(135deg, #052e16, #064e3b);
-    border: 1.5px solid var(--green);
-    border-radius: 14px;
-    padding: 12px;
-    display: none;
-    font-size: 12.5px;
   }
 
-  /* SCREEN 2: 3D VIP POSTER */
-  .theme-row {
+  /* LIVE 3D NAMEPLATE OVERLAY */
+  .hud-nameplate {
+    position: absolute;
+    bottom: 28px; left: 50%;
+    transform: translateX(-50%);
+    background: linear-gradient(90deg, rgba(0,0,0,0.85), rgba(15,23,42,0.9), rgba(0,0,0,0.85));
+    border: 1.5px solid var(--gold);
+    padding: 5px 18px;
+    border-radius: 99px;
+    text-align: center;
+    pointer-events: none;
+    box-shadow: 0 0 15px rgba(251, 191, 36, 0.45);
+    white-space: nowrap;
+  }
+  .hud-nameplate .n-main {
+    font-size: 14px;
+    font-weight: 900;
+    color: #fff;
+    letter-spacing: 0.5px;
+  }
+  .hud-nameplate .n-sub {
+    font-size: 9.5px;
+    color: var(--gold);
+    font-weight: 800;
+    display: block;
+  }
+  .hud-hint {
+    position: absolute;
+    bottom: 6px; left: 0; right: 0;
+    text-align: center;
+    font-size: 10.5px;
+    color: #93c5fd;
+    font-weight: 800;
+    pointer-events: none;
+  }
+
+  /* DESIGNER CONTROLS */
+  .ctrl-label {
+    font-size: 11.5px;
+    font-weight: 900;
+    color: var(--gold);
+    margin: 10px 0 5px;
+    display: flex;
+    justify-content: space-between;
+  }
+  .model-grid {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 7px;
-    margin-bottom: 10px;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 6px;
   }
-  .t-btn {
+  .m-btn {
     background: #090d16;
     border: 1.5px solid #334155;
     color: #cbd5e1;
-    padding: 9px;
+    padding: 8px 4px;
     border-radius: 10px;
-    font-size: 12px;
+    font-size: 11px;
     font-weight: 800;
+    text-align: center;
     cursor: pointer;
   }
-  .t-btn.active {
+  .m-btn span { display: block; font-size: 18px; margin-bottom: 2px; }
+  .m-btn.active {
+    background: linear-gradient(135deg, #1d4ed8, #0284c7);
     border-color: var(--gold);
-    background: rgba(251, 191, 36, 0.16);
     color: #fff;
+    box-shadow: 0 0 12px rgba(0, 242, 254, 0.4);
+  }
+
+  /* SKIN COLOR SWATCHES */
+  .skin-row {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 6px;
+  }
+  .s-pill {
+    padding: 7px 4px;
+    border-radius: 8px;
+    border: 1.5px solid #334155;
+    background: #090d16;
+    color: #fff;
+    font-size: 10.5px;
+    font-weight: 800;
+    text-align: center;
+    cursor: pointer;
+  }
+  .s-pill.active {
+    border-color: #fff;
+    transform: scale(1.04);
+    box-shadow: 0 0 10px rgba(251, 191, 36, 0.5);
+  }
+
+  .inp-row {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 7px;
+    margin-top: 8px;
   }
   .inp, .sel {
     width: 100%;
-    padding: 11px 12px;
+    padding: 10px;
     border-radius: 10px;
     border: 1.5px solid #334155;
     background: #090d16;
     color: #fff;
-    font-size: 13.5px;
-    font-weight: 700;
-    margin-bottom: 8px;
+    font-size: 13px;
+    font-weight: 800;
     outline: none;
     user-select: text;
   }
-  .poster-box {
-    text-align: center;
-    background: #050811;
-    border: 1.5px dashed #334155;
-    border-radius: 14px;
-    padding: 10px;
-    margin-top: 10px;
-  }
-  #vipCanvas {
-    width: 100%;
-    max-width: 290px;
-    border-radius: 12px;
-    border: 2px solid var(--gold);
-  }
-  .two-btns {
+  .btn-row {
     display: flex;
     gap: 8px;
     margin-top: 10px;
   }
-  .s-btn {
-    flex: 1;
-    padding: 11px;
-    border-radius: 10px;
+  .btn-gold {
+    flex: 1.3;
+    padding: 12px;
+    border-radius: 12px;
     border: none;
+    background: linear-gradient(90deg, var(--gold), #f59e0b);
+    color: #000;
     font-weight: 900;
-    font-size: 12.5px;
+    font-size: 13.5px;
     cursor: pointer;
+    box-shadow: 0 4px 15px rgba(251, 191, 36, 0.35);
+  }
+  .btn-insta {
+    flex: 1;
+    padding: 12px;
+    border-radius: 12px;
+    background: linear-gradient(90deg, var(--pink), #e11d48);
+    color: #fff;
+    font-weight: 900;
+    font-size: 13px;
     text-decoration: none;
     text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
-  /* SCREEN 3: TALKING ZOYA AI */
+  /* CHAT & SENSI TABS */
   .chat-box {
     background: #050811;
     border: 1px solid #1e293b;
     border-radius: 14px;
     padding: 10px;
-    height: 250px;
+    height: 260px;
     overflow-y: auto;
     display: flex;
     flex-direction: column;
@@ -264,125 +300,55 @@
     line-height: 1.45;
     font-weight: 600;
   }
-  .m-zoya {
-    align-self: flex-start;
-    background: #1e293b;
-    border: 1px solid var(--gold);
-    color: #fff;
-  }
-  .m-user {
-    align-self: flex-end;
-    background: var(--gold);
-    color: #000;
-    font-weight: 800;
-  }
+  .m-zoya { align-self: flex-start; background: #1e293b; border: 1px solid var(--gold); color: #fff; }
+  .m-user { align-self: flex-end; background: var(--gold); color: #000; font-weight: 800; }
   .voice-pill {
-    display: inline-block;
-    margin-top: 5px;
-    background: rgba(16, 185, 129, 0.2);
-    border: 1px solid var(--green);
-    color: #34d399;
-    font-size: 10.5px;
-    font-weight: 800;
-    padding: 3px 8px;
-    border-radius: 99px;
-    cursor: pointer;
-  }
-  .chips-scroll {
-    display: flex;
-    gap: 6px;
-    overflow-x: auto;
-    padding-bottom: 6px;
-    margin-bottom: 6px;
-  }
-  .chips-scroll::-webkit-scrollbar { display: none; }
-  .c-chip {
-    white-space: nowrap;
-    background: #151f32;
-    border: 1px solid #334155;
-    color: #e2e8f0;
-    font-size: 11.5px;
-    font-weight: 800;
-    padding: 6px 11px;
-    border-radius: 99px;
-    cursor: pointer;
-  }
-
-  /* SCREEN 4: PRO SENSITIVITY */
-  .ram-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 7px;
-    margin-bottom: 10px;
-  }
-  .r-btn {
-    background: #090d16;
-    border: 1.5px solid #334155;
-    color: #cbd5e1;
-    padding: 9px 4px;
-    border-radius: 10px;
-    font-size: 12.5px;
-    font-weight: 900;
-    text-align: center;
-    cursor: pointer;
-  }
-  .r-btn.active {
-    background: rgba(0, 242, 254, 0.16);
-    border-color: var(--cyan);
-    color: #fff;
+    display: inline-block; margin-top: 5px;
+    background: rgba(16, 185, 129, 0.2); border: 1px solid var(--green);
+    color: #34d399; font-size: 10.5px; font-weight: 800;
+    padding: 3px 8px; border-radius: 99px; cursor: pointer;
   }
   .stat-line {
-    display: flex;
-    justify-content: space-between;
-    background: #090d16;
-    border: 1px solid #1e293b;
-    padding: 9px 12px;
-    border-radius: 9px;
-    margin-bottom: 6px;
-    font-size: 13px;
-    font-weight: 800;
+    display: flex; justify-content: space-between;
+    background: #090d16; border: 1px solid #1e293b;
+    padding: 10px 12px; border-radius: 9px; margin-bottom: 6px;
+    font-size: 13px; font-weight: 800;
   }
   .stat-line strong { color: var(--gold); }
 
-  /* BOTTOM APP NAV */
+  /* BOTTOM BAR */
   .bottom-bar {
     position: fixed;
     bottom: 0; left: 0; right: 0;
-    height: 68px;
-    background: rgba(4, 6, 13, 0.96);
+    height: 66px;
+    background: rgba(4, 6, 14, 0.96);
     backdrop-filter: blur(14px);
     border-top: 1px solid rgba(251, 191, 36, 0.35);
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     max-width: 500px;
     margin: 0 auto;
     z-index: 1000;
   }
   .b-nav {
-    border: none;
-    background: transparent;
-    color: var(--muted);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 3px;
-    cursor: pointer;
+    border: none; background: transparent; color: var(--muted);
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    gap: 3px; cursor: pointer;
   }
   .b-nav .ico { font-size: 20px; }
-  .b-nav .lbl { font-size: 11px; font-weight: 800; }
+  .b-nav .lbl { font-size: 11.5px; font-weight: 800; }
   .b-nav.active { color: var(--gold); }
 </style>
 </head>
 <body>
 
-<!-- TOP HEADER -->
+<!-- HEADER -->
 <header class="top-header">
   <div class="brand">
-    <div class="orb"><div class="orb-in">3D</div></div>
+    <div class="orb"><div class="orb-in">360°</div></div>
     <div>
-      <div class="b-title">Mini Zoya 3D World</div>
-      <div class="b-sub"><span class="dot"></span> <span id="hdrSub">Gemini Argon 3D Engine</span></div>
+      <div class="b-title">Mini Zoya 3D Designer</div>
+      <div class="b-sub"><span class="dot"></span> <span id="hdrSub">360° Free Fire & PUBG Studio</span></div>
     </div>
   </div>
   <div class="lang-bar">
@@ -394,103 +360,111 @@
 
 <div class="wrap">
 
-  <!-- TAB 1: 3D HOLOGRAM & LIVE HEADSHOT REFLEX MINI-GAME -->
-  <div id="tab3d" class="tab-view active">
-    <div class="card-3d">
-      <span class="badge" id="b3d">🎮 INTERACTIVE 3D WEBGL + SOUND</span>
-      <div class="title" id="t3d">3D હેડશોટ ટ્રેનર અને હોલોગ્રામ</div>
-      <p class="sub" id="s3d">આંગળીથી 3D ક્યુબ ફેરવો અથવા નીચે બટન દબાવીને 15-સેકન્ડની અસલી <strong>3D One-Tap Headshot Game</strong> રમો!</p>
+  <!-- TAB 1: 360° 3D GRAPHIC DESIGNER (FREE FIRE & PUBG LOBBY) -->
+  <div id="tabDesigner" class="tab-view active">
+    <div class="studio-card">
 
-      <!-- LIVE 3D CANVAS ARENA -->
-      <div class="arena-box">
-        <canvas id="game3dCanvas" width="440" height="290"></canvas>
-        <div class="hud-top">
-          <div class="hud-pill">🎯 Score: <span id="hudScore">0</span></div>
-          <div class="hud-pill">⚡ Combo: <span id="hudCombo">x1</span></div>
-          <div class="hud-pill">⏱️ Time: <span id="hudTime">15s</span></div>
+      <!-- 360° WEBGL 3D STAGE -->
+      <div class="viewport-wrap" id="stageWrap">
+        <div id="webglContainer"></div>
+
+        <div class="hud-overlay-top">
+          <span class="badge-360" id="b360">🌀 360° 3D LOBBY DESIGNER</span>
+          <button class="auto-spin-btn" id="spinToggleBtn" onclick="toggleAutoSpin()">🔄 Auto-Spin: ON</button>
         </div>
-        <div class="hud-hint" id="hudHint">👆 3D હોલોગ્રામને આંગળીથી ફેરવો અથવા લાલ ટાર્ગેટ પર ટેપ કરો!</div>
+
+        <div class="hud-nameplate">
+          <div class="n-main" id="live3dName">★GUJJU KING★</div>
+          <span class="n-sub" id="live3dTag">🐍 COBRA SUPREME • 2026 PRO</span>
+        </div>
+
+        <div class="hud-hint" id="hint360">👆 આંગળીથી 360° ચારેય બાજુ ફેરવો (Drag to Rotate 360°)</div>
       </div>
 
-      <button class="btn-main" id="startGameBtn" onclick="startHeadshotGame()">▶️ 3D હેડશોટ ગેમ શરૂ કરો (Play 3D Game)</button>
+      <!-- 1. CHOOSE 3D MODEL -->
+      <div class="ctrl-label">
+        <span id="lblModel">1. 3D મોડલ પસંદ કરો (Select 3D Model):</span>
+        <span style="color:var(--cyan);">360° Live</span>
+      </div>
+      <div class="model-grid">
+        <div class="m-btn active" onclick="switch3DModel('character', this)">
+          <span>🦸‍♂️</span><div id="m1">FF/BGMI કેરેક્ટર</div>
+        </div>
+        <div class="m-btn" onclick="switch3DModel('gun', this)">
+          <span>🔫</span><div id="m2">3D Evo/Glacier ગન</div>
+        </div>
+        <div class="m-btn" onclick="switch3DModel('crate', this)">
+          <span>📦</span><div id="m3">3D એરડ્રોપ પેટી</div>
+        </div>
+        <div class="m-btn" onclick="switch3DModel('car', this)">
+          <span>🏎️</span><div id="m4">3D સુપરકાર</div>
+        </div>
+      </div>
 
-      <div id="gameResultBox" class="result-banner"></div>
+      <!-- 2. CHOOSE 3D SKIN & AURA COLOR -->
+      <div class="ctrl-label">
+        <span id="lblSkin">2. 3D સ્કિન અને ઓરા રંગ બદલો (3D Skin Color):</span>
+      </div>
+      <div class="skin-row">
+        <div class="s-pill active" style="background:linear-gradient(135deg,#991b1b,#f59e0b);" onclick="switch3DSkin('cobra', this)">🐍 Cobra</div>
+        <div class="s-pill" style="background:linear-gradient(135deg,#0284c7,#38bdf8);" onclick="switch3DSkin('glacier', this)">❄️ Glacier</div>
+        <div class="s-pill" style="background:linear-gradient(135deg,#854d0e,#fbbf24); color:#000;" onclick="switch3DSkin('gold', this)">👑 Gold</div>
+        <div class="s-pill" style="background:linear-gradient(135deg,#6b21a8,#f43f5e);" onclick="switch3DSkin('cyber', this)">💜 X-Suit</div>
+        <div class="s-pill" style="background:linear-gradient(135deg,#065f46,#10b981);" onclick="switch3DSkin('draco', this)">🐉 Draco</div>
+      </div>
+
+      <!-- 3. PLAYER NAME & CAMERA ZOOM -->
+      <div class="inp-row">
+        <input type="text" class="inp" id="designerName" value="★GUJJU KING★" placeholder="તમારું નામ લખો..." oninput="updateNameplate()">
+        <select class="sel" id="designerTitle" onchange="updateNameplate()">
+          <option value="🐍 COBRA SUPREME • 2026 PRO">🐍 Cobra Supreme</option>
+          <option value="❄️ M416 GLACIER MAX • LV.8">❄️ Glacier Lv.8 Max</option>
+          <option value="👑 MINI ZOYA VIP FOUNDER">👑 Mini Zoya VIP</option>
+          <option value="🔥 ONE-TAP HEADSHOT GOD">🔥 Headshot God</option>
+        </select>
+      </div>
+
+      <!-- DOWNLOAD 3D POSTER & INSTAGRAM -->
+      <div class="btn-row">
+        <button class="btn-gold" onclick="capture3DDesign()" id="dl3dBtn">📸 3D ડિઝાઇન ફોટો Download કરો</button>
+        <a href="https://instagram.com/minizoyacreator" target="_blank" class="btn-insta">👑 @minizoyacreator</a>
+      </div>
     </div>
   </div>
 
-  <!-- TAB 2: 3D VIP POSTER & SCORE CARD MAKER -->
-  <div id="tabPoster" class="tab-view">
-    <div class="card-3d">
-      <span class="badge">👑 INSTANT 3D VIP CARD</span>
-      <div class="title" id="tPos">3D ગેમિંગ પોસ્ટર અને VIP પાસ</div>
-      <p class="sub" id="sPos">તમારું નામ લખો — તમારો 3D ગેમ સ્કોર અને VIP પોસ્ટર 1 સેકન્ડમાં તૈયાર!</p>
-
-      <div class="theme-row">
-        <button class="t-btn active" onclick="setTheme('cobra', this)">🐍 Cobra Red 3D</button>
-        <button class="t-btn" onclick="setTheme('glacier', this)">❄️ M416 Glacier 3D</button>
-        <button class="t-btn" onclick="setTheme('gold', this)">👑 Royal Gujju Gold</button>
-        <button class="t-btn" onclick="setTheme('cyber', this)">⚡ Argon Cyber Neon</button>
-      </div>
-
-      <input type="text" class="inp" id="pNameInp" value="★GUJJU KING★" placeholder="તમારું નામ લખો..." oninput="renderVipPoster()">
-      <select class="sel" id="pTitleSel" onchange="renderVipPoster()">
-        <option value="🎯 ONE-TAP HEADSHOT GOD">🎯 ONE-TAP HEADSHOT GOD</option>
-        <option value="❄️ M416 GLACIER LOVER">❄️ M416 GLACIER LOVER</option>
-        <option value="🔥 RUSHER & SQUAD LEADER">🔥 RUSHER & SQUAD LEADER</option>
-        <option value="👑 MINI ZOYA VIP SUPPORTER">👑 MINI ZOYA VIP SUPPORTER</option>
-      </select>
-
-      <div class="poster-box">
-        <canvas id="vipCanvas" width="720" height="900"></canvas>
-        <div class="two-btns">
-          <button class="s-btn" style="background:var(--green); color:#000;" onclick="downloadVipPoster()" id="dlBtn">⬇️ Download 3D Poster</button>
-          <a href="https://instagram.com/minizoyacreator" target="_blank" class="s-btn" style="background:var(--pink); color:#fff;">📸 Follow @minizoyacreator</a>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- TAB 3: TALKING MINI ZOYA AI CHAT -->
+  <!-- TAB 2: TALKING MINI ZOYA AI CHAT -->
   <div id="tabChat" class="tab-view">
-    <div class="card-3d">
-      <span class="badge">🤖 LIVE TALKING AI FRIEND</span>
-      <div class="title" id="tChat">Mini Zoya AI સાથે વાત કરો</div>
-      <p class="sub" id="sChat">નીચે બટન દબાવો અથવા સવાલ લખો — મિની ઝોયા બોલીને જવાબ આપશે!</p>
-
-      <div class="chips-scroll">
-        <button class="c-chip" onclick="quickAsk('🎯 મારા ફોન માટે બેસ્ટ હેડશોટ સેટિંગ બતાવો')">🎯 હેડશોટ સેટિંગ</button>
-        <button class="c-chip" onclick="quickAsk('💎 ઓછા ડાયમંડ અને UC માં સ્કિન કેવી રીતે કાઢવી?')">💎 ડાયમંડ બચત ટ્રિક</button>
-        <button class="c-chip" onclick="quickAsk('😂 એક મસ્ત ગુજરાતી ગેમિંગ ડાયલોગ સંભળાવો!')">😂 ગુજરાતી ડાયલોગ</button>
-      </div>
+    <div class="studio-card">
+      <div style="font-size:17px; font-weight:900; color:var(--gold); margin-bottom:4px;" id="tChat">🤖 Mini Zoya AI સાથે વાત કરો</div>
+      <p style="font-size:12px; color:var(--muted); margin-bottom:10px;" id="sChat">નીચે સવાલ પૂછો — મિની ઝોયા તરત જ જવાબ આપશે અને બોલીને સંભળાવશે!</p>
 
       <div class="chat-box" id="chatMsgs">
         <div class="m-bubble m-zoya">
-          <div id="initChatTxt">કેમ છો દોસ્ત! 🙏 હું <strong>Mini Zoya AI</strong> છું. પહેલા 3D હેડશોટ ગેમ રમો અથવા મને કોઈપણ ગેમિંગ સવાલ પૂછો!</div>
+          <div id="initChatTxt">કેમ છો દોસ્ત! 🙏 હું <strong>Mini Zoya AI</strong> છું. તમને મારો નવો <strong>360° 3D Graphic Designer</strong> કેવો લાગ્યો? તમે મને કોઈપણ ગેમિંગ સવાલ પૂછી શકો છો!</div>
           <button class="voice-pill" onclick="speakOut(document.getElementById('initChatTxt').innerText)">🔊 અવાજ સાંભળો</button>
         </div>
       </div>
 
       <div style="display:flex; gap:7px;">
         <input type="text" class="inp" style="margin-bottom:0; border-radius:99px;" id="userChatInp" placeholder="અહીં સવાલ લખો..." onkeydown="if(event.key==='Enter') sendUserChat()">
-        <button class="btn-main" style="width:auto; padding:0 18px; border-radius:99px;" onclick="sendUserChat()">Ask ✨</button>
+        <button class="btn-gold" style="flex:0 0 auto; width:auto; padding:0 18px; border-radius:99px;" onclick="sendUserChat()">Ask ✨</button>
       </div>
     </div>
   </div>
 
-  <!-- TAB 4: PRO SENSITIVITY & 19-DIGIT CODES -->
+  <!-- TAB 3: 2026 HEADSHOT & BGMI CODES -->
   <div id="tabSensi" class="tab-view">
-    <div class="card-3d">
-      <span class="badge">⚡ 2026 VERIFIED DATA</span>
-      <div class="title" id="tSen">2026 Auto-Headshot & BGMI કોડ</div>
-      <p class="sub" id="sSen">તમારા ફોનની RAM દબાવો અને 1-Click માં કોડ કોપી કરો:</p>
+    <div class="studio-card">
+      <div style="font-size:17px; font-weight:900; color:var(--gold); margin-bottom:4px;" id="tSen">🎯 2026 Auto-Headshot & BGMI કોડ</div>
+      <p style="font-size:12px; color:var(--muted); margin-bottom:10px;">તમારા ફોનની RAM પસંદ કરો અને 1-Click માં કોડ કોપી કરો:</p>
 
-      <div class="ram-grid">
-        <div class="r-btn" onclick="pickRam('2gb', this)">2GB / 3GB</div>
-        <div class="r-btn active" onclick="pickRam('4gb', this)">4GB RAM</div>
-        <div class="r-btn" onclick="pickRam('6gb', this)">6GB RAM</div>
-        <div class="r-btn" onclick="pickRam('8gb', this)">8GB RAM</div>
-        <div class="r-btn" onclick="pickRam('12gb', this)">12GB RAM</div>
-        <div class="r-btn" onclick="pickRam('iphone', this)">iPhone Pro</div>
+      <div class="model-grid" style="grid-template-columns:repeat(3,1fr); margin-bottom:10px;">
+        <div class="m-btn" onclick="pickRam('2gb', this)">2GB / 3GB</div>
+        <div class="m-btn active" onclick="pickRam('4gb', this)">4GB RAM</div>
+        <div class="m-btn" onclick="pickRam('6gb', this)">6GB RAM</div>
+        <div class="m-btn" onclick="pickRam('8gb', this)">8GB RAM</div>
+        <div class="m-btn" onclick="pickRam('12gb', this)">12GB RAM</div>
+        <div class="m-btn" onclick="pickRam('iphone', this)">iPhone Pro</div>
       </div>
 
       <div id="sensiOutBox"></div>
@@ -499,420 +473,452 @@
 
 </div>
 
-<!-- BOTTOM NAVIGATION -->
+<!-- BOTTOM BAR -->
 <nav class="bottom-bar">
-  <button class="b-nav active" onclick="switchNav('tab3d', this)">
-    <span class="ico">🎮</span>
-    <span class="lbl" id="nav1">3D ગેમ</span>
-  </button>
-  <button class="b-nav" onclick="switchNav('tabPoster', this)">
-    <span class="ico">👑</span>
-    <span class="lbl" id="nav2">3D પોસ્ટર</span>
+  <button class="b-nav active" onclick="switchNav('tabDesigner', this)">
+    <span class="ico">🌀</span>
+    <span class="lbl" id="nav1">360° 3D ડિઝાઇનર</span>
   </button>
   <button class="b-nav" onclick="switchNav('tabChat', this)">
     <span class="ico">🤖</span>
-    <span class="lbl" id="nav3">AI ચેટ</span>
+    <span class="lbl" id="nav2">AI ચેટ</span>
   </button>
   <button class="b-nav" onclick="switchNav('tabSensi', this)">
     <span class="ico">🎯</span>
-    <span class="lbl" id="nav4">હેડશોટ કોડ</span>
+    <span class="lbl" id="nav3">હેડશોટ કોડ</span>
   </button>
 </nav>
 
 <script>
-/* WEB AUDIO SYNTHESIZER FOR REAL GAMING SOUND EFFECTS */
-let audioCtx = null;
-function playSfx(type) {
-  try {
-    if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-    const osc = audioCtx.createOscillator();
-    const gain = audioCtx.createGain();
-    osc.connect(gain);
-    gain.connect(audioCtx.destination);
-    const now = audioCtx.currentTime;
+/* =========================================================
+   REAL THREE.JS 360° 3D GRAPHIC DESIGNER ENGINE
+   ========================================================= */
+let scene, camera, renderer, rootGroup, modelGroup, auraRing1, auraRing2, particlesMesh;
+let autoSpin = true;
+let currentModelType = 'character';
+let currentSkinKey = 'cobra';
 
-    if (type === 'hit') {
-      osc.type = 'triangle';
-      osc.frequency.setValueAtTime(520, now);
-      osc.frequency.exponentialRampToValueAtTime(1180, now + 0.11);
-      gain.gain.setValueAtTime(0.25, now);
-      gain.gain.exponentialRampToValueAtTime(0.01, now + 0.12);
-      osc.start(now);
-      osc.stop(now + 0.12);
-    } else if (type === 'win') {
-      osc.type = 'sine';
-      osc.frequency.setValueAtTime(440, now);
-      osc.frequency.setValueAtTime(660, now + 0.1);
-      osc.frequency.setValueAtTime(880, now + 0.2);
-      gain.gain.setValueAtTime(0.25, now);
-      gain.gain.exponentialRampToValueAtTime(0.01, now + 0.45);
-      osc.start(now);
-      osc.stop(now + 0.45);
-    } else {
-      osc.type = 'sine';
-      osc.frequency.setValueAtTime(360, now);
-      gain.gain.setValueAtTime(0.1, now);
-      gain.gain.exponentialRampToValueAtTime(0.01, now + 0.06);
-      osc.start(now);
-      osc.stop(now + 0.06);
+const skinPalettes = {
+  cobra:   { primary: 0xe11d48, secondary: 0x111827, glow: 0xfbbf24, emissive: 0x9f1239 },
+  glacier: { primary: 0x38bdf8, secondary: 0xe0f2fe, glow: 0x00f2fe, emissive: 0x0284c7 },
+  gold:    { primary: 0xfbbf24, secondary: 0x422006, glow: 0xfef08a, emissive: 0xb45309 },
+  cyber:   { primary: 0xa855f7, secondary: 0x1e1b4b, glow: 0xf43f5e, emissive: 0x6b21a8 },
+  draco:   { primary: 0x10b981, secondary: 0x064e3b, glow: 0x34d399, emissive: 0x047857 }
+};
+
+let matPrimary, matSecondary, matGlow, matDark;
+
+function init360Studio() {
+  const container = document.getElementById('webglContainer');
+  const w = container.clientWidth || 360;
+  const h = container.clientHeight || 330;
+
+  if (typeof THREE === 'undefined') {
+    container.innerHTML = '<div style="padding:40px; text-align:center; color:#fbbf24;">3D Engine Loading...</div>';
+    return;
+  }
+
+  scene = new THREE.Scene();
+  camera = new THREE.PerspectiveCamera(45, w / h, 0.1, 100);
+  camera.position.set(0, 1.3, 5.2);
+  camera.lookAt(0, 0.3, 0);
+
+  renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, preserveDrawingBuffer: true });
+  renderer.setSize(w, h);
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  container.innerHTML = '';
+  container.appendChild(renderer.domElement);
+
+  // Lights
+  const amb = new THREE.AmbientLight(0xffffff, 0.75);
+  scene.add(amb);
+
+  const dir1 = new THREE.DirectionalLight(0xffffff, 1.3);
+  dir1.position.set(4, 7, 5);
+  scene.add(dir1);
+
+  const dir2 = new THREE.PointLight(0x00f2fe, 1.6, 15);
+  dir2.position.set(-4, 3, -3);
+  scene.add(dir2);
+
+  rootGroup = new THREE.Group();
+  scene.add(rootGroup);
+
+  const pal = skinPalettes[currentSkinKey];
+  matPrimary = new THREE.MeshStandardMaterial({ color: pal.primary, metalness: 0.65, roughness: 0.25, emissive: pal.emissive, emissiveIntensity: 0.25 });
+  matSecondary = new THREE.MeshStandardMaterial({ color: pal.secondary, metalness: 0.7, roughness: 0.3 });
+  matGlow = new THREE.MeshBasicMaterial({ color: pal.glow });
+  matDark = new THREE.MeshStandardMaterial({ color: 0x0f172a, metalness: 0.8, roughness: 0.2 });
+
+  // 1. Build Glowing Lobby Podium Base
+  const baseGeo = new THREE.CylinderGeometry(1.55, 1.75, 0.22, 36);
+  const baseMesh = new THREE.Mesh(baseGeo, matDark);
+  baseMesh.position.y = -1.25;
+  rootGroup.add(baseMesh);
+
+  const rimGeo = new THREE.TorusGeometry(1.62, 0.045, 16, 64);
+  auraRing1 = new THREE.Mesh(rimGeo, matGlow);
+  auraRing1.rotation.x = Math.PI / 2;
+  auraRing1.position.y = -1.13;
+  rootGroup.add(auraRing1);
+
+  // Floating Energy Halo Ring
+  const haloGeo = new THREE.TorusGeometry(1.35, 0.025, 16, 64);
+  auraRing2 = new THREE.Mesh(haloGeo, matGlow);
+  auraRing2.rotation.x = Math.PI / 2.3;
+  auraRing2.position.y = 0.2;
+  rootGroup.add(auraRing2);
+
+  // Floating 3D Particles
+  const pGeo = new THREE.BufferGeometry();
+  const pCount = 90;
+  const posArr = new Float32Array(pCount * 3);
+  for (let i = 0; i < pCount * 3; i += 3) {
+    posArr[i] = (Math.random() - 0.5) * 4.2;
+    posArr[i+1] = (Math.random() - 0.3) * 3.2;
+    posArr[i+2] = (Math.random() - 0.5) * 4.2;
+  }
+  pGeo.setAttribute('position', new THREE.BufferAttribute(posArr, 3));
+  const pMat = new THREE.PointsMaterial({ color: pal.glow, size: 0.06 });
+  particlesMesh = new THREE.Points(pGeo, pMat);
+  rootGroup.add(particlesMesh);
+
+  modelGroup = new THREE.Group();
+  rootGroup.add(modelGroup);
+
+  build3DModelGeometry(currentModelType);
+  setup360TouchControls(renderer.domElement);
+  animate3DLoop();
+}
+
+function build3DModelGeometry(type) {
+  while (modelGroup.children.length > 0) {
+    modelGroup.remove(modelGroup.children[0]);
+  }
+
+  if (type === 'character') {
+    // 3D Pro Gaming Character / Mecha X-Suit Avatar
+    // Head + Helmet
+    const head = new THREE.Mesh(new THREE.SphereGeometry(0.36, 28, 28), matPrimary);
+    head.position.y = 0.95;
+    modelGroup.add(head);
+
+    // Glowing Cyber Visor (Eyes)
+    const visor = new THREE.Mesh(new THREE.BoxGeometry(0.46, 0.14, 0.25), matGlow);
+    visor.position.set(0, 0.96, 0.24);
+    modelGroup.add(visor);
+
+    // RGB Gaming Headphones on Head
+    const band = new THREE.Mesh(new THREE.TorusGeometry(0.39, 0.045, 12, 32, Math.PI), matGlow);
+    band.position.y = 0.98;
+    modelGroup.add(band);
+    const earL = new THREE.Mesh(new THREE.CylinderGeometry(0.13, 0.13, 0.1, 20), matSecondary);
+    earL.rotation.z = Math.PI / 2; earL.position.set(-0.39, 0.95, 0);
+    const earR = earL.clone(); earR.position.x = 0.39;
+    modelGroup.add(earL, earR);
+
+    // Golden Crown on Top
+    const crown = new THREE.Mesh(new THREE.ConeGeometry(0.22, 0.25, 6), matGlow);
+    crown.position.y = 1.42;
+    modelGroup.add(crown);
+
+    // Armored Torso (X-Suit / Cobra Jacket)
+    const torso = new THREE.Mesh(new THREE.CylinderGeometry(0.42, 0.32, 0.95, 8), matPrimary);
+    torso.position.y = 0.12;
+    modelGroup.add(torso);
+
+    // Glowing Chest Core Emblem
+    const core = new THREE.Mesh(new THREE.OctahedronGeometry(0.18, 0), matGlow);
+    core.position.set(0, 0.22, 0.34);
+    modelGroup.add(core);
+
+    // Shoulder Pads
+    const padGeo = new THREE.BoxGeometry(0.32, 0.22, 0.36);
+    const padL = new THREE.Mesh(padGeo, matSecondary);
+    padL.position.set(-0.52, 0.48, 0);
+    padL.rotation.z = 0.25;
+    const padR = padL.clone();
+    padR.position.x = 0.52; padR.rotation.z = -0.25;
+    modelGroup.add(padL, padR);
+
+    // 3D Dragon / X-Suit Wings on Back
+    for (let side of [-1, 1]) {
+      for (let i = 0; i < 3; i++) {
+        const wingBlade = new THREE.Mesh(new THREE.BoxGeometry(0.65 - i*0.12, 0.1, 0.06), matGlow);
+        wingBlade.position.set(side * (0.55 + i*0.12), 0.45 - i*0.22, -0.28);
+        wingBlade.rotation.z = side * (0.35 - i*0.2);
+        wingBlade.rotation.y = -side * 0.25;
+        modelGroup.add(wingBlade);
+      }
     }
-  } catch (e) {}
+
+    // Arms
+    const armGeo = new THREE.CylinderGeometry(0.11, 0.1, 0.68, 16);
+    const armL = new THREE.Mesh(armGeo, matSecondary);
+    armL.position.set(-0.54, 0.08, 0.1);
+    armL.rotation.z = 0.18;
+    const armR = new THREE.Mesh(armGeo, matSecondary);
+    armR.position.set(0.54, 0.12, 0.22);
+    armR.rotation.x = -0.7;
+    modelGroup.add(armL, armR);
+
+    // Mini 3D Gun in Right Hand
+    const handGun = new THREE.Mesh(new THREE.BoxGeometry(0.1, 0.16, 0.75), matGlow);
+    handGun.position.set(0.54, 0.18, 0.55);
+    modelGroup.add(handGun);
+
+    // Legs & Boots
+    const legGeo = new THREE.CylinderGeometry(0.14, 0.12, 0.78, 16);
+    const legL = new THREE.Mesh(legGeo, matSecondary);
+    legL.position.set(-0.2, -0.72, 0);
+    const legR = legL.clone(); legR.position.x = 0.2;
+    modelGroup.add(legL, legR);
+
+  } else if (type === 'gun') {
+    // 3D Upgradable M416 Glacier / Cobra MP40 Weapon Lab Model
+    const receiver = new THREE.Mesh(new THREE.BoxGeometry(1.5, 0.32, 0.22), matPrimary);
+    receiver.position.set(0, 0.15, 0);
+    modelGroup.add(receiver);
+
+    // Barrel + Muzzle Brake
+    const barrel = new THREE.Mesh(new THREE.CylinderGeometry(0.055, 0.055, 1.25, 20), matSecondary);
+    barrel.rotation.z = Math.PI / 2;
+    barrel.position.set(1.2, 0.2, 0);
+    modelGroup.add(barrel);
+
+    const muzzle = new THREE.Mesh(new THREE.CylinderGeometry(0.09, 0.09, 0.25, 16), matGlow);
+    muzzle.rotation.z = Math.PI / 2;
+    muzzle.position.set(1.8, 0.2, 0);
+    modelGroup.add(muzzle);
+
+    // 4x / 6x Pro Scope on Top
+    const scopeTube = new THREE.Mesh(new THREE.CylinderGeometry(0.09, 0.11, 0.65, 20), matDark);
+    scopeTube.rotation.z = Math.PI / 2;
+    scopeTube.position.set(0.05, 0.44, 0);
+    modelGroup.add(scopeTube);
+
+    const lens = new THREE.Mesh(new THREE.SphereGeometry(0.085, 16, 16), matGlow);
+    lens.position.set(0.36, 0.44, 0);
+    modelGroup.add(lens);
+
+    // Curved Magazine
+    const mag = new THREE.Mesh(new THREE.BoxGeometry(0.24, 0.68, 0.16), matGlow);
+    mag.position.set(0.25, -0.32, 0);
+    mag.rotation.z = 0.22;
+    modelGroup.add(mag);
+
+    // Tactical Stock & Grip
+    const stock = new THREE.Mesh(new THREE.BoxGeometry(0.75, 0.28, 0.18), matSecondary);
+    stock.position.set(-1.05, 0.1, 0);
+    modelGroup.add(stock);
+
+    const grip = new THREE.Mesh(new THREE.BoxGeometry(0.18, 0.45, 0.16), matDark);
+    grip.position.set(-0.35, -0.22, 0);
+    grip.rotation.z = -0.25;
+    modelGroup.add(grip);
+
+    // Floating Evo / Glacier Crystal Spikes around Gun
+    for (let i = 0; i < 6; i++) {
+      const crystal = new THREE.Mesh(new THREE.OctahedronGeometry(0.14, 0), matGlow);
+      const ang = (i / 6) * Math.PI * 2;
+      crystal.position.set(Math.cos(ang) * 1.1, 0.15 + Math.sin(ang) * 0.45, Math.sin(ang) * 0.6);
+      modelGroup.add(crystal);
+    }
+
+  } else if (type === 'crate') {
+    // 3D PUBG Airdrop Supply Crate & Free Fire Booyah Vault
+    const box = new THREE.Mesh(new THREE.BoxGeometry(1.35, 1.35, 1.35), matPrimary);
+    box.position.y = 0.05;
+    modelGroup.add(box);
+
+    const tarp = new THREE.Mesh(new THREE.BoxGeometry(1.42, 0.35, 1.42), matSecondary);
+    tarp.position.y = 0.58;
+    modelGroup.add(tarp);
+
+    // Glowing Neon Frame Bars
+    const edgeGeo = new THREE.BoxGeometry(1.44, 1.44, 1.44);
+    const wire = new THREE.LineSegments(new THREE.EdgesGeometry(edgeGeo), new THREE.LineBasicMaterial({ color: 0xfbbf24 }));
+    wire.position.y = 0.05;
+    modelGroup.add(wire);
+
+    // Orbiting 3D Diamonds
+    for (let i = 0; i < 8; i++) {
+      const dia = new THREE.Mesh(new THREE.OctahedronGeometry(0.18, 0), matGlow);
+      const a = (i / 8) * Math.PI * 2;
+      dia.position.set(Math.cos(a) * 1.35, 0.1 + (i % 2)*0.35, Math.sin(a) * 1.35);
+      modelGroup.add(dia);
+    }
+
+  } else if (type === 'car') {
+    // 3D Lobby Cyber Supercar
+    const body = new THREE.Mesh(new THREE.BoxGeometry(2.2, 0.42, 1.15), matPrimary);
+    body.position.y = -0.35;
+    modelGroup.add(body);
+
+    const cabin = new THREE.Mesh(new THREE.BoxGeometry(1.15, 0.36, 0.95), matDark);
+    cabin.position.set(-0.1, 0.02, 0);
+    modelGroup.add(cabin);
+
+    // Rear Wing Spoiler
+    const spoiler = new THREE.Mesh(new THREE.BoxGeometry(0.22, 0.06, 1.25), matGlow);
+    spoiler.position.set(-1.02, 0.12, 0);
+    modelGroup.add(spoiler);
+
+    // 4 Glowing Neon Wheels
+    const wheelGeo = new THREE.CylinderGeometry(0.28, 0.28, 0.22, 24);
+    const positions = [[-0.7, -0.55, 0.6], [0.7, -0.55, 0.6], [-0.7, -0.55, -0.6], [0.7, -0.55, -0.6]];
+    positions.forEach(p => {
+      const wMesh = new THREE.Mesh(wheelGeo, matSecondary);
+      wMesh.rotation.x = Math.PI / 2;
+      wMesh.position.set(p[0], p[1], p[2]);
+      modelGroup.add(wMesh);
+
+      const rim = new THREE.Mesh(new THREE.TorusGeometry(0.18, 0.03, 12, 24), matGlow);
+      rim.position.set(p[0], p[1], p[2] > 0 ? p[2] + 0.12 : p[2] - 0.12);
+      modelGroup.add(rim);
+    });
+  }
 }
 
-/* 3D ENGINE & ONE-TAP HEADSHOT REFLEX GAME */
-const canvas3d = document.getElementById('game3dCanvas');
-const ctx3d = canvas3d.getContext('2d');
-let rotX = 0.4, rotY = 0.6;
-let isDragging = false, lastX = 0, lastY = 0;
+/* 360° TOUCH & DRAG ROTATION CONTROLS */
+function setup360TouchControls(domEl) {
+  let dragging = false;
+  let prevX = 0, prevY = 0;
 
-let gameActive = false;
-let score = 0, combo = 1, timeLeft = 15, bestScore = 0;
-let gameTimer = null;
-let target = { x: 220, y: 145, r: 28, vx: 2.4, vy: 1.8 };
-let popups = [];
-
-// 3D Cube Vertices
-const vertices = [
-  [-1,-1,-1], [1,-1,-1], [1,1,-1], [-1,1,-1],
-  [-1,-1,1],  [1,-1,1],  [1,1,1],  [-1,1,1]
-];
-const edges = [
-  [0,1],[1,2],[2,3],[3,0],
-  [4,5],[5,6],[6,7],[7,4],
-  [0,4],[1,5],[2,6],[3,7]
-];
-
-function project3D(v, angleX, angleY, scale, cx, cy) {
-  let x = v[0], y = v[1], z = v[2];
-  // Rotate Y
-  let x1 = x * Math.cos(angleY) - z * Math.sin(angleY);
-  let z1 = z * Math.cos(angleY) + x * Math.sin(angleY);
-  // Rotate X
-  let y2 = y * Math.cos(angleX) - z1 * Math.sin(angleX);
-  let z2 = z1 * Math.cos(angleX) + y * Math.sin(angleX);
-  let fov = 4 / (4 + z2);
-  return [cx + x1 * scale * fov, cy + y2 * scale * fov];
-}
-
-function animate3DArena() {
-  ctx3d.clearRect(0, 0, canvas3d.width, canvas3d.height);
-
-  // Perspective Cyber Floor Grid
-  ctx3d.strokeStyle = "rgba(0, 242, 254, 0.15)";
-  ctx3d.lineWidth = 1;
-  for (let i = 0; i <= 440; i += 44) {
-    ctx3d.beginPath();
-    ctx3d.moveTo(220 + (i - 220) * 0.3, 175);
-    ctx3d.lineTo(i, 290);
-    ctx3d.stroke();
-  }
-  for (let y = 185; y < 290; y += 22) {
-    ctx3d.beginPath();
-    ctx3d.moveTo(0, y);
-    ctx3d.lineTo(440, y);
-    ctx3d.stroke();
-  }
-
-  // Rotate 3D Hologram Cube in Center
-  if (!isDragging) {
-    rotY += 0.018;
-    rotX += 0.009;
-  }
-  const cubeScale = gameActive ? 42 : 68;
-  const cx = 220, cy = 140;
-
-  ctx3d.strokeStyle = gameActive ? "rgba(251, 191, 36, 0.35)" : "#00f2fe";
-  ctx3d.lineWidth = 2.2;
-  const pts = vertices.map(v => project3D(v, rotX, rotY, cubeScale, cx, cy));
-  edges.forEach(e => {
-    ctx3d.beginPath();
-    ctx3d.moveTo(pts[e[0]][0], pts[e[0]][1]);
-    ctx3d.lineTo(pts[e[1]][0], pts[e[1]][1]);
-    ctx3d.stroke();
+  domEl.addEventListener('pointerdown', e => {
+    dragging = true;
+    prevX = e.clientX;
+    prevY = e.clientY;
   });
 
-  // Inner Glowing Core
-  ctx3d.fillStyle = gameActive ? "rgba(251, 191, 36, 0.15)" : "rgba(244, 63, 94, 0.28)";
-  ctx3d.beginPath();
-  ctx3d.arc(cx, cy, gameActive ? 18 : 30, 0, Math.PI * 2);
-  ctx3d.fill();
+  window.addEventListener('pointermove', e => {
+    if (!dragging) return;
+    const dx = e.clientX - prevX;
+    const dy = e.clientY - prevY;
+    rootGroup.rotation.y += dx * 0.012;
+    rootGroup.rotation.x = Math.max(-0.45, Math.min(0.55, rootGroup.rotation.x + dy * 0.008));
+    prevX = e.clientX;
+    prevY = e.clientY;
+  });
 
-  // If 3D Headshot Game is Active, Draw Moving 3D Target Orb
-  if (gameActive) {
-    target.x += target.vx;
-    target.y += target.vy;
-    if (target.x < 45 || target.x > 395) target.vx *= -1;
-    if (target.y < 52 || target.y > 235) target.vy *= -1;
-
-    // Outer Target Ring
-    ctx3d.strokeStyle = "#ef4444";
-    ctx3d.lineWidth = 3;
-    ctx3d.beginPath();
-    ctx3d.arc(target.x, target.y, target.r, 0, Math.PI * 2);
-    ctx3d.stroke();
-
-    // Inner Bullseye Headshot Core
-    const g = ctx3d.createRadialGradient(target.x - 5, target.y - 5, 3, target.x, target.y, target.r);
-    g.addColorStop(0, "#fde047");
-    g.addColorStop(0.5, "#ef4444");
-    g.addColorStop(1, "#7f1d1d");
-    ctx3d.fillStyle = g;
-    ctx3d.beginPath();
-    ctx3d.arc(target.x, target.y, target.r * 0.72, 0, Math.PI * 2);
-    ctx3d.fill();
-
-    // Crosshair lines
-    ctx3d.strokeStyle = "#fff";
-    ctx3d.lineWidth = 1.5;
-    ctx3d.beginPath();
-    ctx3d.moveTo(target.x - 12, target.y); ctx3d.lineTo(target.x + 12, target.y);
-    ctx3d.moveTo(target.x, target.y - 12); ctx3d.lineTo(target.x, target.y + 12);
-    ctx3d.stroke();
-  }
-
-  // Draw Floating Red-Number Headshot Popups
-  for (let i = popups.length - 1; i >= 0; i--) {
-    const p = popups[i];
-    ctx3d.fillStyle = p.color;
-    ctx3d.font = "900 16px system-ui, sans-serif";
-    ctx3d.textAlign = "center";
-    ctx3d.fillText(p.text, p.x, p.y);
-    p.y -= 1.5;
-    p.life -= 1;
-    if (p.life <= 0) popups.splice(i, 1);
-  }
-
-  requestAnimationFrame(animate3DArena);
+  window.addEventListener('pointerup', () => { dragging = false; });
 }
 
-function handleArenaPointer(clientX, clientY) {
-  const rect = canvas3d.getBoundingClientRect();
-  const scaleX = canvas3d.width / rect.width;
-  const scaleY = canvas3d.height / rect.height;
-  const x = (clientX - rect.left) * scaleX;
-  const y = (clientY - rect.top) * scaleY;
-
-  if (gameActive) {
-    const dist = Math.hypot(x - target.x, y - target.y);
-    if (dist <= target.r + 16) {
-      playSfx('hit');
-      const pts = 200 * combo;
-      score += pts;
-      combo = Math.min(10, combo + 1);
-      popups.push({ x: target.x, y: target.y - 10, text: `🎯 +${pts} RED NUMBER!`, color: "#fbbf24", life: 28 });
-      // Teleport target to new spot & speed up slightly
-      target.x = 55 + Math.random() * 330;
-      target.y = 55 + Math.random() * 175;
-      target.vx = (Math.random() > 0.5 ? 1 : -1) * (2.6 + Math.min(3, combo * 0.25));
-      target.vy = (Math.random() > 0.5 ? 1 : -1) * (2.2 + Math.min(2.5, combo * 0.2));
-    } else {
-      combo = 1;
-      popups.push({ x, y, text: "MISS!", color: "#f87171", life: 18 });
-    }
-    document.getElementById('hudScore').innerText = score;
-    document.getElementById('hudCombo').innerText = "x" + combo;
+function animate3DLoop() {
+  requestAnimationFrame(animate3DLoop);
+  if (autoSpin && rootGroup) {
+    rootGroup.rotation.y += 0.012;
+  }
+  if (auraRing2) {
+    auraRing2.rotation.z += 0.02;
+    auraRing2.position.y = 0.15 + Math.sin(Date.now() * 0.003) * 0.18;
+  }
+  if (particlesMesh) {
+    particlesMesh.rotation.y -= 0.004;
+  }
+  if (renderer && scene && camera) {
+    renderer.render(scene, camera);
   }
 }
 
-canvas3d.addEventListener('pointerdown', e => {
-  isDragging = true;
-  lastX = e.clientX;
-  lastY = e.clientY;
-  handleArenaPointer(e.clientX, e.clientY);
-});
-window.addEventListener('pointermove', e => {
-  if (!isDragging || gameActive) return;
-  const dx = e.clientX - lastX;
-  const dy = e.clientY - lastY;
-  rotY += dx * 0.012;
-  rotX += dy * 0.012;
-  lastX = e.clientX;
-  lastY = e.clientY;
-});
-window.addEventListener('pointerup', () => { isDragging = false; });
-
-function startHeadshotGame() {
-  playSfx('win');
-  gameActive = true;
-  score = 0;
-  combo = 1;
-  timeLeft = 15;
-  document.getElementById('hudScore').innerText = "0";
-  document.getElementById('hudCombo').innerText = "x1";
-  document.getElementById('hudTime').innerText = "15s";
-  document.getElementById('gameResultBox').style.display = 'none';
-  document.getElementById('startGameBtn').innerText = "🔥 લાલ ટાર્ગેટ પર ફાસ્ટ ટેપ કરો! (Tap Red Target!)";
-
-  if (gameTimer) clearInterval(gameTimer);
-  gameTimer = setInterval(() => {
-    timeLeft--;
-    document.getElementById('hudTime').innerText = timeLeft + "s";
-    if (timeLeft <= 0) {
-      clearInterval(gameTimer);
-      endHeadshotGame();
-    }
-  }, 1000);
-}
-
-function endHeadshotGame() {
-  gameActive = false;
-  playSfx('win');
-  if (score > bestScore) bestScore = score;
-  const rank = score >= 2500 ? "👑 GRANDMASTER AIM GOD" : (score >= 1200 ? "🔥 PRO ONE-TAP KING" : "⚡ RISING SNIPER");
-  const recSensi = score >= 2000 ? "General: 178 | Red Dot: 174 | Fire Btn: 44%" : "General: 188 | Red Dot: 184 | Fire Btn: 47%";
-
-  document.getElementById('startGameBtn').innerText = "🔄 ફરીથી 3D ગેમ રમો (Play Again)";
-  const box = document.getElementById('gameResultBox');
-  box.style.display = 'block';
-  box.innerHTML = `
-    <div style="font-size:14px; font-weight:900; color:var(--gold);">🏆 હા મોજ હા! તમારો 3D Headshot Score: ${score}</div>
-    <div style="margin:4px 0; color:#fff; font-weight:800;">🎖️ Rank: ${rank}</div>
-    <div style="color:#a7f3d0; font-weight:700;">🎯 તમારા રિફ્લેક્સ મુજબ બેસ્ટ સેટિંગ: <strong>${recSensi}</strong></div>
-    <button class="btn-main" style="margin-top:8px; padding:9px; font-size:13px;" onclick="switchNav('tabPoster', document.querySelectorAll('.b-nav')[1])">👑 મારા સ્કોરનું 3D VIP પોસ્ટર બનાવો ➔</button>
-  `;
-  renderVipPoster();
-}
-
-/* 3D VIP POSTER & SCORE CARD GENERATOR */
-let curTheme = 'cobra';
-function setTheme(t, btn) {
-  curTheme = t;
-  document.querySelectorAll('.t-btn').forEach(b => b.classList.remove('active'));
+function switch3DModel(type, btn) {
+  currentModelType = type;
+  document.querySelectorAll('.model-grid .m-btn').forEach(b => b.classList.remove('active'));
   btn.classList.add('active');
-  renderVipPoster();
+  build3DModelGeometry(type);
 }
 
-function renderVipPoster() {
-  const c = document.getElementById('vipCanvas');
-  if (!c) return;
-  const ctx = c.getContext('2d');
-  const name = (document.getElementById('pNameInp').value.trim() || "GUJJU KING").toUpperCase();
-  const role = document.getElementById('pTitleSel').value;
+function switch3DSkin(skinKey, pill) {
+  currentSkinKey = skinKey;
+  document.querySelectorAll('.s-pill').forEach(p => p.classList.remove('active'));
+  pill.classList.add('active');
 
-  const themes = {
-    cobra: { c1: "#3b0404", c2: "#060812", acc: "#ef4444", glow: "#fbbf24", icon: "🐍", tag: "COBRA 3D EDITION" },
-    glacier: { c1: "#042f4b", c2: "#050914", acc: "#38bdf8", glow: "#e0f2fe", icon: "❄️", tag: "M416 GLACIER 3D" },
-    gold: { c1: "#422006", c2: "#08090f", acc: "#fbbf24", glow: "#fef08a", icon: "👑", tag: "ROYAL GUJJU VIP" },
-    cyber: { c1: "#2e1065", c2: "#060510", acc: "#00f2fe", glow: "#f43f5e", icon: "⚡", tag: "GEMINI ARGON 3D" }
-  }[curTheme];
+  const pal = skinPalettes[skinKey];
+  if (matPrimary) {
+    matPrimary.color.setHex(pal.primary);
+    matPrimary.emissive.setHex(pal.emissive);
+  }
+  if (matSecondary) matSecondary.color.setHex(pal.secondary);
+  if (matGlow) matGlow.color.setHex(pal.glow);
+  if (particlesMesh) particlesMesh.material.color.setHex(pal.glow);
+}
 
-  const grad = ctx.createRadialGradient(360, 260, 30, 360, 450, 560);
-  grad.addColorStop(0, themes.c1);
-  grad.addColorStop(1, themes.c2);
-  ctx.fillStyle = grad;
+function toggleAutoSpin() {
+  autoSpin = !autoSpin;
+  document.getElementById('spinToggleBtn').innerText = autoSpin ? "🔄 Auto-Spin: ON" : "⏸️ Auto-Spin: OFF";
+}
+
+function updateNameplate() {
+  const n = document.getElementById('designerName').value.trim() || "★GUJJU KING★";
+  const t = document.getElementById('designerTitle').value;
+  document.getElementById('live3dName').innerText = n.toUpperCase();
+  document.getElementById('live3dTag').innerText = t;
+}
+
+/* COMPOSITE 3D SCENE + NAMEPLATE INTO DOWNLOADABLE HD POSTER */
+function capture3DDesign() {
+  if (!renderer) return;
+  renderer.render(scene, camera);
+
+  const outCanvas = document.createElement('canvas');
+  outCanvas.width = 720;
+  outCanvas.height = 900;
+  const ctx = outCanvas.getContext('2d');
+
+  // Deep Gaming Background
+  const g = ctx.createRadialGradient(360, 340, 40, 360, 450, 560);
+  g.addColorStop(0, "#172554");
+  g.addColorStop(1, "#04060e");
+  ctx.fillStyle = g;
   ctx.fillRect(0, 0, 720, 900);
 
-  // 3D Grid Lines
-  ctx.strokeStyle = themes.acc;
-  ctx.globalAlpha = 0.2;
-  ctx.lineWidth = 2;
-  for (let i = 50; i < 900; i += 65) {
-    ctx.beginPath(); ctx.moveTo(0, i); ctx.lineTo(720, i); ctx.stroke();
-  }
-  ctx.globalAlpha = 1;
+  // Draw Live 3D WebGL Snapshot
+  ctx.drawImage(renderer.domElement, 30, 80, 660, 620);
 
-  // Borders
-  ctx.strokeStyle = themes.glow;
+  // Frame & Nameplate
+  ctx.strokeStyle = "#fbbf24";
   ctx.lineWidth = 8;
-  ctx.strokeRect(24, 24, 672, 852);
+  ctx.strokeRect(20, 20, 680, 860);
 
-  // Header Badge
-  ctx.fillStyle = "rgba(0,0,0,0.7)";
-  ctx.fillRect(120, 65, 480, 52);
-  ctx.strokeStyle = themes.glow;
-  ctx.lineWidth = 2;
-  ctx.strokeRect(120, 65, 480, 52);
-  ctx.fillStyle = themes.glow;
-  ctx.font = "900 22px system-ui, sans-serif";
-  ctx.textAlign = "center";
-  ctx.fillText("✨ MINI ZOYA • " + themes.tag, 360, 100);
-
-  // Center 3D Circle
-  ctx.beginPath();
-  ctx.arc(360, 305, 115, 0, Math.PI * 2);
-  ctx.fillStyle = "rgba(0,0,0,0.65)";
-  ctx.fill();
-  ctx.lineWidth = 6;
-  ctx.strokeStyle = themes.glow;
-  ctx.stroke();
-
-  ctx.font = "88px system-ui, sans-serif";
-  ctx.fillText(themes.icon, 360, 336);
-
-  // Name Box
-  ctx.fillStyle = "rgba(0,0,0,0.78)";
-  ctx.fillRect(55, 465, 610, 108);
-  ctx.strokeStyle = themes.glow;
+  ctx.fillStyle = "rgba(0,0,0,0.82)";
+  ctx.fillRect(60, 680, 600, 130);
+  ctx.strokeStyle = "#00f2fe";
   ctx.lineWidth = 3;
-  ctx.strokeRect(55, 465, 610, 108);
+  ctx.strokeRect(60, 680, 600, 130);
 
-  ctx.fillStyle = "#fff";
-  ctx.font = "900 44px system-ui, sans-serif";
-  ctx.fillText(name.substring(0, 18), 360, 535);
+  const name = (document.getElementById('designerName').value.trim() || "★GUJJU KING★").toUpperCase();
+  const tag = document.getElementById('designerTitle').value;
 
-  ctx.fillStyle = themes.glow;
-  ctx.font = "800 24px system-ui, sans-serif";
-  ctx.fillText(role, 360, 622);
+  ctx.fillStyle = "#ffffff";
+  ctx.font = "900 42px system-ui, sans-serif";
+  ctx.textAlign = "center";
+  ctx.fillText(name, 360, 742);
 
-  // 3D Game Score Display
-  const dispScore = bestScore > 0 ? bestScore : 2850;
-  ctx.fillStyle = "rgba(16, 185, 129, 0.18)";
-  ctx.fillRect(75, 665, 570, 95);
-  ctx.strokeStyle = "#10b981";
-  ctx.strokeRect(75, 665, 570, 95);
+  ctx.fillStyle = "#fbbf24";
+  ctx.font = "800 22px system-ui, sans-serif";
+  ctx.fillText(tag, 360, 785);
 
-  ctx.fillStyle = "#34d399";
-  ctx.font = "900 24px monospace";
-  ctx.fillText(`🎯 3D REFLEX SCORE: ${dispScore} PTS`, 360, 708);
-  ctx.fillStyle = "#fff";
+  ctx.fillStyle = "#38bdf8";
   ctx.font = "800 19px system-ui, sans-serif";
-  ctx.fillText("2026 PRO VERIFIED • ZERO RECOIL", 360, 742);
+  ctx.fillText("👧 360° 3D STUDIO: @minizoyacreator", 360, 850);
 
-  ctx.fillStyle = "#cbd5e1";
-  ctx.font = "800 20px system-ui, sans-serif";
-  ctx.fillText("👧 INSTAGRAM: @minizoyacreator", 360, 830);
-}
-
-function downloadVipPoster() {
-  const c = document.getElementById('vipCanvas');
   const a = document.createElement('a');
-  a.download = 'MiniZoya-3D-VIP-Card.png';
-  a.href = c.toDataURL('image/png');
+  a.download = 'MiniZoya-360-3D-Design.png';
+  a.href = outCanvas.toDataURL('image/png');
   a.click();
 }
 
-/* TALKING MINI ZOYA AI CHAT */
-function quickAsk(q) {
-  document.getElementById('userChatInp').value = q;
-  sendUserChat();
-}
-
-async function sendUserChat() {
+/* TALKING AI & SENSITIVITY */
+function sendUserChat() {
   const inp = document.getElementById('userChatInp');
   const q = inp.value.trim();
   if (!q) return;
   inp.value = '';
-  playSfx('tap');
-
   const box = document.getElementById('chatMsgs');
   box.innerHTML += `<div class="m-bubble m-user">${q}</div>`;
-  const id = "m_" + Date.now();
-  box.innerHTML += `<div class="m-bubble m-zoya" id="${id}">⚡ Mini Zoya વિચારી રહી છે...</div>`;
-  box.scrollTop = box.scrollHeight;
-
-  const low = q.toLowerCase();
-  let ans = "";
-  if (low.includes('હેડશોટ') || low.includes('headshot') || low.includes('સેટિંગ') || low.includes('sensi')) {
-    ans = "🎯 હા મોજ હા! 2026 માં વન-ટેપ હેડશોટ માટે General Sensitivity 184, Red Dot 180 અને Fire Button 45% રાખો! પહેલા આપણી '🎮 3D ગેમ' રમીને તમારી સ્પીડ ટેસ્ટ કરો!";
-  } else if (low.includes('ડાયમંડ') || low.includes('diamond') || low.includes('uc')) {
-    ans = "💎 મિની ઝોયાની બચત ટ્રિક: Evo Gun ને સીધા સ્ટોરમાંથી મેક્સ ના કરો! ફક્ત Level 4 (210 ટોકન = 1,260 ડાયમંડ) પર જ Double Damage ખુલી જાય છે, જેનાથી 10,000+ ડાયમંડ બચે છે!";
-  } else {
-    ans = `હા મોજ હા દોસ્ત! "${q}" માટે યાદ રાખજો: સ્કિન નહીં, સ્કિલ બોલે છે! આપણી 3D હેડશોટ ગેમ રમો અને @minizoyacreator ને Follow કરી રાખો! 🔥👑`;
-  }
-
-  const el = document.getElementById(id);
+  const ans = `હા મોજ હા દોસ્ત! "${q}" માટે મારી પ્રો ટિપ: પહેલા આપણા '🌀 360° 3D ડિઝાઇનર' માં જઈને તમારું 3D કેરેક્ટર અને ગન 360 ડિગ્રીમાં ફેરવીને જુઓ અને તમારો 3D ફોટો Download કરી લો! 🔥👑`;
   const safe = ans.replace(/'/g, "\'");
-  el.innerHTML = `<div>${ans}</div><button class="voice-pill" onclick="speakOut('${safe}')">🔊 અવાજ સાંભળો</button>`;
+  box.innerHTML += `<div class="m-bubble m-zoya"><div>${ans}</div><button class="voice-pill" onclick="speakOut('${safe}')">🔊 અવાજ સાંભળો</button></div>`;
   box.scrollTop = box.scrollHeight;
   speakOut(ans);
 }
@@ -923,11 +929,9 @@ function speakOut(txt) {
   const u = new SpeechSynthesisUtterance(txt);
   u.lang = 'hi-IN';
   u.pitch = 1.35;
-  u.rate = 1.02;
   window.speechSynthesis.speak(u);
 }
 
-/* SENSITIVITY DATA */
 const ramDB = {
   "2gb": { gen: 196, red: 192, btn: "42%", dpi: "400 DPI", code: "7285-1061-6808-4288-454" },
   "4gb": { gen: 185, red: 180, btn: "47%", dpi: "440 DPI", code: "7309-1086-6844-4312-478" },
@@ -938,8 +942,7 @@ const ramDB = {
 };
 
 function pickRam(r, btn) {
-  playSfx('tap');
-  document.querySelectorAll('.r-btn').forEach(b => b.classList.remove('active'));
+  btn.parentElement.querySelectorAll('.m-btn').forEach(b => b.classList.remove('active'));
   btn.classList.add('active');
   const d = ramDB[r];
   document.getElementById('sensiOutBox').innerHTML = `
@@ -950,35 +953,39 @@ function pickRam(r, btn) {
     <div style="background:#052e16; border:1.5px dashed #34d399; border-radius:12px; padding:10px; text-align:center; margin-top:8px;">
       <div style="font-size:11px; color:#a7f3d0; font-weight:800;">🪖 BGMI 2026 ZERO-RECOIL CODE:</div>
       <div style="font-size:16px; color:#fff; font-weight:900; font-family:monospace; margin:5px 0;">${d.code}</div>
-      <button class="btn-main" style="padding:8px; font-size:12.5px;" onclick="navigator.clipboard.writeText('${d.code}'); alert('✅ કોપી થઈ ગયું: ${d.code}')">📋 1-Click Copy Code</button>
+      <button class="btn-gold" style="width:100%; padding:9px;" onclick="navigator.clipboard.writeText('${d.code}'); alert('✅ કોપી થઈ ગયું: ${d.code}')">📋 1-Click Copy Code</button>
     </div>
   `;
 }
 
 function switchNav(id, btn) {
-  playSfx('tap');
   document.querySelectorAll('.tab-view').forEach(v => v.classList.remove('active'));
   document.querySelectorAll('.b-nav').forEach(b => b.classList.remove('active'));
   document.getElementById(id).classList.add('active');
   btn.classList.add('active');
-  if (id === 'tabPoster') renderVipPoster();
 }
 
 const langPack = {
   gu: {
-    t3d: "3D હેડશોટ ટ્રેનર અને હોલોગ્રામ",
-    s3d: "આંગળીથી 3D ક્યુબ ફેરવો અથવા નીચે બટન દબાવીને 15-સેકન્ડની અસલી 3D One-Tap Headshot Game રમો!",
-    nav1: "3D ગેમ", nav2: "3D પોસ્ટર", nav3: "AI ચેટ", nav4: "હેડશોટ કોડ"
+    hint360: "👆 આંગળીથી 360° ચારેય બાજુ ફેરવો (Drag to Rotate 360°)",
+    lblModel: "1. 3D મોડલ પસંદ કરો (Select 3D Model):",
+    lblSkin: "2. 3D સ્કિન અને ઓરા રંગ બદલો (3D Skin Color):",
+    dl3dBtn: "📸 3D ડિઝાઇન ફોટો Download કરો",
+    nav1: "360° 3D ડિઝાઇનર", nav2: "AI ચેટ", nav3: "હેડશોટ કોડ"
   },
   hi: {
-    t3d: "3D हेडशॉट ट्रेनर और होलोग्राम",
-    s3d: "उंगली से 3D क्यूब घुमाएं या नीचे बटन दबाकर 15-सेकंड का असली 3D One-Tap Headshot Game खेलें!",
-    nav1: "3D गेम", nav2: "3D पोस्टर", nav3: "AI चैट", nav4: "हेडशॉट कोड"
+    hint360: "👆 उंगली से 360° चारों तरफ घुमाएं (Drag to Rotate 360°)",
+    lblModel: "1. 3D मॉडल चुनें (Select 3D Model):",
+    lblSkin: "2. 3D स्किन और ऑरा का रंग बदलें:",
+    dl3dBtn: "📸 3D डिजाइन फोटो Download करें",
+    nav1: "360° 3D डिजाइनर", nav2: "AI चैट", nav3: "हेडशॉट कोड"
   },
   en: {
-    t3d: "3D Headshot Trainer & Hologram",
-    s3d: "Touch & rotate the 3D hologram cube or tap below to play the live 15-second 3D One-Tap Headshot Game!",
-    nav1: "3D Game", nav2: "3D Poster", nav3: "AI Chat", nav4: "Headshot"
+    hint360: "👆 Touch & Drag to Rotate 360° in Real 3D!",
+    lblModel: "1. Select 360° 3D Model:",
+    lblSkin: "2. Customize 3D Skin & Aura Color:",
+    dl3dBtn: "📸 Download 3D Design Poster",
+    nav1: "360° 3D Studio", nav2: "AI Chat", nav3: "Headshot"
   }
 };
 
@@ -986,17 +993,19 @@ function setLang(l, btn) {
   document.querySelectorAll('.l-btn').forEach(b => b.classList.remove('active'));
   btn.classList.add('active');
   const d = langPack[l];
-  document.getElementById('t3d').innerText = d.t3d;
-  document.getElementById('s3d').innerText = d.s3d;
+  document.getElementById('hint360').innerText = d.hint360;
+  document.getElementById('lblModel').innerText = d.lblModel;
+  document.getElementById('lblSkin').innerText = d.lblSkin;
+  document.getElementById('dl3dBtn').innerText = d.dl3dBtn;
   document.getElementById('nav1').innerText = d.nav1;
   document.getElementById('nav2').innerText = d.nav2;
   document.getElementById('nav3').innerText = d.nav3;
-  document.getElementById('nav4').innerText = d.nav4;
 }
 
-animate3DArena();
-renderVipPoster();
-pickRam('4gb', document.querySelectorAll('.r-btn')[1]);
+window.addEventListener('load', () => {
+  init360Studio();
+  pickRam('4gb', document.querySelectorAll('#tabSensi .m-btn')[1]);
+});
 </script>
 </body>
 </html>

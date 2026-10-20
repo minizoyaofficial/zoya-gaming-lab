@@ -3,222 +3,213 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>Mini Zoya AI Studio | Real 3D Gaming Image & Video Maker</title>
+<title>Mini Zoya AI Studio | Coming Soon</title>
 <style>
   :root {
     --bg: #050811;
     --card: #0f172a;
-    --border: #1e293b;
     --gold: #fbbf24;
     --gold-glow: rgba(251, 191, 36, 0.35);
-    --green: #10b981;
     --blue: #38bdf8;
     --pink: #f43f5e;
+    --green: #10b981;
     --text: #f8fafc;
     --muted: #94a3b8;
   }
-  * { box-sizing: border-box; margin: 0; padding: 0; font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif; -webkit-tap-highlight-color: transparent; }
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+    -webkit-tap-highlight-color: transparent;
+  }
   body {
-    background: radial-gradient(circle at top, #1e1b4b 0%, var(--bg) 55%);
+    background: radial-gradient(circle at top, #1e1b4b 0%, var(--bg) 65%);
     color: var(--text);
-    min-height: 100vh;
-    padding-bottom: 40px;
+    min-height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
   }
 
-  /* STICKY TOP BAR */
+  /* CLEAN TOP BAR */
   .top-bar {
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    background: rgba(5, 8, 17, 0.94);
-    backdrop-filter: blur(10px);
-    border-bottom: 1px solid rgba(251, 191, 36, 0.35);
-    padding: 10px 14px;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    padding: 12px 16px;
+    background: rgba(5, 8, 17, 0.9);
+    border-bottom: 1px solid rgba(251, 191, 36, 0.25);
   }
-  .brand { display: flex; align-items: center; gap: 9px; }
-  .avatar {
-    width: 36px; height: 36px; border-radius: 50%;
-    background: linear-gradient(135deg, var(--gold), var(--pink));
-    display: flex; align-items: center; justify-content: center;
-    font-size: 20px; border: 2px solid #fff;
-  }
-  .brand h1 { font-size: 15px; font-weight: 900; color: #fff; line-height: 1.1; }
-  .live-dot { font-size: 11px; color: #34d399; font-weight: 800; display: flex; align-items: center; gap: 5px; }
-  .pulse { width: 7px; height: 7px; background: var(--green); border-radius: 50%; box-shadow: 0 0 8px var(--green); }
-
-  .lang-switch { display: flex; gap: 4px; }
-  .l-btn {
-    background: #1e293b; color: #cbd5e1; border: 1px solid #334155;
-    padding: 5px 10px; border-radius: 99px; font-size: 11px; font-weight: 800; cursor: pointer;
-  }
-  .l-btn.active { background: var(--gold); color: #000; border-color: #fff; }
-
-  .container { max-width: 500px; margin: 0 auto; padding: 12px; }
-
-  /* MAIN MODE SWITCHER */
-  .mode-tabs {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 8px;
-    margin-bottom: 14px;
-  }
-  .m-tab {
-    background: var(--card);
-    border: 1.5px solid #334155;
-    color: #cbd5e1;
-    padding: 10px 6px;
-    border-radius: 12px;
-    font-size: 12px;
-    font-weight: 900;
-    text-align: center;
-    cursor: pointer;
-  }
-  .m-tab.active {
-    background: linear-gradient(135deg, #2563eb, #0284c7);
-    border-color: var(--gold);
-    color: #fff;
-    box-shadow: 0 0 15px rgba(56, 189, 248, 0.4);
-  }
-
-  .panel { display: none; }
-  .panel.active { display: block; }
-
-  .studio-card {
-    background: linear-gradient(160deg, #131c31 0%, #0b1120 100%);
-    border: 2px solid var(--gold);
-    border-radius: 18px;
-    padding: 16px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.65);
-    margin-bottom: 14px;
-  }
-  .card-title { font-size: 18px; font-weight: 900; color: var(--gold); margin-bottom: 4px; }
-  .card-sub { font-size: 12.5px; color: var(--muted); margin-bottom: 12px; line-height: 1.4; }
-
-  .f-label { display: block; font-size: 12px; font-weight: 800; color: var(--blue); margin: 10px 0 5px; }
-  .inp, .sel {
-    width: 100%;
-    padding: 11px 12px;
-    border-radius: 10px;
-    border: 1.5px solid #334155;
-    background: #090d16;
-    color: #fff;
-    font-size: 14px;
-    font-weight: 700;
-    outline: none;
-  }
-  .inp:focus, .sel:focus { border-color: var(--gold); }
-
-  /* STYLE CHIPS */
-  .style-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 8px;
-    margin-top: 6px;
-  }
-  .s-chip {
-    background: #090d16;
-    border: 1.5px solid #334155;
-    border-radius: 10px;
-    padding: 10px 8px;
-    font-size: 12px;
-    font-weight: 800;
-    color: #e2e8f0;
-    cursor: pointer;
-    text-align: left;
-  }
-  .s-chip.active {
-    background: rgba(251, 191, 36, 0.16);
-    border-color: var(--gold);
-    color: #fff;
-  }
-
-  .gen-btn {
-    width: 100%;
-    margin-top: 14px;
-    padding: 13px;
-    border-radius: 12px;
-    border: none;
-    background: linear-gradient(90deg, var(--gold), #f59e0b);
-    color: #000;
-    font-size: 15px;
-    font-weight: 900;
-    cursor: pointer;
-    box-shadow: 0 4px 15px var(--gold-glow);
-  }
-
-  /* REAL AI IMAGE OUTPUT DISPLAY */
-  .ai-canvas {
-    margin-top: 14px;
-    background: #070b14;
-    border: 2px dashed #334155;
-    border-radius: 14px;
-    padding: 12px;
-    text-align: center;
-    min-height: 220px;
+  .brand {
     display: flex;
-    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    font-weight: 900;
+    font-size: 15px;
+    color: #fff;
+  }
+  .logo-circle {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--gold), var(--pink));
+    display: flex;
     align-items: center;
     justify-content: center;
+    font-size: 18px;
+    border: 1.5px solid #fff;
   }
-  .ai-img {
-    width: 100%;
-    max-width: 340px;
-    border-radius: 12px;
-    border: 2px solid var(--gold);
-    box-shadow: 0 8px 25px rgba(0,0,0,0.7);
-    display: none;
-  }
-  .loader {
-    display: none;
-    color: var(--gold);
-    font-weight: 900;
-    font-size: 14px;
-    padding: 30px 10px;
-  }
-  .btn-row {
-    display: flex;
-    gap: 8px;
-    width: 100%;
-    margin-top: 10px;
-  }
-  .sub-btn {
-    flex: 1;
-    padding: 10px;
-    border-radius: 10px;
-    border: none;
-    font-weight: 900;
-    font-size: 12.5px;
-    cursor: pointer;
-    text-decoration: none;
-    text-align: center;
-  }
-  .btn-green { background: var(--green); color: #000; }
-  .btn-pink { background: var(--pink); color: #fff; }
-
-  .prompt-box {
-    background: #070b14;
+  .lang-switch { display: flex; gap: 5px; }
+  .l-btn {
+    background: #1e293b;
+    color: #cbd5e1;
     border: 1px solid #334155;
-    border-radius: 10px;
-    padding: 10px;
-    font-family: monospace;
-    font-size: 12px;
-    color: #34d399;
-    margin-top: 10px;
+    padding: 5px 11px;
+    border-radius: 99px;
+    font-size: 11.5px;
+    font-weight: 800;
+    cursor: pointer;
+  }
+  .l-btn.active {
+    background: var(--gold);
+    color: #000;
+    border-color: #fff;
+  }
+
+  /* CENTER SINGLE CARD */
+  .main-wrap {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+  }
+  .coming-card {
+    width: 100%;
+    max-width: 440px;
+    background: linear-gradient(165deg, #131c31 0%, #0b1120 100%);
+    border: 2px solid var(--gold);
+    border-radius: 24px;
+    padding: 26px 20px;
+    text-align: center;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.75), 0 0 25px rgba(251, 191, 36, 0.15);
+  }
+
+  /* ANIMATED WORK IN PROGRESS ICON */
+  .status-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(251, 191, 36, 0.15);
+    border: 1px solid var(--gold);
+    color: var(--gold);
+    font-size: 11.5px;
+    font-weight: 900;
+    padding: 5px 14px;
+    border-radius: 99px;
+    margin-bottom: 14px;
+    letter-spacing: 0.4px;
+  }
+  .spin-gear {
+    display: inline-block;
+    animation: spin 4s linear infinite;
+  }
+  @keyframes spin { 100% { transform: rotate(360deg); } }
+
+  .main-title {
+    font-size: 24px;
+    font-weight: 900;
+    color: #fff;
+    line-height: 1.25;
+    margin-bottom: 10px;
+  }
+  .main-title span { color: var(--gold); }
+
+  .main-desc {
+    font-size: 14px;
+    color: #cbd5e1;
+    line-height: 1.55;
+    margin-bottom: 18px;
+    font-weight: 500;
+  }
+
+  /* PROGRESS BAR BOX */
+  .progress-box {
+    background: #070b14;
+    border: 1px solid #1e293b;
+    border-radius: 16px;
+    padding: 14px;
+    margin-bottom: 18px;
     text-align: left;
-    line-height: 1.4;
-    max-height: 150px;
-    overflow-y: auto;
+  }
+  .prog-head {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12.5px;
+    font-weight: 800;
+    color: var(--blue);
+    margin-bottom: 8px;
+  }
+  .bar-bg {
+    width: 100%;
+    height: 10px;
+    background: #1e293b;
+    border-radius: 99px;
+    overflow: hidden;
+    margin-bottom: 12px;
+  }
+  .bar-fill {
+    width: 85%;
+    height: 100%;
+    background: linear-gradient(90deg, var(--blue), var(--gold), var(--green));
+    border-radius: 99px;
+  }
+  .check-list {
+    font-size: 12.5px;
+    color: #e2e8f0;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    font-weight: 700;
+  }
+  .check-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 6px 10px;
+    background: rgba(255,255,255,0.03);
+    border-radius: 8px;
+  }
+  .tag-done { color: var(--green); font-size: 11.5px; font-weight: 900; }
+  .tag-work { color: var(--gold); font-size: 11.5px; font-weight: 900; }
+
+  /* SINGLE CLEAR ACTION BUTTON */
+  .insta-btn {
+    display: block;
+    width: 100%;
+    padding: 14px;
+    border-radius: 14px;
+    background: linear-gradient(90deg, var(--gold), #f59e0b);
+    color: #000;
+    font-weight: 900;
+    font-size: 15px;
+    text-decoration: none;
+    box-shadow: 0 5px 20px var(--gold-glow);
+  }
+  .note-sub {
+    font-size: 11.5px;
+    color: var(--muted);
+    margin-top: 10px;
+    font-weight: 600;
   }
 
   footer {
     text-align: center;
+    padding: 12px;
     font-size: 11.5px;
     color: var(--muted);
-    margin-top: 18px;
-    padding: 10px;
+    border-top: 1px solid rgba(255,255,255,0.06);
   }
 </style>
 </head>
@@ -227,11 +218,8 @@
 <!-- TOP BAR -->
 <div class="top-bar">
   <div class="brand">
-    <div class="avatar">👧</div>
-    <div>
-      <h1>Mini Zoya AI Studio</h1>
-      <div class="live-dot"><span class="pulse"></span> <span id="topStatus">100% Real AI Engine Live</span></div>
-    </div>
+    <div class="logo-circle">👧</div>
+    <span>Mini Zoya AI</span>
   </div>
   <div class="lang-switch">
     <button class="l-btn active" onclick="setLang('gu', this)">ગુજરાતી</button>
@@ -240,253 +228,118 @@
   </div>
 </div>
 
-<div class="container">
-  <!-- 3 MAIN MODES -->
-  <div class="mode-tabs">
-    <div class="m-tab active" onclick="switchTab('imgPanel', this)" id="tab1">🎨 1. Live AI ફોટો</div>
-    <div class="m-tab" onclick="switchTab('vidPanel', this)" id="tab2">💃 2. ડાન્સ/ફની વીડિયો</div>
-    <div class="m-tab" onclick="switchTab('sensiPanel', this)" id="tab3">🎯 3. હેડશોટ કોડ</div>
-  </div>
+<!-- SINGLE CLEAN CENTER CARD -->
+<div class="main-wrap">
+  <div class="coming-card">
+    <div class="status-pill">
+      <span class="spin-gear">⚙️</span>
+      <span id="badgeTxt">WORK IN PROGRESS • COMING SOON</span>
+    </div>
 
-  <!-- PANEL 1: REAL LIVE 3D AI IMAGE GENERATOR -->
-  <div id="imgPanel" class="panel active">
-    <div class="studio-card">
-      <div class="card-title" id="p1Title">🎨 Real 3D Gaming Character Generator</div>
-      <p class="card-sub" id="p1Sub">આ ડમી નથી! નીચે તમારું ગેમ નામ લખો અને સ્ટાઈલ પસંદ કરો — અસલી AI તરત જ તમારા માટે નવો 8K 3D ફોટો બનાવશે!</p>
+    <h1 class="main-title" id="titleTxt">
+      Mini Zoya <span>AI Studio</span><br>બહુ જલ્દી આવી રહ્યું છે! 🚀
+    </h1>
 
-      <label class="f-label" id="lblStyle">1. તમારો મનપસંદ Free Fire / PUBG લુક પસંદ કરો:</label>
-      <div class="style-grid">
-        <div class="s-chip active" onclick="pickStyle('cobra', this)">🐍 FF Cobra Bundle 3D</div>
-        <div class="s-chip" onclick="pickStyle('glacier', this)">❄️ BGMI M416 Glacier Suit</div>
-        <div class="s-chip" onclick="pickStyle('dance', this)">💃 Rooftop Squad Dance</div>
-        <div class="s-chip" onclick="pickStyle('funny', this)">😂 Funny Cartoon Comedy</div>
-        <div class="s-chip" onclick="pickStyle('golden', this)">👑 Golden Shade Royal</div>
-        <div class="s-chip" onclick="pickStyle('zoya', this)">👧 With Mini Zoya & Penguin</div>
+    <p class="main-desc" id="descTxt">
+      કેમ છો દોસ્તો! 🙏 અત્યારે અમારી વેબસાઈટ અને અસલી <strong>AI Server</strong> પર કામ ચાલુ છે. Free Fire અને BGMI માટે અસલી AI ટૂલ્સ તૈયાર થઈ રહ્યા છે. કામ પૂરું થતાં જ આ વેબસાઈટ બધા માટે ખુલી જશે!
+    </p>
+
+    <!-- CLEAN LIVE DEVELOPMENT STATUS -->
+    <div class="progress-box">
+      <div class="prog-head">
+        <span id="progLbl">🛠️ વેબસાઈટનું કામ (System Setup):</span>
+        <span>85% Ready</span>
       </div>
+      <div class="bar-bg"><div class="bar-fill"></div></div>
 
-      <label class="f-label" id="lblIgn">2. ફોટો પર લખવા માટે તમારું નામ (Game Name) અથવા આઈડિયા લખો:</label>
-      <input type="text" class="inp" id="userPromptInp" placeholder="તમારું નામ લખો (e.g. RAJ / KANUDO)...">
-
-      <button class="gen-btn" onclick="generateRealImage()" id="genImgBtn">✨ અસલી 3D AI ફોટો બનાવો (Generate Live Image)</button>
-
-      <!-- LIVE AI RENDERING CANVAS -->
-      <div class="ai-canvas">
-        <div id="imgPlaceholder" style="color:var(--muted); font-size:13px;">
-          🖼️ ઉપર બટન દબાવો — તમારો અસલી AI ફોટો 5 સેકન્ડમાં અહીં બનશે!
+      <div class="check-list">
+        <div class="check-item">
+          <span id="item1">👧 Mini Zoya 3D AI Character</span>
+          <span class="tag-done">✅ LIVE</span>
         </div>
-        <div id="imgLoader" class="loader">
-          ⚡ Mini Zoya AI તમારો 8K 3D ફોટો બનાવી રહ્યું છે... (3–5 સેકન્ડ રાહ જુઓ)
+        <div class="check-item">
+          <span id="item2">🎨 Real AI Photo & Video Engine</span>
+          <span class="tag-work" id="st2">⚙️ કામ ચાલુ છે...</span>
         </div>
-        <img id="realAiImg" class="ai-img" alt="Mini Zoya Real AI Output">
-        <div id="imgActions" class="btn-row" style="display:none;">
-          <a id="downloadImgBtn" href="#" target="_blank" class="sub-btn btn-green">⬇️ Download Full HD</a>
-          <button class="sub-btn btn-pink" onclick="generateRealImage()">🔄 નવો ફોટો (Regenerate)</button>
+        <div class="check-item">
+          <span id="item3">🎮 Free Fire & BGMI Pro AI Chat</span>
+          <span class="tag-work" id="st3">⏳ Coming Soon</span>
         </div>
       </div>
     </div>
-  </div>
 
-  <!-- PANEL 2: VIRAL DANCE & FUNNY VIDEO STUDIO -->
-  <div id="vidPanel" class="panel">
-    <div class="studio-card">
-      <div class="card-title" id="p2Title">💃 Viral 3D Dance & Comedy Video Studio</div>
-      <p class="card-sub" id="p2Sub">Free Fire અને BGMI ના કેરેક્ટર પાસે ટ્રેન્ડિંગ ડાન્સ કે કોમેડી વીડિયો બનાવવા માટે નીચેથી સીન પસંદ કરો!</p>
-
-      <label class="f-label">1. કેવો વીડિયો બનાવવો છે? (Select Video Scene):</label>
-      <select class="sel" id="vidSceneSelect" onchange="updateVideoPrompt()">
-        <option value="rooftop">💃 1. Rooftop Group Hip-Hop Dance (છત પર ગ્રુપ ડાન્સ)</option>
-        <option value="beach">🏖️ 2. Beach Pier Funny Squad Dance (દરિયા કિનારે ફની ડાન્સ)</option>
-        <option value="moon">🌕 3. Moon & Supercar Disco Dance (ચાંદ પર ડિસ્કો ડાન્સ)</option>
-        <option value="comedy">😂 4. Funny Pan Fight & Penguin Comedy (ફની કોમેडी સીન)</option>
-      </select>
-
-      <label class="f-label">2. કેરેક્ટરનું નામ / આઉટફિટ (Optional):</label>
-      <input type="text" class="inp" id="vidCharInp" placeholder="e.g. Mini Zoya, Cobra Bundle & Glacier X-Suit" oninput="updateVideoPrompt()">
-
-      <label class="f-label">📋 100% Ready AI Video Master Prompt:</label>
-      <div class="prompt-box" id="vidPromptBox"></div>
-
-      <div class="btn-row">
-        <button class="sub-btn btn-green" onclick="copyVidPrompt()">📋 1-Click Copy Prompt</button>
-        <a href="https://labs.google/fx/tools/video-fx" target="_blank" class="sub-btn btn-pink">🎬 Open Free Video AI ➔</a>
-      </div>
-      <p style="font-size:11.5px; color:var(--gold); margin-top:10px;">💡 <strong>રીત:</strong> 1. પહેલા "Live AI ફોટો" માંથી તમારો 3D ફોટો ડાઉનલોડ કરો. 2. આ પ્રોમ્પ્ટ કોપી કરીને Google Flow / Hailuo AI / CapCut AI માં પેસ્ટ કરો!</p>
+    <a href="https://instagram.com/minizoyaofficial" target="_blank" class="insta-btn" id="btnTxt">
+      👑 Follow @minizoyaofficial (અપડેટ માટે)
+    </a>
+    <div class="note-sub" id="noteTxt">
+      🔔 વેબસાઈટ ચાલુ થવાની જાહેરાત અમારી Instagram Reel માં કરવામાં આવશે!
     </div>
   </div>
-
-  <!-- PANEL 3: PRO HEADSHOT & 19-DIGIT CODE -->
-  <div id="sensiPanel" class="panel">
-    <div class="studio-card">
-      <div class="card-title" id="p3Title">🎯 2026 Pro Headshot & Zero-Recoil Code</div>
-      <p class="card-sub">તમારા ફોનની RAM પસંદ કરો અને સીધો કોડ કોપી કરો:</p>
-
-      <select class="sel" id="ramSel" onchange="showQuickSensi()">
-        <option value="4gb">4GB RAM (Vivo / Redmi / Realme / POCO)</option>
-        <option value="6gb">6GB RAM (Vivo T4x / Samsung / Realme)</option>
-        <option value="8gb">8GB RAM (Redmi Note 14 Pro / POCO X6 / iQOO)</option>
-        <option value="2gb">2GB / 3GB RAM (Budget Phone Special)</option>
-        <option value="12gb">12GB RAM (120 FPS Pro Esports)</option>
-      </select>
-
-      <div class="prompt-box" id="quickSensiBox" style="font-size:13px; color:#fff;"></div>
-      <button class="gen-btn" onclick="copyQuickCode()">📋 1-Click Copy BGMI 19-Digit Code</button>
-    </div>
-  </div>
-
-  <a href="https://instagram.com/minizoyaofficial" target="_blank" style="display:block; text-align:center; padding:12px; border-radius:12px; background:linear-gradient(90deg,#f43f5e,#fbbf24); color:#000; font-weight:900; font-size:14px; text-decoration:none;">👑 Follow @minizoyaofficial on Instagram ➔</a>
 </div>
 
 <footer>
-  <div>❤️ Powered by <strong>Mini Zoya AI Studio (@minizoyaofficial)</strong></div>
-  <div style="margin-top:3px;">100% Real Live AI Generation • Free Forever for Indian Gamers</div>
+  Official Website of <strong>@minizoyaofficial</strong> • 100% Real AI Project
 </footer>
 
 <script>
-let selectedStyle = 'cobra';
-
-const stylePrompts = {
-  cobra: "Ultra-HD 8K 3D Pixar and Unreal Engine 5 gaming character wearing Free Fire Predatory Cobra red and black neon glowing bundle, holding glowing Cobra MP40, standing in a heroic esports pose",
-  glacier: "Ultra-HD 8K 3D Unreal Engine 5 BGMI character wearing icy blue Mythic Glacier X-Suit armor with glowing frost crown, holding Level 8 M416 Glacier crystal rifle, snow particles",
-  dance: "Full Shot 9:16 vertical 8K 3D CGI animation still of Free Fire and BGMI characters performing a synchronized high-energy hip-hop rooftop dance above a tropical battle royale island, sunny sky",
-  funny: "Hilarious 3D Pixar style gaming comedy scene, cute Indian gaming character laughing on a rooftop with a cute 3D ninja penguin and funny mascot wearing sunglasses, vibrant colors",
-  golden: "Ultra-HD 8K 3D royal gaming character wearing metallic black and gold Evo Golden Shade armor with glowing golden wings aura, holding M1887 shotgun",
-  zoya: "Cute 3D Pixar-style young Indian girl Mini Zoya wearing half-white and half-light-blue denim outfit with RGB gaming headphones, standing with a cute 3D ninja penguin in a futuristic gaming lab"
-};
-
-function switchTab(id, tabEl) {
-  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
-  document.querySelectorAll('.m-tab').forEach(t => t.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
-  tabEl.classList.add('active');
-}
-
-function pickStyle(s, chipEl) {
-  selectedStyle = s;
-  document.querySelectorAll('.s-chip').forEach(c => c.classList.remove('active'));
-  chipEl.classList.add('active');
-}
-
-function generateRealImage() {
-  const userText = document.getElementById('userPromptInp').value.trim() || "PRO GAMER";
-  const basePrompt = stylePrompts[selectedStyle];
-  const seed = Math.floor(10000 + Math.random() * 900000);
-  const fullPrompt = `${basePrompt}, with bold glowing 3D gaming badge text "${userText.toUpperCase()}", cinematic studio lighting, vertical 9:16 portrait, masterpiece`;
-
-  const imgUrl = `https://image.pollinations.ai/prompt/${encodeURIComponent(fullPrompt)}?width=720&height=1280&seed=${seed}&nologo=true`;
-
-  const imgEl = document.getElementById('realAiImg');
-  const loader = document.getElementById('imgLoader');
-  const placeholder = document.getElementById('imgPlaceholder');
-  const actions = document.getElementById('imgActions');
-
-  placeholder.style.display = 'none';
-  imgEl.style.display = 'none';
-  actions.style.display = 'none';
-  loader.style.display = 'block';
-
-  imgEl.onload = function() {
-    loader.style.display = 'none';
-    imgEl.style.display = 'block';
-    actions.style.display = 'flex';
-    document.getElementById('downloadImgBtn').href = imgUrl;
-  };
-  imgEl.onerror = function() {
-    loader.innerText = "⚠️ સર્વર બિઝી છે, ફરીથી Generate બટન દબાવો!";
-  };
-  imgEl.src = imgUrl;
-}
-
-function updateVideoPrompt() {
-  const scene = document.getElementById('vidSceneSelect').value;
-  const chars = document.getElementById('vidCharInp').value.trim() || "Mini Zoya, Free Fire Cobra Bundle, and BGMI Glacier X-Suit characters";
-
-  const scenes = {
-    rooftop: `Full Shot, 9:16 Vertical Aspect Ratio, 8K Ultra HD, Unreal Engine 5 Render, 3D CGI Animation: A dynamic group dance scene featuring ${chars} lined up on a high modern rooftop overlooking a green battle royale forest map, performing a synchronized high-energy trending hip-hop TikTok dance. CAMERA & LIGHTING: Smooth low-angle tracking shot orbiting from left to right around the group, bright daylight directional highlights, 100% character consistency.`,
-    beach: `Full Shot, 9:16 Vertical Aspect Ratio, 8K Ultra HD, Unreal Engine 5 Render, 3D CGI Animation: A hilarious and energetic group dance circle on a wooden beach pier by crystal blue tropical water featuring ${chars} performing a funny viral dance choreography together. CAMERA & LIGHTING: Dynamic tracking shot, tropical sunlight reflections, crisp 3D textures.`,
-    moon: `Full Shot, 9:16 Vertical Aspect Ratio, 8K Ultra HD, Unreal Engine 5 Render, 3D CGI Animation: A cinematic group dance scene on the Moon surface with a glowing futuristic supercar parked nearby and Earth glowing in the dark sky, featuring ${chars} performing a synchronized hip-hop dance. High-contrast studio space lighting.`,
-    comedy: `Full Shot, 9:16 Vertical Aspect Ratio, 8K Ultra HD, 3D Pixar & Unreal Engine 5 Animation: A funny gaming comedy scene featuring ${chars} with a cute 3D ninja penguin doing a hilarious victory dance while holding a golden frying pan, expressive funny faces, vibrant studio lighting.`
-  };
-
-  document.getElementById('vidPromptBox').innerText = scenes[scene];
-}
-
-function copyVidPrompt() {
-  const txt = document.getElementById('vidPromptBox').innerText;
-  navigator.clipboard.writeText(txt);
-  alert("✅ AI Video Prompt કોપી થઈ ગયો! હવે તમારા AI Video App માં પેસ્ટ કરો!");
-}
-
-const sensiMap = {
-  "2gb": { ff: "General: 196 | Red Dot: 192 | 2x: 186 | 4x: 180 | Fire Btn: 42% | Safe DPI: 400", code: "7285-1061-6808-4288-454" },
-  "4gb": { ff: "General: 184 | Red Dot: 180 | 2x: 174 | 4x: 164 | Fire Btn: 47% | Safe DPI: 440", code: "7309-1086-6844-4312-478" },
-  "6gb": { ff: "General: 175 | Red Dot: 170 | 2x: 166 | 4x: 158 | Fire Btn: 46% | Safe DPI: 540", code: "7298-1074-6823-4301-468" },
-  "8gb": { ff: "General: 162 | Red Dot: 156 | 2x: 158 | 4x: 148 | Fire Btn: 45% | Safe DPI: 560", code: "7321-1098-6857-4329-491" },
-  "12gb":{ ff: "General: 148 | Red Dot: 142 | 2x: 146 | 4x: 138 | Fire Btn: 42% | Safe DPI: 610", code: "7307-2094-8821-5315-120" }
-};
-
-function showQuickSensi() {
-  const r = document.getElementById('ramSel').value;
-  const d = sensiMap[r];
-  document.getElementById('quickSensiBox').innerHTML = `
-    <div style="color:var(--gold); font-weight:900;">🔥 Free Fire MAX (0–200 Scale):</div>
-    <div style="margin-bottom:8px;">${d.ff}</div>
-    <div style="color:#38bdf8; font-weight:900;">🪖 BGMI 2026 Zero-Recoil 19-Digit Code:</div>
-    <div style="font-size:16px; color:#34d399; font-weight:900; margin-top:2px;">${d.code}</div>
-  `;
-}
-
-function copyQuickCode() {
-  const r = document.getElementById('ramSel').value;
-  const c = sensiMap[r].code;
-  navigator.clipboard.writeText(c);
-  alert("✅ BGMI Code કોપી થઈ ગયો: " + c);
-}
-
-const langDict = {
+const copy = {
   gu: {
-    tab1: "🎨 1. Live AI ફોટો",
-    tab2: "💃 2. ડાન્સ/ફની વીડિયો",
-    tab3: "🎯 3. હેડશોટ કોડ",
-    p1Title: "🎨 Real 3D Gaming Character Generator",
-    p1Sub: "આ ડમી નથી! નીચે તમારું ગેમ નામ લખો અને સ્ટાઈલ પસંદ કરો — અસલી AI તરત જ તમારા માટે નવો 8K 3D ફોટો બનાવશે!",
-    lblStyle: "1. તમારો મનપસંદ Free Fire / PUBG લુક પસંદ કરો:",
-    lblIgn: "2. ફોટો પર લખવા માટે તમારું નામ (Game Name) લખો:",
-    genImgBtn: "✨ અસલી 3D AI ફોટો બનાવો (Generate Live Image)"
+    badgeTxt: "WORK IN PROGRESS • COMING SOON",
+    titleTxt: "Mini Zoya <span>AI Studio</span><br>બહુ જલ્દી આવી રહ્યું છે! 🚀",
+    descTxt: "કેમ છો દોસ્તો! 🙏 અત્યારે અમારી વેબસાઈટ અને અસલી <strong>AI Server</strong> પર કામ ચાલુ છે. Free Fire અને BGMI માટે અસલી AI ટૂલ્સ તૈયાર થઈ રહ્યા છે. કામ પૂરું થતાં જ આ વેબસાઈટ બધા માટે ખુલી જશે!",
+    progLbl: "🛠️ વેબસાઈટનું કામ (System Setup):",
+    item1: "👧 Mini Zoya 3D AI Character",
+    item2: "🎨 Real AI Photo & Video Engine",
+    item3: "🎮 Free Fire & BGMI Pro AI Chat",
+    st2: "⚙️ કામ ચાલુ છે...",
+    st3: "⏳ Coming Soon",
+    btnTxt: "👑 Follow @minizoyaofficial (અપડેટ માટે)",
+    noteTxt: "🔔 વેબસાઈટ ચાલુ થવાની જાહેરાત અમારી Instagram Reel માં કરવામાં આવશે!"
   },
   hi: {
-    tab1: "🎨 1. Live AI फोटो",
-    tab2: "💃 2. डांस/फनी वीडियो",
-    tab3: "🎯 3. हेडशॉट कोड",
-    p1Title: "🎨 Real 3D Gaming Character Generator",
-    p1Sub: "यह डमी नहीं है! नीचे अपना गेम नाम लिखें और स्टाइल चुनें — असली AI तुरंत आपके लिए नया 8K 3D फोटो बनाएगा!",
-    lblStyle: "1. अपना मनपसंद Free Fire / PUBG लुक चुनें:",
-    lblIgn: "2. फोटो पर लिखने के लिए अपना नाम (Game Name) लिखें:",
-    genImgBtn: "✨ असली 3D AI फोटो बनाएं (Generate Live Image)"
+    badgeTxt: "अभी काम चालू है • COMING SOON",
+    titleTxt: "Mini Zoya <span>AI Studio</span><br>बहुत जल्द खुलने वाला है! 🚀",
+    descTxt: "केम छो दोस्तों! 🙏 अभी हमारी वेबसाइट और असली <strong>AI Server</strong> पर काम चल रहा है। Free Fire और BGMI के लिए असली AI टूल्स तैयार हो रहे हैं। काम पूरा होते ही यह वेबसाइट सबके लिए खुल जाएगी!",
+    progLbl: "🛠️ वेबसाइट का काम (System Setup):",
+    item1: "👧 Mini Zoya 3D AI Character",
+    item2: "🎨 Real AI Photo & Video Engine",
+    item3: "🎮 Free Fire & BGMI Pro AI Chat",
+    st2: "⚙️ काम चालू है...",
+    st3: "⏳ Coming Soon",
+    btnTxt: "👑 Follow @minizoyaofficial (अपडेट के लिए)",
+    noteTxt: "🔔 वेबसाइट चालू होने की जानकारी हमारी Instagram Reel में दी जाएगी!"
   },
   en: {
-    tab1: "🎨 1. Live AI Image",
-    tab2: "💃 2. Dance/Funny Video",
-    tab3: "🎯 3. Headshot Code",
-    p1Title: "🎨 Real 3D Gaming Character Generator",
-    p1Sub: "100% Real AI! Type your Game Name and pick a style below — our live AI engine generates a unique 8K 3D image in seconds!",
-    lblStyle: "1. Choose Your Free Fire / BGMI 3D Style:",
-    lblIgn: "2. Enter Your Game Name for the 3D Image:",
-    genImgBtn: "✨ Generate Real 3D AI Image Now"
+    badgeTxt: "WORK IN PROGRESS • COMING SOON",
+    titleTxt: "Mini Zoya <span>AI Studio</span><br>is Launching Soon! 🚀",
+    descTxt: "Hello Gamers! 🙏 Our team is currently building and upgrading the real <strong>AI Server</strong> for Free Fire & BGMI players. The platform will open to everyone as soon as the setup is complete!",
+    progLbl: "🛠️ Server Build Progress:",
+    item1: "👧 Mini Zoya 3D AI Character",
+    item2: "🎨 Real AI Photo & Video Engine",
+    item3: "🎮 Free Fire & BGMI Pro AI Chat",
+    st2: "⚙️ Building...",
+    st3: "⏳ Coming Soon",
+    btnTxt: "👑 Follow @minizoyaofficial for Launch",
+    noteTxt: "🔔 Official launch date will be announced on our Instagram Reels!"
   }
 };
 
 function setLang(l, btn) {
   document.querySelectorAll('.l-btn').forEach(b => b.classList.remove('active'));
   btn.classList.add('active');
-  const d = langDict[l];
-  Object.keys(d).forEach(k => {
-    const el = document.getElementById(k);
-    if (el) el.innerText = d[k];
-  });
+  const d = copy[l];
+  document.getElementById('badgeTxt').innerText = d.badgeTxt;
+  document.getElementById('titleTxt').innerHTML = d.titleTxt;
+  document.getElementById('descTxt').innerHTML = d.descTxt;
+  document.getElementById('progLbl').innerText = d.progLbl;
+  document.getElementById('item1').innerText = d.item1;
+  document.getElementById('item2').innerText = d.item2;
+  document.getElementById('item3').innerText = d.item3;
+  document.getElementById('st2').innerText = d.st2;
+  document.getElementById('st3').innerText = d.st3;
+  document.getElementById('btnTxt').innerText = d.btnTxt;
+  document.getElementById('noteTxt').innerText = d.noteTxt;
 }
-
-updateVideoPrompt();
-showQuickSensi();
 </script>
 </body>
 </html>

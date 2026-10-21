@@ -3,49 +3,80 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mini Zoya - Coming Soon</title>
+    <title>Mini Zoya - 3D Gaming Lab</title>
     <style>
-        body { margin: 0; overflow: hidden; background-color: #87CEEB; } /* आसमान का रंग */
-        #info {
-            position: absolute; top: 20px; width: 100%;
-            text-align: center; color: white; font-family: Arial, sans-serif;
-            font-size: 24px; font-weight: bold; text-shadow: 2px 2px 4px #000;
-        }
+        body { margin: 0; overflow: hidden; background-color: #87CEEB; }
+        #ui-container { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; display: flex; flex-direction: column; justify-content: center; align-items: center; z-index: 10; }
+        h1 { color: #fff; font-family: 'Impact', sans-serif; font-size: 3rem; text-shadow: 2px 2px 5px #000; margin: 0; text-align: center; }
+        .coming-soon { color: #ffeb3b; font-size: 2rem; margin-top: 10px; }
+        #loading { color: white; font-family: Arial, sans-serif; margin-top: 20px; font-weight: bold; background: rgba(0,0,0,0.6); padding: 10px 20px; border-radius: 10px; }
     </style>
-    <!-- Three.js और Camera Controls के CDN लिंक्स -->
+    <!-- Three.js और ज़रूरी लोडर्स -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
 </head>
 <body>
-    <!-- Coming Soon टेक्स्ट -->
-    <div id="info">MINI ZOYA GAMING LAB<br>🔥 Coming Soon 🔥</div>
+    <div id="ui-container">
+        <h1>Mini Zoya Gaming Lab</h1>
+        <h1 class="coming-soon">🔥 Coming Soon 🔥</h1>
+        <div id="loading">🎮 3D Model लोड हो रहा है, कृपया प्रतीक्षा करें...</div>
+    </div>
 
     <script>
-        // 1. 3D सीन और कैमरा सेटअप
+        // 1. 3D सीन और कैमरा
         const scene = new THREE.Scene();
-        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-        camera.position.set(0, 5, 10); // कैमरे की ऊँचाई और दूरी
+        scene.background = new THREE.Color('#87CEEB'); // असली आसमान का रंग
+        scene.fog = new THREE.FogExp2('#87CEEB', 0.015); // दूर के नज़ारे के लिए असली कोहरा (Fog)
 
-        const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+        const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
+        camera.position.set(0, 100, 250);
+
+        const renderer = new THREE.WebGLRenderer({ antialias: true });
         renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.outputEncoding = THREE.sRGBEncoding; // असली रंगों के लिए
+        renderer.shadowMap.enabled = true; // परछाई ऑन
         document.body.appendChild(renderer.domElement);
 
-        // 2. 360° घुमाने के लिए कंट्रोल्स
         const controls = new THREE.OrbitControls(camera, renderer.domElement);
-        controls.enableDamping = true; // घुमाने में असली गेम जैसी स्मूथनेस
+        controls.enableDamping = true;
+        controls.maxPolarAngle = Math.PI / 2 - 0.01; // ज़मीन के नीचे कैमरा जाने से रोकना
 
-        // 3. रोशनी (Lighting - असली 3D इफ़ेक्ट के लिए)
-        const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
-        scene.add(ambientLight);
-        const directionalLight = new THREE.DirectionalLight(0xffffff, 0.8);
-        directionalLight.position.set(10, 20, 10);
-        scene.add(directionalLight);
+        // 2. गेम जैसी असली रोशनी (Lighting)
+        const hemiLight = new THREE.HemisphereLight(0xffffff, 0x444444, 0.6);
+        hemiLight.position.set(0, 200, 0);
+        scene.add(hemiLight);
 
-        // 4. ज़मीन (अस्थायी ग्रिड, जिसे बाद में असली घास से बदलेंगे)
-        const gridHelper = new THREE.GridHelper(50, 50, 0x000000, 0xffffff);
-        scene.add(gridHelper);
+        const dirLight = new THREE.DirectionalLight(0xffffff, 0.8);
+        dirLight.position.set(100, 200, 100);
+        dirLight.castShadow = true;
+        scene.add(dirLight);
 
-        // 5. एनिमेशन लूप (ताकि सीन लगातार रेंडर होता रहे)
+        // 3. 3D ज़मीन (घास के रंग की)
+        const groundMesh = new THREE.Mesh(
+            new THREE.PlaneGeometry(2000, 2000),
+            new THREE.MeshStandardMaterial({ color: 0x3d5a15, roughness: 0.9 })
+        );
+        groundMesh.rotation.x = -Math.PI / 2;
+        groundMesh.receiveShadow = true;
+        scene.add(groundMesh);
+
+        // 4. असली 3D मॉडल लोड करना (.glb)
+        const loader = new THREE.GLTFLoader();
+        // यहाँ आप बाद में Mini Zoya या Free Fire बिल्डिंग का लिंक डालेंगे
+        const modelUrl = 'https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Models/master/2.0/Fox/glTF-Binary/Fox.glb';
+
+        loader.load(modelUrl, function(gltf) {
+            const model = gltf.scene;
+            model.traverse(function(node) {
+                if (node.isMesh) { node.castShadow = true; } // मॉडल की परछाई
+            });
+            model.scale.set(2, 2, 2); 
+            scene.add(model);
+            document.getElementById('loading').style.display = 'none'; // लोडिंग टेक्स्ट हटाना
+        });
+
+        // 5. एनिमेशन लूप
         function animate() {
             requestAnimationFrame(animate);
             controls.update();
@@ -53,7 +84,7 @@
         }
         animate();
 
-        // स्क्रीन साइज़ बदलने पर कैमरा एडजस्ट करना
+        // स्क्रीन रोटेट करने पर फिक्स
         window.addEventListener('resize', () => {
             camera.aspect = window.innerWidth / window.innerHeight;
             camera.updateProjectionMatrix();

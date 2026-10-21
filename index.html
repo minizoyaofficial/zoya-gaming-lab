@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>Mini Zoya Official | Coming Soon</title>
+<title>Mini Zoya Studio | Free Fire 3D Map Diorama (Coming Soon)</title>
 
 <script type="importmap">
 {
@@ -16,13 +16,14 @@
 
 <style>
   :root {
-    --bg: #05070e;
-    --glass: rgba(10, 14, 26, 0.84);
+    --bg: #070911;
+    --glass: rgba(12, 17, 30, 0.86);
+    --glass-border: rgba(251, 191, 36, 0.38);
     --gold: #fbbf24;
+    --orange: #f97316;
     --cyan: #00f2fe;
     --pink: #f43f5e;
     --green: #10b981;
-    --orange: #ff5e00;
     --text: #f8fafc;
     --muted: #94a3b8;
   }
@@ -44,11 +45,11 @@
     flex-direction: column;
   }
 
-  /* TOP HEADER WITH OFFICIAL LOGO & SETTINGS */
+  /* 1. TOP HEADER (NO NUMBERS) */
   .top-header {
-    height: 54px;
-    background: rgba(5, 7, 14, 0.94);
-    border-bottom: 1.5px solid rgba(251, 191, 36, 0.4);
+    height: 52px;
+    background: rgba(7, 9, 17, 0.95);
+    border-bottom: 1.5px solid var(--glass-border);
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -59,45 +60,40 @@
   .brand-logo {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 9px;
   }
   .logo-emblem {
-    width: 36px;
-    height: 36px;
-    border-radius: 10px;
+    width: 34px;
+    height: 34px;
+    border-radius: 9px;
     background: linear-gradient(135deg, var(--gold), var(--orange), var(--pink));
     padding: 2px;
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: 0 0 14px rgba(251, 191, 36, 0.5);
+    box-shadow: 0 0 12px rgba(251, 191, 36, 0.45);
   }
   .logo-inner {
     width: 100%;
     height: 100%;
     background: #080c18;
-    border-radius: 8px;
+    border-radius: 7px;
     display: flex;
     align-items: center;
     justify-content: center;
     font-weight: 900;
-    font-size: 13px;
+    font-size: 12.5px;
     color: var(--gold);
-    letter-spacing: 0.5px;
-  }
-  .brand-titles {
-    display: flex;
-    flex-direction: column;
   }
   .b-name {
-    font-size: 14px;
+    font-size: 13.5px;
     font-weight: 900;
-    color: #ffffff;
-    letter-spacing: 0.5px;
+    color: #fff;
+    letter-spacing: 0.4px;
     line-height: 1.1;
   }
   .b-tag {
-    font-size: 10px;
+    font-size: 9.5px;
     font-weight: 800;
     color: var(--cyan);
     margin-top: 2px;
@@ -120,7 +116,7 @@
     border: none;
     background: transparent;
     color: #cbd5e1;
-    font-size: 10.5px;
+    font-size: 10px;
     font-weight: 800;
     padding: 4px 8px;
     border-radius: 99px;
@@ -130,25 +126,12 @@
     background: var(--gold);
     color: #000;
   }
-  .settings-btn {
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    background: #111827;
-    border: 1px solid rgba(251, 191, 36, 0.5);
-    color: var(--gold);
-    font-size: 15px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-  }
 
-  /* COMING SOON BANNER (NO NUMBERS) */
+  /* 2. COMING SOON STATUS BAR */
   .coming-banner {
-    background: linear-gradient(90deg, rgba(255, 94, 0, 0.2), rgba(10, 14, 26, 0.95), rgba(0, 242, 254, 0.2));
-    border-bottom: 1.5px solid var(--gold);
-    padding: 7px 14px;
+    background: linear-gradient(90deg, rgba(249, 115, 22, 0.18), rgba(12, 17, 30, 0.96), rgba(0, 242, 254, 0.18));
+    border-bottom: 1px solid var(--glass-border);
+    padding: 6px 12px;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -159,74 +142,28 @@
     display: inline-flex;
     align-items: center;
     gap: 6px;
-    background: linear-gradient(90deg, var(--gold), #f59e0b);
+    background: linear-gradient(90deg, var(--gold), var(--orange));
     color: #000;
-    font-size: 10.5px;
+    font-size: 10px;
     font-weight: 900;
     padding: 3px 10px;
     border-radius: 99px;
-    letter-spacing: 0.4px;
-    box-shadow: 0 0 12px rgba(251, 191, 36, 0.45);
+    box-shadow: 0 0 10px rgba(251, 191, 36, 0.4);
   }
   .pulse-dot {
-    width: 7px;
-    height: 7px;
-    background: #10b981;
+    width: 6px;
+    height: 6px;
+    background: #064e3b;
     border-radius: 50%;
-    box-shadow: 0 0 8px #10b981;
   }
   .cs-text {
-    font-size: 11.5px;
+    font-size: 11px;
     font-weight: 800;
     color: #f8fafc;
   }
 
-  /* SETTINGS MODAL DRAWER */
-  .settings-panel {
-    position: absolute;
-    top: 98px;
-    right: 12px;
-    background: rgba(10, 14, 26, 0.95);
-    backdrop-filter: blur(14px);
-    border: 1.5px solid var(--gold);
-    border-radius: 14px;
-    padding: 12px;
-    z-index: 120;
-    display: none;
-    flex-direction: column;
-    gap: 8px;
-    width: 210px;
-    box-shadow: 0 12px 30px rgba(0,0,0,0.8);
-  }
-  .settings-panel.open { display: flex; }
-  .set-title {
-    font-size: 11.5px;
-    font-weight: 900;
-    color: var(--gold);
-    border-bottom: 1px solid #1e293b;
-    padding-bottom: 5px;
-  }
-  .set-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-size: 11px;
-    font-weight: 800;
-    color: #e2e8f0;
-  }
-  .set-toggle {
-    background: #1e293b;
-    border: 1px solid var(--cyan);
-    color: var(--cyan);
-    padding: 4px 10px;
-    border-radius: 99px;
-    font-size: 10px;
-    font-weight: 900;
-    cursor: pointer;
-  }
-
-  /* MAIN IN-GAME BATTLEGROUNDS VIEWPORT */
-  .game-stage {
+  /* 3. MAIN 3D DIORAMA STAGE */
+  .diorama-stage {
     position: relative;
     flex: 1;
     width: 100%;
@@ -238,157 +175,181 @@
     height: 100%;
   }
 
-  /* LOADING SCREEN (NO NUMBERS) */
-  .loading-overlay {
-    position: absolute;
-    inset: 0;
-    background: radial-gradient(circle at center, #1b2436 0%, #05070e 100%);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    z-index: 80;
-    transition: opacity 0.45s ease;
-  }
-  .loader-emblem {
-    width: 56px;
-    height: 56px;
-    border-radius: 16px;
-    background: linear-gradient(135deg, var(--gold), var(--orange), var(--pink));
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: 900;
-    font-size: 22px;
-    color: #000;
-    margin-bottom: 12px;
-    box-shadow: 0 0 25px rgba(251, 191, 36, 0.5);
-  }
-  .loader-title {
-    font-size: 15px;
-    font-weight: 900;
-    color: var(--gold);
-    margin-bottom: 10px;
-    letter-spacing: 0.6px;
-  }
-  .loader-bar-wrap {
-    width: 210px;
-    height: 7px;
-    background: #1e293b;
-    border-radius: 99px;
-    overflow: hidden;
-    border: 1px solid rgba(251, 191, 36, 0.45);
-  }
-  .loader-bar-fill {
-    width: 30%;
-    height: 100%;
-    background: linear-gradient(90deg, var(--cyan), var(--gold));
-    transition: width 0.25s ease;
-  }
-  .loader-sub {
-    font-size: 11px;
-    color: var(--muted);
-    margin-top: 8px;
-    font-weight: 700;
-  }
-
-  /* FLOATING IN-GAME LOGO WATERMARK */
-  .ingame-watermark {
+  /* TOP-LEFT MAP TITLE OVERLAY (TAJ MAHAL VIDEO STYLE) */
+  .map-title-card {
     position: absolute;
     top: 10px;
-    left: 12px;
+    left: 10px;
     background: var(--glass);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(251, 191, 36, 0.4);
+    backdrop-filter: blur(12px);
+    border: 1px solid var(--glass-border);
     border-left: 3.5px solid var(--gold);
-    border-radius: 10px;
-    padding: 6px 12px;
+    border-radius: 12px;
+    padding: 8px 12px;
+    z-index: 25;
     pointer-events: none;
-    z-index: 20;
+    max-width: 215px;
   }
-  .wm-title {
-    font-size: 11.5px;
+  .mt-tag {
+    font-size: 9px;
     font-weight: 900;
     color: var(--gold);
-    letter-spacing: 0.4px;
+    letter-spacing: 0.6px;
+    text-transform: uppercase;
   }
-  .wm-sub {
+  .mt-name {
+    font-size: 14px;
+    font-weight: 900;
+    color: #fff;
+    margin: 2px 0;
+  }
+  .mt-sub {
     font-size: 10px;
-    color: #e2e8f0;
+    color: #cbd5e1;
     font-weight: 700;
-    margin-top: 1px;
   }
 
-  /* TOUCH HINT PILL (NO NUMBERS) */
+  /* TOP-RIGHT ARCHITECTURAL / ZONE INFO CARD (LIKE TAJ MAHAL VIDEO) */
+  .zone-info-card {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 195px;
+    background: var(--glass);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(0, 242, 254, 0.4);
+    border-radius: 12px;
+    padding: 9px 11px;
+    z-index: 25;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.6);
+  }
+  .zi-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 4px;
+  }
+  .zi-badge {
+    font-size: 9px;
+    font-weight: 900;
+    color: var(--cyan);
+    text-transform: uppercase;
+  }
+  .zi-next {
+    background: rgba(251, 191, 36, 0.2);
+    border: 1px solid var(--gold);
+    color: var(--gold);
+    font-size: 9.5px;
+    font-weight: 900;
+    padding: 2px 7px;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+  .zi-title {
+    font-size: 12.5px;
+    font-weight: 900;
+    color: #fff;
+    margin-bottom: 3px;
+  }
+  .zi-desc {
+    font-size: 10px;
+    color: #cbd5e1;
+    line-height: 1.35;
+    font-weight: 600;
+  }
+
+  /* FLOATING GESTURE HINT */
   .gesture-pill {
     position: absolute;
     bottom: 8px;
     left: 50%;
     transform: translateX(-50%);
-    background: rgba(5, 7, 14, 0.85);
-    border: 1px solid rgba(0, 242, 254, 0.4);
-    color: #bae6fd;
-    padding: 5px 14px;
+    background: rgba(7, 9, 17, 0.86);
+    border: 1px solid rgba(251, 191, 36, 0.4);
+    color: #fde68a;
+    padding: 4px 12px;
     border-radius: 99px;
-    font-size: 10.5px;
+    font-size: 10px;
     font-weight: 800;
     white-space: nowrap;
     pointer-events: none;
-    z-index: 20;
+    z-index: 25;
   }
 
-  /* CLEAN BOTTOM DOCK (NO NUMBERS) */
+  /* 4. BOTTOM DIORAMA CONTROL DOCK (TAJ MAHAL VIDEO STYLE) */
   .bottom-dock {
-    background: rgba(6, 9, 18, 0.98);
-    border-top: 1.5px solid rgba(251, 191, 36, 0.4);
-    padding: 9px 12px 11px;
+    background: rgba(8, 11, 21, 0.98);
+    border-top: 1.5px solid var(--glass-border);
+    padding: 8px 10px 10px;
     z-index: 100;
     flex-shrink: 0;
   }
   .dock-inner {
-    max-width: 500px;
+    max-width: 520px;
     margin: 0 auto;
     display: flex;
     flex-direction: column;
-    gap: 7px;
-  }
-  .mode-tabs {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
     gap: 6px;
   }
-  .m-tab {
+
+  /* ROW 1: MAP ZONE CAMERA FLIGHT TABS */
+  .zone-tabs {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 5px;
+  }
+  .z-tab {
     background: #141c2f;
-    border: 1px solid #334155;
+    border: 1px solid #2e3b52;
     color: #cbd5e1;
-    padding: 9px 4px;
-    border-radius: 10px;
-    font-size: 11px;
+    padding: 7px 2px;
+    border-radius: 8px;
+    font-size: 10px;
     font-weight: 800;
     text-align: center;
     cursor: pointer;
-    transition: all 0.2s ease;
+    transition: 0.2s;
   }
-  .m-tab.active {
-    background: linear-gradient(135deg, var(--gold), #f59e0b);
+  .z-tab.active {
+    background: linear-gradient(135deg, var(--gold), var(--orange));
     color: #000;
     border-color: #fff;
     font-weight: 900;
-    box-shadow: 0 0 12px rgba(251, 191, 36, 0.4);
+    box-shadow: 0 0 10px rgba(251, 191, 36, 0.4);
   }
-  .social-row {
+
+  /* ROW 2: TIME OF DAY & SOCIAL LINKS */
+  .env-social-row {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 8px;
+    grid-template-columns: repeat(4, 1fr) 1.2fr 1.2fr;
+    gap: 5px;
+    align-items: center;
   }
-  .s-link {
+  .time-btn {
+    background: #0f172a;
+    border: 1px solid #334155;
+    color: #e2e8f0;
+    padding: 7px 2px;
+    border-radius: 8px;
+    font-size: 10px;
+    font-weight: 800;
+    text-align: center;
+    cursor: pointer;
+  }
+  .time-btn.active {
+    border-color: var(--cyan);
+    background: rgba(0, 242, 254, 0.16);
+    color: #fff;
+  }
+  .s-btn {
     text-decoration: none;
-    padding: 9px;
-    border-radius: 10px;
-    font-size: 11.5px;
+    padding: 7px 4px;
+    border-radius: 8px;
+    font-size: 10px;
     font-weight: 900;
     text-align: center;
     color: #fff;
+    white-space: nowrap;
   }
   .s-insta { background: linear-gradient(90deg, var(--pink), #e11d48); }
   .s-x { background: linear-gradient(90deg, #0284c7, #1d4ed8); border: 1px solid var(--cyan); }
@@ -396,13 +357,13 @@
 </head>
 <body>
 
-<!-- TOP HEADER WITH OFFICIAL LOGO & SETTINGS -->
+<!-- 1. TOP HEADER -->
 <header class="top-header">
   <div class="brand-logo">
     <div class="logo-emblem"><div class="logo-inner">MZ</div></div>
-    <div class="brand-titles">
+    <div>
       <div class="b-name">MINI ZOYA STUDIO</div>
-      <div class="b-tag" id="hdrSub">OFFICIAL BATTLE ROYALE ENGINE</div>
+      <div class="b-tag" id="hdrSub">BERMUDA ROYAL ARCHITECTURAL MAP</div>
     </div>
   </div>
   <div class="header-right">
@@ -411,62 +372,59 @@
       <button class="l-btn" onclick="window.setAppLang('hi', this)">हिंदी</button>
       <button class="l-btn" onclick="window.setAppLang('en', this)">English</button>
     </div>
-    <button class="settings-btn" onclick="window.toggleSettings()" title="Settings">⚙️</button>
   </div>
 </header>
 
-<!-- COMING SOON STATUS BAR (ZERO NUMBERS) -->
+<!-- 2. COMING SOON STATUS BAR (ZERO NUMBERS) -->
 <div class="coming-banner">
   <span class="cs-badge"><span class="pulse-dot"></span> <span id="csTag">COMING SOON</span></span>
-  <span class="cs-text" id="csMsg">અમારું કામ ચાલુ છે • અસલી ગેમિંગ ગ્રાફિક્સ જુઓ!</span>
+  <span class="cs-text" id="csMsg">અમારું કામ ચાલુ છે • ફ્રી ફાયર રોયલ મેપ જુઓ!</span>
 </div>
 
-<!-- SETTINGS DRAWER -->
-<div class="settings-panel" id="settingsPanel">
-  <div class="set-title" id="setHdr">⚙️ ગ્રાફિક્સ સેટિંગ (Settings)</div>
-  <div class="set-row">
-    <span id="setSpinLbl">ઓટો રൊટેશન (Auto Rotate)</span>
-    <button class="set-toggle" id="btnSpinToggle" onclick="window.toggleSpin()">ON</button>
-  </div>
-  <div class="set-row">
-    <span id="setSkyLbl">વાતાવરણ (Weather)</span>
-    <button class="set-toggle" id="btnWeatherToggle" onclick="window.toggleWeather()">SUNSET</button>
-  </div>
-</div>
-
-<!-- MAIN BATTLEGROUNDS VIEWPORT -->
-<div class="game-stage">
+<!-- 3. MAIN 3D ARCHITECTURAL DIORAMA STAGE -->
+<div class="diorama-stage">
   <div id="webglBox"></div>
 
-  <!-- LOADING OVERLAY -->
-  <div class="loading-overlay" id="loaderBox">
-    <div class="loader-emblem">MZ</div>
-    <div class="loader-title" id="loaderTxt">LOADING BATTLEGROUNDS GRAPHICS...</div>
-    <div class="loader-bar-wrap"><div class="loader-bar-fill" id="loaderFill"></div></div>
-    <div class="loader-sub" id="loaderSub">Preparing Real In-Game Squad & Terrain</div>
+  <!-- TOP-LEFT TITLE CARD -->
+  <div class="map-title-card">
+    <div class="mt-tag" id="mtTag">👑 FREE FIRE ROYAL WORLD</div>
+    <div class="mt-name" id="mtName">Bermuda Citadel</div>
+    <div class="mt-sub" id="mtSub">Interactive Battle Royale Diorama</div>
   </div>
 
-  <!-- IN-GAME WATERMARK -->
-  <div class="ingame-watermark">
-    <div class="wm-title" id="wmTitle">🪖 BATTLE ROYALE SQUAD</div>
-    <div class="wm-sub" id="wmSub">🔥 COMING SOON • WORK IN PROGRESS</div>
+  <!-- TOP-RIGHT LANDMARK INFO CARD (LIKE TAJ MAHAL VIDEO) -->
+  <div class="zone-info-card">
+    <div class="zi-header">
+      <span class="zi-badge" id="ziBadge">📍 ACTIVE ZONE</span>
+      <button class="zi-next" onclick="window.nextLandmark()" id="ziNextBtn">Next ➔</button>
+    </div>
+    <div class="zi-title" id="ziTitle">Booyah Grand Palace</div>
+    <div class="zi-desc" id="ziDesc">શાહી ગુંબજ, ચાર મિનારા, ફુવારા ગાર્ડન અને ચમકતું એરડ્રોપ મેદાન!</div>
   </div>
 
-  <div class="gesture-pill" id="gestureTxt">👆 આંગળીથી ચારેય બાજુ ફેરવો અને અંદર Zoom કરો!</div>
+  <div class="gesture-pill" id="gestureTxt">👆 આંગળીથી ચારેય બાજુ ફેરવો • ઝૂમ કરીને મેપના દરેક ખૂણા જુઓ!</div>
 </div>
 
-<!-- BOTTOM IN-GAME VIEW CONTROLS (ZERO NUMBERS) -->
+<!-- 4. BOTTOM DIORAMA CONTROL DOCK -->
 <div class="bottom-dock">
   <div class="dock-inner">
-    <div class="mode-tabs">
-      <button class="m-tab active" onclick="window.setGameMode('squad', this)" id="tabSquad">🪖 સ્ક્વોડ લોબી</button>
-      <button class="m-tab" onclick="window.setGameMode('run', this)" id="tabRun">🏃‍♂️ રનિંગ એક્શન</button>
-      <button class="m-tab" onclick="window.setGameMode('airdrop', this)" id="tabDrop">📦 એરડ્રોપ લૂટ</button>
-      <button class="m-tab" onclick="window.setGameMode('helmet', this)" id="tabArmor">🛡️ આર્મર ગિયર</button>
+    <!-- LANDMARK CAMERA PRESETS -->
+    <div class="zone-tabs">
+      <button class="z-tab active" onclick="window.flyToZone(0, this)" id="z0">🗺️ પૂરો મેપ</button>
+      <button class="z-tab" onclick="window.flyToZone(1, this)" id="z1">🕌 શાહી મહેલ</button>
+      <button class="z-tab" onclick="window.flyToZone(2, this)" id="z2">🕰️ ક્લોક ટાવર</button>
+      <button class="z-tab" onclick="window.flyToZone(3, this)" id="z3">📦 એરડ્રોપ પ્લાઝા</button>
+      <button class="z-tab" onclick="window.flyToZone(4, this)" id="z4">🌉 લાલ બ્રિજ</button>
     </div>
-    <div class="social-row">
-      <a href="https://instagram.com/minizoyacreator" target="_blank" class="s-link s-insta">📸 Instagram @minizoyacreator</a>
-      <a href="https://x.com/minizoyacreator" target="_blank" class="s-link s-x">🐦 Follow X @minizoyacreator</a>
+
+    <!-- LIGHTING PRESETS & SOCIALS -->
+    <div class="env-social-row">
+      <button class="time-btn" onclick="window.setLighting('dawn', this)" id="tDawn">🌅 સવાર</button>
+      <button class="time-btn active" onclick="window.setLighting('day', this)" id="tDay">☀️ બપોર</button>
+      <button class="time-btn" onclick="window.setLighting('sunset', this)" id="tSun">🌇 સાંજ</button>
+      <button class="time-btn" onclick="window.setLighting('night', this)" id="tNight">🌙 રાત</button>
+      <a href="https://instagram.com/minizoyacreator" target="_blank" class="s-btn s-insta">📸 Instagram</a>
+      <a href="https://x.com/minizoyacreator" target="_blank" class="s-btn s-x">🐦 Follow X</a>
     </div>
   </div>
 </div>
@@ -474,97 +432,106 @@
 <script type="module">
 import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
-import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
-import { RGBELoader } from 'three/addons/loaders/RGBELoader.js';
-import * as SkeletonUtils from 'three/addons/utils/SkeletonUtils.js';
 import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js';
 import { RenderPass } from 'three/addons/postprocessing/RenderPass.js';
 import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js';
 
+/* ============================================================================
+   GEMINI ARGON — FREE FIRE "BERMUDA ROYAL CITADEL & CLOCK TOWER" DIORAMA
+   Inspired directly by the Taj Mahal Architectural Diorama in the user's video,
+   upgraded into an interactive Battle Royale Island with:
+   1. Multi-tiered Island Plinth, Reflecting Water Canal & Animated Fountains
+   2. Grand Booyah Marble & Gold Palace with Onion Domes, Arched Iwans & Minarets
+   3. Bermuda Gothic Clock Tower with Glowing Clock Faces & Sniper Balconies
+   4. Hot-Drop Airdrop Plaza with Soft Radial Smoke, Laser Sky-Beam & Gloo Walls
+   5. Crimson Battle Bridge, Cypress Gardens, Patrol Squads & Night Illumination
+   ============================================================================ */
+
 let scene, camera, renderer, composer, controls, clock;
-let squadGroup, helmetMesh, airdropGroup, smokePoints, emberPoints, grassInstanced, zoneWall;
-let mixers = [];
-let soldierAnimations = {};
-let autoRotate = true;
-let isNightMode = false;
-let currentMode = 'squad';
+let sunLight, hemiLight, ambientLight, bloomPass;
+let waterMesh, canalMesh, airdropBeam, clockHands = [];
+let fountainParticles, smokeParticles, fireflyParticles;
+let windowGlowMaterials = [], lanternLights = [];
+let patrolAgents = [];
 
-const ASSETS = {
-  SOLDIER: 'https://cdn.jsdelivr.net/gh/mrdoob/three.js@r160/examples/models/gltf/Soldier.glb',
-  HELMET: 'https://cdn.jsdelivr.net/gh/mrdoob/three.js@r160/examples/models/gltf/DamagedHelmet/glTF/DamagedHelmet.gltf',
-  HDRI: 'https://cdn.jsdelivr.net/gh/mrdoob/three.js@r160/examples/textures/equirectangular/venice_sunset_1k.hdr',
-  GRASS: 'https://cdn.jsdelivr.net/gh/mrdoob/three.js@r160/examples/textures/terrain/grasslight-big.jpg',
-  CRATE: 'https://cdn.jsdelivr.net/gh/mrdoob/three.js@r160/examples/textures/crate.gif',
-  BRICK: 'https://cdn.jsdelivr.net/gh/mrdoob/three.js@r160/examples/textures/brick_diffuse.jpg'
-};
+// Smooth Camera Flight Target State
+let camGoalPos = new THREE.Vector3(28, 22, 32);
+let camGoalTarget = new THREE.Vector3(0, 3, 0);
+let isFlying = false;
+let currentZoneIdx = 0;
+let currentLang = 'gu';
 
-function createBattleSkyTexture(night) {
-  const c = document.createElement('canvas');
-  c.width = 1024;
-  c.height = 512;
-  const ctx = c.getContext('2d');
-  const g = ctx.createLinearGradient(0, 0, 0, 512);
-  if (night) {
-    g.addColorStop(0, '#02040a');
-    g.addColorStop(0.45, '#0b1528');
-    g.addColorStop(0.75, '#1e1b4b');
-    g.addColorStop(1, '#090d16');
-  } else {
-    g.addColorStop(0, '#0f172a');
-    g.addColorStop(0.35, '#1e3a8a');
-    g.addColorStop(0.62, '#9a3412');
-    g.addColorStop(0.78, '#f97316');
-    g.addColorStop(1, '#1f2937');
+const zonesData = [
+  {
+    pos: new THREE.Vector3(28, 21, 32),
+    target: new THREE.Vector3(0, 2.5, 0),
+    gu: { title: "Bermuda Royal Full Map", desc: "આખો ફ્રી ફાયર રોયલ આઇલેન્ડ, મહેલ, ક્લોક ટાવર, બ્રિજ અને એરડ્રોપ મેદાન!" },
+    hi: { title: "बरमूडा रॉयल पूरा मैप", desc: "पूरा फ्री फायर रॉयल आइलैंड, शाही महल, क्लॉक टावर, लाल ब्रिज और एयरड्रॉप मैदान!" },
+    en: { title: "Bermuda Royal Overview", desc: "Complete Battle Royale architectural island featuring palace, clock tower, bridge & airdrop!" }
+  },
+  {
+    pos: new THREE.Vector3(0, 9.5, 16),
+    target: new THREE.Vector3(0, 5.2, -6),
+    gu: { title: "Booyah Grand Citadel", desc: "તાજમહેલ સ્ટાઈલનો શાહી સફેદ-ગોલ્ડન ગુંબજ મહેલ, ચાર મિનારા અને ફુવારા ગાર્ડન!" },
+    hi: { title: "बूयाह शाही महल (Citadel)", desc: "ताजमहल स्टाइल का शाही सफेद-गोल्डन गुंबद महल, चार मीनारें और फव्वारा गार्डन!" },
+    en: { title: "Booyah Grand Citadel", desc: "Imperial marble & gold domed citadel with four corner minarets and charbagh fountains!" }
+  },
+  {
+    pos: new THREE.Vector3(-19, 12, 11),
+    target: new THREE.Vector3(-11, 6.5, -5),
+    gu: { title: "Bermuda Clock Tower", desc: "ફ્રી ફાયરનું ફેમસ ઊંચું ક્લોક ટાવર, સ્નાઈપર બાલ્કની અને ચમકતી ઘડિયાળ!" },
+    hi: { title: "बरमूडा क्लॉक टावर", desc: "फ्री फायर का मशहूर ऊँचा क्लॉक टावर, स्नाइपर बालकनी और चमकती हुई घड़ी!" },
+    en: { title: "Bermuda Clock Tower", desc: "Iconic high-ground sniper clock tower with glowing clock faces and arched belfry!" }
+  },
+  {
+    pos: new THREE.Vector3(10, 6.5, 14),
+    target: new THREE.Vector3(0, 2.0, 5.5),
+    gu: { title: "Airdrop & Gloo Wall Plaza", desc: "ચમકતું એરડ્રોપ બોક્સ, આકાશી લાઈટ બીમ, નિયોન ગ્લૂ વોલ અને સ્ક્વોડ ફાઈટ!" },
+    hi: { title: "एयरड्रॉप और ग्लू वॉल प्लाज़ा", desc: "चमकता एयरड्रॉप बॉक्स, आकाशीय लाइट बीम, नियॉन ग्लू वॉल और स्क्वाड फाइट!" },
+    en: { title: "Hot-Drop Airdrop Plaza", desc: "Glowing supply crate with sky-beam, curved neon Gloo Walls, and patrolling squad!" }
+  },
+  {
+    pos: new THREE.Vector3(18, 8.5, 19),
+    target: new THREE.Vector3(7, 1.8, 10.5),
+    gu: { title: "Crimson Battle Bridge", desc: "પાણીની નહેર પર બનેલો લાલ આર્ક બ્રિજ, ગાર્ડન વૃક્ષો અને રિવરફ્રન્ટ વોલ!" },
+    hi: { title: "क्रिमसन लाल ब्रिज", desc: "पानी की नहर पर बना लाल आर्क ब्रिज, गार्डन के पेड़ और रिवरफ्रंट दीवार!" },
+    en: { title: "Crimson Battle Bridge", desc: "Arched crimson bridge spanning the shimmering water canal and terraced gardens!" }
   }
-  ctx.fillStyle = g;
-  ctx.fillRect(0, 0, 1024, 512);
+];
 
-  // Glowing Sun / Moon Disc on Horizon
-  const sunGrad = ctx.createRadialGradient(512, 340, 10, 512, 340, 140);
-  sunGrad.addColorStop(0, night ? 'rgba(56, 189, 248, 0.9)' : 'rgba(254, 240, 138, 0.95)');
-  sunGrad.addColorStop(0.4, night ? 'rgba(14, 165, 233, 0.35)' : 'rgba(249, 115, 22, 0.45)');
-  sunGrad.addColorStop(1, 'rgba(0,0,0,0)');
-  ctx.fillStyle = sunGrad;
-  ctx.fillRect(0, 0, 1024, 512);
-
-  // Distant Battleground Mountain Silhouettes along Horizon
-  ctx.fillStyle = night ? '#050811' : '#1c1917';
-  ctx.beginPath();
-  ctx.moveTo(0, 395);
-  const peaks = [0, 90, 180, 270, 360, 460, 560, 660, 760, 860, 960, 1024];
-  const heights = [360, 330, 368, 322, 355, 338, 365, 318, 350, 332, 362, 358];
-  for (let i = 0; i < peaks.length; i++) {
-    ctx.lineTo(peaks[i], heights[i]);
-  }
-  ctx.lineTo(1024, 512);
-  ctx.lineTo(0, 512);
-  ctx.closePath();
-  ctx.fill();
-
-  const tex = new THREE.CanvasTexture(c);
-  tex.mapping = THREE.EquirectangularReflectionMapping;
-  tex.colorSpace = THREE.SRGBColorSpace;
-  return tex;
+/* SOFT RADIAL CIRCLE TEXTURE (ELIMINATES SQUARE PIXEL PARTICLES!) */
+function createSoftCircleTexture() {
+  const canvas = document.createElement('canvas');
+  canvas.width = 64;
+  canvas.height = 64;
+  const ctx = canvas.getContext('2d');
+  const grad = ctx.createRadialGradient(32, 32, 2, 32, 32, 30);
+  grad.addColorStop(0, 'rgba(255, 255, 255, 1)');
+  grad.addColorStop(0.4, 'rgba(255, 255, 255, 0.6)');
+  grad.addColorStop(1, 'rgba(255, 255, 255, 0)');
+  ctx.fillStyle = grad;
+  ctx.fillRect(0, 0, 64, 64);
+  return new THREE.CanvasTexture(canvas);
 }
 
-function initBattlegrounds() {
+function initDiorama() {
   const container = document.getElementById('webglBox');
   const w = container.clientWidth || window.innerWidth;
-  const h = container.clientHeight || (window.innerHeight - 165);
+  const h = container.clientHeight || (window.innerHeight - 160);
 
   clock = new THREE.Clock();
   scene = new THREE.Scene();
-  scene.background = createBattleSkyTexture(false);
-  scene.fog = new THREE.FogExp2(0x1f1924, 0.025);
+  scene.background = new THREE.Color(0x0c1424);
+  scene.fog = new THREE.FogExp2(0x0c1424, 0.0085);
 
-  camera = new THREE.PerspectiveCamera(44, w / h, 0.1, 160);
-  camera.position.set(0, 1.65, 4.6);
+  camera = new THREE.PerspectiveCamera(40, w / h, 0.5, 220);
+  camera.position.copy(camGoalPos);
 
   renderer = new THREE.WebGLRenderer({ antialias: true, powerPreference: 'high-performance' });
   renderer.setSize(w, h);
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
   renderer.toneMapping = THREE.ACESFilmicToneMapping;
-  renderer.toneMappingExposure = 1.15;
+  renderer.toneMappingExposure = 1.12;
   renderer.outputColorSpace = THREE.SRGBColorSpace;
   renderer.shadowMap.enabled = true;
   renderer.shadowMap.type = THREE.PCFSoftShadowMap;
@@ -573,58 +540,48 @@ function initBattlegrounds() {
 
   composer = new EffectComposer(renderer);
   composer.addPass(new RenderPass(scene, camera));
-  const bloomPass = new UnrealBloomPass(new THREE.Vector2(w / 2, h / 2), 0.38, 0.4, 0.8);
+  bloomPass = new UnrealBloomPass(new THREE.Vector2(w / 2, h / 2), 0.32, 0.4, 0.82);
   composer.addPass(bloomPass);
 
   controls = new OrbitControls(camera, renderer.domElement);
-  controls.target.set(0, 1.05, 0);
+  controls.target.copy(camGoalTarget);
   controls.enableDamping = true;
   controls.dampingFactor = 0.05;
-  controls.minDistance = 2.0;
-  controls.maxDistance = 9.0;
+  controls.minDistance = 6;
+  controls.maxDistance = 58;
   controls.maxPolarAngle = Math.PI / 2 - 0.04;
+  controls.autoRotate = true;
+  controls.autoRotateSpeed = 0.55;
 
-  // Cinematic Battle Royale Lighting
-  const hemiLight = new THREE.HemisphereLight(0xffedd5, 0x1e293b, 0.75);
+  // Cancel auto-flight if user touches screen to rotate manually
+  renderer.domElement.addEventListener('pointerdown', () => {
+    isFlying = false;
+  });
+
+  // Lighting Rig
+  ambientLight = new THREE.AmbientLight(0xffffff, 0.55);
+  scene.add(ambientLight);
+
+  hemiLight = new THREE.HemisphereLight(0xfff7ed, 0x1e293b, 0.65);
+  hemiLight.position.set(0, 35, 0);
   scene.add(hemiLight);
 
-  const sunLight = new THREE.DirectionalLight(0xffb86c, 2.5);
-  sunLight.position.set(5, 10, 6);
+  sunLight = new THREE.DirectionalLight(0xfffbeb, 2.2);
+  sunLight.position.set(24, 34, 22);
   sunLight.castShadow = true;
-  sunLight.shadow.mapSize.width = 1024;
-  sunLight.shadow.mapSize.height = 1024;
-  const d = 8;
+  sunLight.shadow.mapSize.width = 2048;
+  sunLight.shadow.mapSize.height = 2048;
+  sunLight.shadow.camera.near = 2;
+  sunLight.shadow.camera.far = 95;
+  const d = 26;
   sunLight.shadow.camera.left = -d;
   sunLight.shadow.camera.right = d;
   sunLight.shadow.camera.top = d;
   sunLight.shadow.camera.bottom = -d;
+  sunLight.shadow.bias = -0.0005;
   scene.add(sunLight);
 
-  const rimCyan = new THREE.SpotLight(0x00f2fe, 5.0, 16, Math.PI / 3, 0.5);
-  rimCyan.position.set(-3.5, 3.8, -3.5);
-  scene.add(rimCyan);
-
-  const manager = new THREE.LoadingManager();
-  const loaderFill = document.getElementById('loaderFill');
-  const loaderBox = document.getElementById('loaderBox');
-
-  manager.onProgress = (url, loaded, total) => {
-    const pct = Math.min(100, Math.round((loaded / total) * 100));
-    loaderFill.style.width = Math.max(30, pct) + '%';
-  };
-  manager.onLoad = () => {
-    loaderBox.style.opacity = '0';
-    setTimeout(() => { loaderBox.style.display = 'none'; }, 450);
-  };
-
-  // Load HDRI ONLY for realistic metallic & armor reflections (NOT background tourists!)
-  new RGBELoader(manager).load(ASSETS.HDRI, (hdrTex) => {
-    hdrTex.mapping = THREE.EquirectangularReflectionMapping;
-    scene.environment = hdrTex;
-  });
-
-  buildBattlefieldEnvironment(manager);
-  loadSquadAndGear(manager);
+  buildCompleteDioramaWorld();
 
   window.addEventListener('resize', () => {
     const nw = container.clientWidth;
@@ -635,390 +592,474 @@ function initBattlegrounds() {
     composer.setSize(nw, nh);
   });
 
-  animateBattleground();
+  animateDiorama();
 }
 
-function buildBattlefieldEnvironment(manager) {
-  const texLoader = new THREE.TextureLoader(manager);
+function addMesh(parent, geo, mat, x, y, z, cast = true, receive = true) {
+  const m = new THREE.Mesh(geo, mat);
+  m.position.set(x, y, z);
+  m.castShadow = cast;
+  m.receiveShadow = receive;
+  parent.add(m);
+  return m;
+}
 
-  // 1. Real Photographic Grass Terrain
-  const grassTex = texLoader.load(ASSETS.GRASS);
-  grassTex.wrapS = THREE.RepeatWrapping;
-  grassTex.wrapT = THREE.RepeatWrapping;
-  grassTex.repeat.set(28, 28);
-  grassTex.colorSpace = THREE.SRGBColorSpace;
+function buildCompleteDioramaWorld() {
+  // Architectural Materials Palette (Taj Mahal + Free Fire Royal Theme)
+  const matPlinthDark = new THREE.MeshStandardMaterial({ color: 0x111827, roughness: 0.7, metalness: 0.2 });
+  const matSandstone = new THREE.MeshStandardMaterial({ color: 0xb45309, roughness: 0.65 });
+  const matTerraceRed = new THREE.MeshStandardMaterial({ color: 0x9a3412, roughness: 0.6 });
+  const matMarble = new THREE.MeshStandardMaterial({ color: 0xfefce8, roughness: 0.28, metalness: 0.08 });
+  const matMarbleShade = new THREE.MeshStandardMaterial({ color: 0xe2e8f0, roughness: 0.35 });
+  const matGold = new THREE.MeshStandardMaterial({ color: 0xfbbf24, metalness: 0.88, roughness: 0.16, emissive: 0xb45309, emissiveIntensity: 0.25 });
+  const matLawn = new THREE.MeshStandardMaterial({ color: 0x15803d, roughness: 0.85 });
+  const matHedge = new THREE.MeshStandardMaterial({ color: 0x166534, roughness: 0.8 });
+  const matPath = new THREE.MeshStandardMaterial({ color: 0xfde68a, roughness: 0.55 });
+  const matWater = new THREE.MeshStandardMaterial({ color: 0x0284c7, roughness: 0.12, metalness: 0.35, transparent: true, opacity: 0.88 });
+  const matDarkArch = new THREE.MeshStandardMaterial({ color: 0x1e293b, roughness: 0.5 });
 
-  const groundMat = new THREE.MeshStandardMaterial({
-    map: grassTex,
-    roughness: 0.88,
-    metalness: 0.05,
-    color: 0x7c856b
-  });
-  const ground = new THREE.Mesh(new THREE.CircleGeometry(55, 64), groundMat);
-  ground.rotation.x = -Math.PI / 2;
-  ground.receiveShadow = true;
-  scene.add(ground);
+  // Glowing Window / Arch Material (Brightens at Sunset/Night)
+  const matGlowWin = new THREE.MeshBasicMaterial({ color: 0xfde047 });
+  windowGlowMaterials.push(matGlowWin);
 
-  // 2. Tactical Squad Pedestal (Metallic Pad + Glowing Rings)
-  const padMat = new THREE.MeshStandardMaterial({ color: 0x161d2a, metalness: 0.85, roughness: 0.22 });
-  const pad = new THREE.Mesh(new THREE.CylinderGeometry(2.1, 2.35, 0.12, 48), padMat);
-  pad.position.y = 0.06;
-  pad.receiveShadow = true;
-  scene.add(pad);
+  // 1. MULTI-TIERED DIORAMA ISLAND BASE (Like the Taj Mahal Video Plinth)
+  addMesh(scene, new THREE.BoxGeometry(40, 1.6, 36), matPlinthDark, 0, -0.9, 0, false, true);
+  addMesh(scene, new THREE.BoxGeometry(38.4, 0.6, 34.4), matSandstone, 0, 0.2, 0, true, true);
+  addMesh(scene, new THREE.BoxGeometry(37.2, 0.3, 33.2), matPath, 0, 0.65, 0, false, true);
 
-  const goldRing = new THREE.Mesh(
-    new THREE.TorusGeometry(2.14, 0.028, 16, 64),
-    new THREE.MeshBasicMaterial({ color: 0xfbbf24 })
-  );
-  goldRing.rotation.x = Math.PI / 2;
-  goldRing.position.y = 0.12;
-  scene.add(goldRing);
+  // Outer Battlement Perimeter Walls (Red Sandstone Fortress Walls)
+  addMesh(scene, new THREE.BoxGeometry(37.6, 1.8, 0.6), matTerraceRed, 0, 1.4, -16.4);
+  addMesh(scene, new THREE.BoxGeometry(0.6, 1.4, 33.4), matTerraceRed, -18.5, 1.2, 0);
+  addMesh(scene, new THREE.BoxGeometry(0.6, 1.4, 33.4), matTerraceRed, 18.5, 1.2, 0);
 
-  // 3. Textured Wooden Military Supply Crates & Brick Ruins
-  const crateTex = texLoader.load(ASSETS.CRATE);
-  crateTex.colorSpace = THREE.SRGBColorSpace;
-  const crateMat = new THREE.MeshStandardMaterial({ map: crateTex, roughness: 0.65 });
+  // 2. GRAND IMPERIAL BOOYAH PALACE (Center-North Marble Plinth + Onion Domes + 4 Minarets)
+  const palaceGroup = new THREE.Group();
+  palaceGroup.position.set(0, 0.8, -7.2);
+  scene.add(palaceGroup);
 
-  const c1 = new THREE.Mesh(new THREE.BoxGeometry(0.85, 0.85, 0.85), crateMat);
-  c1.position.set(-2.3, 0.425, -1.2);
-  c1.rotation.y = 0.35;
-  c1.castShadow = true;
-  c1.receiveShadow = true;
-  scene.add(c1);
+  // Red Sandstone Lower Plinth & White Marble Upper Terrace
+  addMesh(palaceGroup, new THREE.BoxGeometry(17.5, 1.1, 11.5), matTerraceRed, 0, 0.55, 0);
+  addMesh(palaceGroup, new THREE.BoxGeometry(15.6, 0.45, 10.2), matMarble, 0, 1.32, 0);
 
-  const c2 = new THREE.Mesh(new THREE.BoxGeometry(0.65, 0.65, 0.65), crateMat);
-  c2.position.set(-1.95, 1.17, -1.15);
-  c2.rotation.y = -0.2;
-  c2.castShadow = true;
-  scene.add(c2);
+  // Main Chamfered Mausoleum / Palace Core
+  addMesh(palaceGroup, new THREE.BoxGeometry(7.6, 4.8, 7.6), matMarble, 0, 3.9, 0);
+  addMesh(palaceGroup, new THREE.BoxGeometry(8.2, 4.4, 6.2), matMarble, 0, 3.7, 0);
+  addMesh(palaceGroup, new THREE.BoxGeometry(6.2, 4.4, 8.2), matMarble, 0, 3.7, 0);
 
-  // Weathered Brick Battleground Cover Walls in Background
-  const brickTex = texLoader.load(ASSETS.BRICK);
-  brickTex.wrapS = THREE.RepeatWrapping;
-  brickTex.wrapT = THREE.RepeatWrapping;
-  brickTex.repeat.set(2, 1);
-  brickTex.colorSpace = THREE.SRGBColorSpace;
-  const brickMat = new THREE.MeshStandardMaterial({ map: brickTex, roughness: 0.85, color: 0x9ca3af });
+  // Grand Central Pishtaq (High Arched Portal Frame) & Glowing Arch Recess
+  addMesh(palaceGroup, new THREE.BoxGeometry(3.8, 5.5, 0.45), matMarbleShade, 0, 4.25, 4.0);
+  addMesh(palaceGroup, new THREE.BoxGeometry(2.1, 3.4, 0.52), matDarkArch, 0, 3.2, 4.02);
+  addMesh(palaceGroup, new THREE.CylinderGeometry(1.05, 1.05, 0.52, 24), matDarkArch, 0, 4.9, 4.02).rotation.x = Math.PI / 2;
+  addMesh(palaceGroup, new THREE.BoxGeometry(1.4, 2.4, 0.56), matGlowWin, 0, 3.0, 4.04, false, false);
 
-  for (let i = 0; i < 8; i++) {
-    const ang = (i / 8) * Math.PI * 2 + 0.4;
-    const rad = 11.5;
-    const h = 1.8 + (i % 3) * 0.9;
-    const wall = new THREE.Mesh(new THREE.BoxGeometry(2.2, h, 0.45), brickMat);
-    wall.position.set(Math.cos(ang) * rad, h / 2, Math.sin(ang) * rad);
-    wall.rotation.y = -ang + Math.PI / 2;
-    wall.castShadow = true;
-    wall.receiveShadow = true;
-    scene.add(wall);
+  // Side Arched Recesses (Left & Right Facades)
+  for (let sx of [-2.4, 2.4]) {
+    addMesh(palaceGroup, new THREE.BoxGeometry(0.95, 1.5, 0.48), matDarkArch, sx, 2.6, 3.95);
+    addMesh(palaceGroup, new THREE.BoxGeometry(0.95, 1.5, 0.48), matDarkArch, sx, 4.6, 3.95);
+    addMesh(palaceGroup, new THREE.BoxGeometry(0.65, 1.1, 0.52), matGlowWin, sx, 2.6, 3.97, false, false);
+    addMesh(palaceGroup, new THREE.BoxGeometry(0.65, 1.1, 0.52), matGlowWin, sx, 4.6, 3.97, false, false);
   }
 
-  // 4. Battle Royale Red/Blue Airdrop Supply Crate + Rising Red Flare Smoke
-  airdropGroup = new THREE.Group();
-  airdropGroup.position.set(2.2, 0, -1.4);
-  airdropGroup.rotation.y = -0.5;
+  // Main Bulbous Onion Dome + Lotus Drum + Golden Kalash Finial
+  addMesh(palaceGroup, new THREE.CylinderGeometry(2.15, 2.25, 1.2, 32), matMarbleShade, 0, 6.8, 0);
+  const mainDome = addMesh(palaceGroup, new THREE.SphereGeometry(2.35, 32, 24), matMarble, 0, 8.1, 0);
+  mainDome.scale.set(1, 1.22, 1);
+  addMesh(palaceGroup, new THREE.ConeGeometry(0.9, 1.4, 24), matMarble, 0, 10.6, 0);
+  addMesh(palaceGroup, new THREE.CylinderGeometry(0.08, 0.14, 1.6, 16), matGold, 0, 11.6, 0);
+  addMesh(palaceGroup, new THREE.SphereGeometry(0.24, 16, 16), matGold, 0, 11.5, 0);
 
-  const dropBody = new THREE.Mesh(
-    new THREE.BoxGeometry(1.05, 0.95, 1.05),
-    new THREE.MeshStandardMaterial({ color: 0xb91c1c, roughness: 0.4, metalness: 0.45 })
+  // 4 Roof Chhatri Kiosks Around Main Dome
+  const chhatriOffsets = [[-2.5, -2.5], [2.5, -2.5], [-2.5, 2.5], [2.5, 2.5]];
+  chhatriOffsets.forEach(([cx, cz]) => {
+    addMesh(palaceGroup, new THREE.CylinderGeometry(0.68, 0.72, 1.1, 8), matMarbleShade, cx, 6.8, cz);
+    const cDome = addMesh(palaceGroup, new THREE.SphereGeometry(0.72, 20, 16), matMarble, cx, 7.5, cz);
+    cDome.scale.set(1, 1.15, 1);
+    addMesh(palaceGroup, new THREE.ConeGeometry(0.12, 0.6, 12), matGold, cx, 8.4, cz);
+  });
+
+  // 4 Iconic Corner Minaret Towers with Balconies & Golden Crowns
+  const minaretSpots = [[-6.8, -4.2], [6.8, -4.2], [-6.8, 4.2], [6.8, 4.2]];
+  minaretSpots.forEach(([mx, mz]) => {
+    addMesh(palaceGroup, new THREE.CylinderGeometry(0.68, 0.78, 0.6, 16), matMarbleShade, mx, 1.8, mz);
+    addMesh(palaceGroup, new THREE.CylinderGeometry(0.46, 0.62, 6.2, 20), matMarble, mx, 5.1, mz);
+    // Two Balcony Rings
+    addMesh(palaceGroup, new THREE.CylinderGeometry(0.68, 0.64, 0.22, 20), matGold, mx, 4.2, mz);
+    addMesh(palaceGroup, new THREE.CylinderGeometry(0.62, 0.58, 0.22, 20), matGold, mx, 6.4, mz);
+    // Top Chhatri Cupola
+    addMesh(palaceGroup, new THREE.CylinderGeometry(0.45, 0.45, 0.85, 12), matMarbleShade, mx, 8.6, mz);
+    addMesh(palaceGroup, new THREE.SphereGeometry(0.52, 16, 16), matMarble, mx, 9.15, mz);
+    addMesh(palaceGroup, new THREE.ConeGeometry(0.1, 0.65, 12), matGold, mx, 9.85, mz);
+  });
+
+  // 3. BERMUDA GOTHIC CLOCK TOWER (West Wing High-Ground Sniper Citadel)
+  const clockTower = new THREE.Group();
+  clockTower.position.set(-12.5, 0.8, -5.5);
+  scene.add(clockTower);
+
+  addMesh(clockTower, new THREE.BoxGeometry(4.4, 1.2, 4.4), matTerraceRed, 0, 0.6, 0);
+  addMesh(clockTower, new THREE.BoxGeometry(3.4, 7.8, 3.4), matMarble, 0, 5.1, 0);
+  addMesh(clockTower, new THREE.BoxGeometry(3.8, 0.35, 3.8), matGold, 0, 6.2, 0);
+  addMesh(clockTower, new THREE.BoxGeometry(3.8, 0.35, 3.8), matGold, 0, 9.0, 0);
+
+  // Glowing Clock Faces on All 4 Sides + Rotating Hands
+  const dirs = [
+    { x: 0, z: 1.74, ry: 0 },
+    { x: 0, z: -1.74, ry: Math.PI },
+    { x: 1.74, z: 0, ry: Math.PI / 2 },
+    { x: -1.74, z: 0, ry: -Math.PI / 2 }
+  ];
+  dirs.forEach(d => {
+    const faceGrp = new THREE.Group();
+    faceGrp.position.set(d.x, 7.6, d.z);
+    faceGrp.rotation.y = d.ry;
+    clockTower.add(faceGrp);
+
+    addMesh(faceGrp, new THREE.CircleGeometry(0.95, 24), new THREE.MeshBasicMaterial({ color: 0x0f172a }), 0, 0, 0, false, false);
+    addMesh(faceGrp, new THREE.RingGeometry(0.82, 0.96, 24), matGold, 0, 0, 0.02, false, false);
+    addMesh(faceGrp, new THREE.CircleGeometry(0.78, 24), matGlowWin, 0, 0, 0.01, false, false);
+
+    const hand = addMesh(faceGrp, new THREE.BoxGeometry(0.08, 0.62, 0.04), new THREE.MeshBasicMaterial({ color: 0x0f172a }), 0, 0.2, 0.04, false, false);
+    clockHands.push(hand);
+  });
+
+  // Clock Tower Spire Roof
+  const spire = addMesh(clockTower, new THREE.ConeGeometry(2.5, 3.6, 4), matTerraceRed, 0, 10.9, 0);
+  spire.rotation.y = Math.PI / 4;
+  addMesh(clockTower, new THREE.CylinderGeometry(0.06, 0.12, 1.8, 12), matGold, 0, 13.4, 0);
+
+  // 4. EAST WING PEAK SQUAD PAVILION (Red Sandstone & Marble Battle Villa)
+  const eastVilla = new THREE.Group();
+  eastVilla.position.set(12.5, 0.8, -5.5);
+  scene.add(eastVilla);
+
+  addMesh(eastVilla, new THREE.BoxGeometry(5.2, 3.8, 6.8), matTerraceRed, 0, 1.9, 0);
+  addMesh(eastVilla, new THREE.BoxGeometry(5.6, 0.35, 7.2), matMarble, 0, 3.9, 0);
+  addMesh(eastVilla, new THREE.BoxGeometry(3.8, 2.4, 4.8), matMarble, 0, 5.2, 0);
+  addMesh(eastVilla, new THREE.SphereGeometry(1.45, 24, 16), matGold, 0, 6.8, 0);
+
+  // 5. CHARBAGH REFLECTING WATER CHANNELS, FOUNTAINS & MANICURED GARDENS (Like Taj Mahal Video)
+  // Central North-South Reflecting Pool
+  waterMesh = addMesh(scene, new THREE.BoxGeometry(3.2, 0.18, 17.5), matWater, 0, 0.82, 4.8, false, true);
+  addMesh(scene, new THREE.BoxGeometry(3.8, 0.24, 18.1), matMarbleShade, 0, 0.74, 4.8, false, true);
+
+  // East-West Cross Water Canal + Crimson Arch Battle Bridge
+  canalMesh = addMesh(scene, new THREE.BoxGeometry(36.4, 0.18, 2.8), matWater, 0, 0.82, 10.5, false, true);
+
+  // Crimson Battle Bridge Over the East Canal
+  const bridgeGrp = new THREE.Group();
+  bridgeGrp.position.set(7.5, 0.85, 10.5);
+  scene.add(bridgeGrp);
+  for (let b = -3; b <= 3; b++) {
+    const bz = b * 0.55;
+    const archY = 0.25 + Math.cos((b / 3.5) * (Math.PI / 2)) * 0.85;
+    addMesh(bridgeGrp, new THREE.BoxGeometry(2.6, 0.18, 0.6), matTerraceRed, 0, archY, bz);
+    addMesh(bridgeGrp, new THREE.BoxGeometry(0.16, 0.65, 0.55), matGold, -1.2, archY + 0.35, bz);
+    addMesh(bridgeGrp, new THREE.BoxGeometry(0.16, 0.65, 0.55), matGold, 1.2, archY + 0.35, bz);
+  }
+
+  // 4 Manicured Charbagh Lawn Quadrants with Geometric Flowerbeds & Cypress Trees
+  const lawnCoords = [
+    [-6.2, 2.5], [6.2, 2.5],
+    [-6.2, 7.2], [6.2, 7.2],
+    [-6.2, 13.8], [6.2, 13.8]
+  ];
+  lawnCoords.forEach(([lx, lz]) => {
+    addMesh(scene, new THREE.BoxGeometry(7.2, 0.16, 3.4), matLawn, lx, 0.82, lz, false, true);
+    addMesh(scene, new THREE.BoxGeometry(5.6, 0.22, 1.8), matHedge, lx, 0.86, lz, false, true);
+  });
+
+  // Sculpted Cypress & Round Garden Trees (Smooth Multi-Tiered Spheres & Cones)
+  const treePositions = [
+    [-3.2, 1.2], [3.2, 1.2], [-3.2, 4.2], [3.2, 4.2],
+    [-3.2, 7.2], [3.2, 7.2], [-9.8, 2.5], [9.8, 2.5],
+    [-9.8, 7.2], [9.8, 7.2], [-14.5, 4.5], [14.5, 4.5],
+    [-11.5, 13.8], [11.5, 13.8]
+  ];
+  treePositions.forEach(([tx, tz], idx) => {
+    const trunkMat = new THREE.MeshStandardMaterial({ color: 0x5c2d0c, roughness: 0.8 });
+    addMesh(scene, new THREE.CylinderGeometry(0.14, 0.2, 0.9, 10), trunkMat, tx, 1.2, tz);
+    if (idx % 2 === 0) {
+      // Sculpted Cypress Tree
+      addMesh(scene, new THREE.ConeGeometry(0.55, 2.2, 16), matHedge, tx, 2.4, tz);
+      addMesh(scene, new THREE.ConeGeometry(0.42, 1.6, 16), matLawn, tx, 3.1, tz);
+    } else {
+      // Lush Canopy Tree
+      addMesh(scene, new THREE.SphereGeometry(0.85, 16, 16), matLawn, tx, 2.2, tz);
+      addMesh(scene, new THREE.SphereGeometry(0.65, 16, 16), matHedge, tx + 0.3, 2.6, tz - 0.2);
+    }
+  });
+
+  // 6. HOT-DROP AIRDROP PLAZA & GLOWING GLOO WALLS (Center Courtyard)
+  const plazaZ = 4.8;
+  addMesh(scene, new THREE.CylinderGeometry(2.4, 2.6, 0.26, 32), matMarble, 0, 0.92, plazaZ);
+  addMesh(scene, new THREE.TorusGeometry(2.42, 0.05, 16, 48), matGold, 0, 1.05, plazaZ).rotation.x = Math.PI / 2;
+
+  // Free Fire Iconic Airdrop Supply Box
+  addMesh(scene, new THREE.BoxGeometry(1.1, 0.95, 1.1), new THREE.MeshStandardMaterial({ color: 0xdc2626, roughness: 0.35 }), 0, 1.52, plazaZ);
+  addMesh(scene, new THREE.BoxGeometry(1.18, 0.28, 1.18), new THREE.MeshStandardMaterial({ color: 0x1d4ed8, roughness: 0.45 }), 0, 2.05, plazaZ);
+  addMesh(scene, new THREE.BoxGeometry(1.2, 0.08, 1.2), new THREE.MeshBasicMaterial({ color: 0xfbbf24 }), 0, 1.85, plazaZ);
+
+  // Vertical Golden Sky-Beam shooting up from the Airdrop!
+  const beamGeo = new THREE.CylinderGeometry(0.18, 0.45, 18, 24, 1, true);
+  const beamMat = new THREE.MeshBasicMaterial({
+    color: 0xfbbf24,
+    transparent: true,
+    opacity: 0.28,
+    side: THREE.DoubleSide,
+    blending: THREE.AdditiveBlending
+  });
+  airdropBeam = addMesh(scene, beamGeo, beamMat, 0, 10.5, plazaZ, false, false);
+
+  // Curved Glowing Neon Gloo Walls Protecting the Plaza
+  const glooSpecs = [
+    { x: -2.2, z: plazaZ + 1.4, ry: 0.5, col: 0x00f2fe },
+    { x: 2.2, z: plazaZ - 1.4, ry: -2.6, col: 0xf43f5e }
+  ];
+  glooSpecs.forEach(g => {
+    const gGeo = new THREE.CylinderGeometry(1.25, 1.25, 1.25, 20, 1, true, -0.75, 1.5);
+    const gMat = new THREE.MeshStandardMaterial({
+      color: g.col,
+      emissive: g.col,
+      emissiveIntensity: 0.65,
+      transparent: true,
+      opacity: 0.85,
+      side: THREE.DoubleSide
+    });
+    const gw = new THREE.Mesh(gGeo, gMat);
+    gw.position.set(g.x, 1.45, g.z);
+    gw.rotation.y = g.ry;
+    scene.add(gw);
+  });
+
+  // 7. SOFT RADIAL FOUNTAIN JETS & VOLUMETRIC FLARE PARTICLES (NO SQUARES!)
+  const circleSprite = createSoftCircleTexture();
+
+  // Fountain Water Jets along the Central Channel
+  const fCount = 120;
+  const fGeo = new THREE.BufferGeometry();
+  const fPos = new Float32Array(fCount * 3);
+  for (let i = 0; i < fCount; i++) {
+    const jetIdx = i % 6;
+    const jz = -1.0 + jetIdx * 2.4;
+    fPos[i * 3] = (Math.random() - 0.5) * 0.35;
+    fPos[i * 3 + 1] = 0.95 + Math.random() * 1.4;
+    fPos[i * 3 + 2] = jz + (Math.random() - 0.5) * 0.35;
+  }
+  fGeo.setAttribute('position', new THREE.BufferAttribute(fPos, 3));
+  fountainParticles = new THREE.Points(
+    fGeo,
+    new THREE.PointsMaterial({
+      color: 0xe0f2fe,
+      map: circleSprite,
+      size: 0.35,
+      transparent: true,
+      opacity: 0.85,
+      depthWrite: false,
+      blending: THREE.AdditiveBlending
+    })
   );
-  dropBody.position.y = 0.475;
-  dropBody.castShadow = true;
-  dropBody.receiveShadow = true;
-  airdropGroup.add(dropBody);
+  scene.add(fountainParticles);
 
-  const dropTop = new THREE.Mesh(
-    new THREE.BoxGeometry(1.12, 0.26, 1.12),
-    new THREE.MeshStandardMaterial({ color: 0x1d4ed8, roughness: 0.55, metalness: 0.2 })
-  );
-  dropTop.position.y = 1.0;
-  dropTop.castShadow = true;
-  airdropGroup.add(dropTop);
-
-  const beacon = new THREE.Mesh(
-    new THREE.BoxGeometry(1.14, 0.06, 1.14),
-    new THREE.MeshBasicMaterial({ color: 0xffaa00 })
-  );
-  beacon.position.y = 0.82;
-  airdropGroup.add(beacon);
-
-  const dropLight = new THREE.PointLight(0xff4500, 3.5, 8);
-  dropLight.position.set(0, 1.5, 0);
-  airdropGroup.add(dropLight);
-  scene.add(airdropGroup);
-
-  // Red Airdrop Smoke Plume
+  // Soft Volumetric Red/Gold Flare Smoke above Airdrop
+  const sCount = 55;
   const sGeo = new THREE.BufferGeometry();
-  const sCount = 65;
   const sPos = new Float32Array(sCount * 3);
   for (let i = 0; i < sCount; i++) {
-    sPos[i * 3] = (Math.random() - 0.5) * 0.7;
-    sPos[i * 3 + 1] = 1.1 + Math.random() * 4.5;
-    sPos[i * 3 + 2] = (Math.random() - 0.5) * 0.7;
+    sPos[i * 3] = (Math.random() - 0.5) * 0.9;
+    sPos[i * 3 + 1] = 2.2 + Math.random() * 5.5;
+    sPos[i * 3 + 2] = plazaZ + (Math.random() - 0.5) * 0.9;
   }
   sGeo.setAttribute('position', new THREE.BufferAttribute(sPos, 3));
-  smokePoints = new THREE.Points(
+  smokeParticles = new THREE.Points(
     sGeo,
-    new THREE.PointsMaterial({ color: 0xef4444, size: 0.32, transparent: true, opacity: 0.65 })
+    new THREE.PointsMaterial({
+      color: 0xf97316,
+      map: circleSprite,
+      size: 0.85,
+      transparent: true,
+      opacity: 0.65,
+      depthWrite: false,
+      blending: THREE.AdditiveBlending
+    })
   );
-  airdropGroup.add(smokePoints);
+  scene.add(smokeParticles);
 
-  // 5. Instanced Grass Blades across Battleground
-  const bladeCount = 2000;
-  const bladeGeo = new THREE.ConeGeometry(0.04, 0.42, 3);
-  bladeGeo.translate(0, 0.21, 0);
-  const bladeMat = new THREE.MeshStandardMaterial({ color: 0x4d6b38, roughness: 0.8 });
-  grassInstanced = new THREE.InstancedMesh(bladeGeo, bladeMat, bladeCount);
-  const dummy = new THREE.Object3D();
-  for (let i = 0; i < bladeCount; i++) {
-    const r = 2.55 + Math.random() * 14;
-    const t = Math.random() * Math.PI * 2;
-    dummy.position.set(Math.cos(t) * r, 0, Math.sin(t) * r);
-    const sc = 0.6 + Math.random() * 1.1;
-    dummy.scale.set(sc, sc, sc);
-    dummy.rotation.y = Math.random() * Math.PI;
-    dummy.updateMatrix();
-    grassInstanced.setMatrixAt(i, dummy.matrix);
+  // 8. MINIATURE PATROLLING SQUAD PLAYERS & GARDEN LANTERNS (Like Tourists in Taj Mahal Video!)
+  const squadColors = [0x00f2fe, 0xfbbf24, 0xf43f5e, 0x10b981, 0xa855f7, 0x38bdf8];
+  for (let i = 0; i < 10; i++) {
+    const agent = new THREE.Group();
+    const col = squadColors[i % squadColors.length];
+    const bodyMat = new THREE.MeshStandardMaterial({ color: col, roughness: 0.3 });
+    addMesh(agent, new THREE.CylinderGeometry(0.14, 0.16, 0.52, 12), bodyMat, 0, 0.26, 0);
+    addMesh(agent, new THREE.SphereGeometry(0.14, 12, 12), new THREE.MeshStandardMaterial({ color: 0xfde68a }), 0, 0.64, 0);
+    // Glowing Halo Ring above Player
+    addMesh(agent, new THREE.TorusGeometry(0.16, 0.025, 8, 16), new THREE.MeshBasicMaterial({ color: col }), 0, 0.88, 0, false, false).rotation.x = Math.PI / 2;
+
+    const baseX = (i % 2 === 0 ? -2.1 : 2.1) + (Math.random() - 0.5) * 0.4;
+    const baseZ = -1.5 + i * 1.45;
+    agent.position.set(baseX, 0.8, baseZ);
+    agent.userData = { baseX, baseZ, speed: 0.8 + (i % 3) * 0.35, phase: i * 1.1 };
+    scene.add(agent);
+    patrolAgents.push(agent);
   }
-  scene.add(grassInstanced);
-
-  // 6. Glowing Blue Safe Zone Forcefield Wall in Distance
-  const zGeo = new THREE.CylinderGeometry(18, 18, 12, 48, 1, true);
-  const zMat = new THREE.MeshBasicMaterial({
-    color: 0x00f2fe,
-    transparent: true,
-    opacity: 0.1,
-    side: THREE.DoubleSide
-  });
-  zoneWall = new THREE.Mesh(zGeo, zMat);
-  zoneWall.position.y = 6;
-  scene.add(zoneWall);
-
-  // 7. Floating Fire Embers
-  const eGeo = new THREE.BufferGeometry();
-  const eCount = 120;
-  const ePos = new Float32Array(eCount * 3);
-  for (let i = 0; i < eCount; i++) {
-    ePos[i * 3] = (Math.random() - 0.5) * 8;
-    ePos[i * 3 + 1] = Math.random() * 5;
-    ePos[i * 3 + 2] = (Math.random() - 0.5) * 8;
-  }
-  eGeo.setAttribute('position', new THREE.BufferAttribute(ePos, 3));
-  emberPoints = new THREE.Points(
-    eGeo,
-    new THREE.PointsMaterial({ color: 0xffaa22, size: 0.065, transparent: true, opacity: 0.85, blending: THREE.AdditiveBlending })
-  );
-  scene.add(emberPoints);
 }
 
-function loadSquadAndGear(manager) {
-  squadGroup = new THREE.Group();
-  scene.add(squadGroup);
-
-  const gltfLoader = new GLTFLoader(manager);
-
-  // Load Real Battle Royale Military Soldier & Clone into a Full 3-Player Squad!
-  gltfLoader.load(ASSETS.SOLDIER, (gltf) => {
-    const baseModel = gltf.scene;
-    baseModel.traverse((c) => {
-      if (c.isMesh) {
-        c.castShadow = true;
-        c.receiveShadow = true;
-      }
-    });
-
-    const clips = gltf.animations;
-
-    // Squad Formation: Center Leader + Left Flank + Right Flank
-    const positions = [
-      { x: 0, z: 0.25, rotY: Math.PI, scale: 1.48 },
-      { x: -1.15, z: -0.45, rotY: Math.PI - 0.25, scale: 1.38 },
-      { x: 1.15, z: -0.45, rotY: Math.PI + 0.25, scale: 1.38 }
-    ];
-
-    positions.forEach((p, idx) => {
-      const clone = SkeletonUtils.clone(baseModel);
-      clone.scale.setScalar(p.scale);
-      clone.position.set(p.x, 0.12, p.z);
-      clone.rotation.y = p.rotY;
-      squadGroup.add(clone);
-
-      const mixer = new THREE.AnimationMixer(clone);
-      const actionMap = {};
-      clips.forEach((clip) => {
-        actionMap[clip.name] = mixer.clipAction(clip);
-      });
-      if (actionMap['Idle']) actionMap['Idle'].play();
-      mixers.push({ mixer, actionMap, offset: idx * 0.4 });
-    });
-  });
-
-  // Load High-Detail PBR Combat Armor Helmet (Hidden initially)
-  gltfLoader.load(ASSETS.HELMET, (gltf) => {
-    helmetMesh = gltf.scene;
-    helmetMesh.scale.setScalar(1.35);
-    helmetMesh.position.set(0, 1.45, 0);
-    helmetMesh.visible = false;
-    helmetMesh.traverse((c) => {
-      if (c.isMesh) {
-        c.castShadow = true;
-        c.receiveShadow = true;
-      }
-    });
-    scene.add(helmetMesh);
-  });
-}
-
-window.setGameMode = function(mode, btn) {
-  currentMode = mode;
-  document.querySelectorAll('.m-tab').forEach(b => b.classList.remove('active'));
-  if (btn) btn.classList.add('active');
-
-  if (mode === 'squad') {
-    if (squadGroup) squadGroup.visible = true;
-    if (helmetMesh) helmetMesh.visible = false;
-    controls.target.set(0, 1.05, 0);
-    camera.position.set(0, 1.65, 4.6);
-    mixers.forEach(m => {
-      if (m.actionMap['Run']) m.actionMap['Run'].fadeOut(0.3);
-      if (m.actionMap['Idle']) m.actionMap['Idle'].reset().fadeIn(0.3).play();
-    });
-  } else if (mode === 'run') {
-    if (squadGroup) squadGroup.visible = true;
-    if (helmetMesh) helmetMesh.visible = false;
-    controls.target.set(0, 1.0, 0.2);
-    camera.position.set(1.4, 1.45, 3.6);
-    mixers.forEach(m => {
-      if (m.actionMap['Idle']) m.actionMap['Idle'].fadeOut(0.3);
-      if (m.actionMap['Run']) m.actionMap['Run'].reset().fadeIn(0.3).play();
-    });
-  } else if (mode === 'airdrop') {
-    if (squadGroup) squadGroup.visible = true;
-    if (helmetMesh) helmetMesh.visible = false;
-    controls.target.set(1.9, 0.9, -1.2);
-    camera.position.set(2.6, 1.6, 2.5);
-  } else if (mode === 'helmet') {
-    if (squadGroup) squadGroup.visible = false;
-    if (helmetMesh) helmetMesh.visible = true;
-    controls.target.set(0, 1.45, 0);
-    camera.position.set(0, 1.55, 3.2);
+/* CAMERA FLIGHT & LIGHTING CONTROLS */
+window.flyToZone = function(idx, btnEl) {
+  currentZoneIdx = idx;
+  document.querySelectorAll('.z-tab').forEach(b => b.classList.remove('active'));
+  if (btnEl) btnEl.classList.add('active');
+  else {
+    const tabs = document.querySelectorAll('.z-tab');
+    if (tabs[idx]) tabs[idx].classList.add('active');
   }
+
+  const z = zonesData[idx];
+  camGoalPos.copy(z.pos);
+  camGoalTarget.copy(z.target);
+  isFlying = true;
+
+  const info = z[currentLang];
+  document.getElementById('ziTitle').innerText = info.title;
+  document.getElementById('ziDesc').innerText = info.desc;
 };
 
-window.toggleSettings = function() {
-  document.getElementById('settingsPanel').classList.toggle('open');
+window.nextLandmark = function() {
+  const nextIdx = (currentZoneIdx + 1) % zonesData.length;
+  window.flyToZone(nextIdx, null);
 };
 
-window.toggleSpin = function() {
-  autoRotate = !autoRotate;
-  document.getElementById('btnSpinToggle').innerText = autoRotate ? 'ON' : 'OFF';
-};
+window.setLighting = function(mode, btnEl) {
+  document.querySelectorAll('.time-btn').forEach(b => b.classList.remove('active'));
+  if (btnEl) btnEl.classList.add('active');
 
-window.toggleWeather = function() {
-  isNightMode = !isNightMode;
-  scene.background = createBattleSkyTexture(isNightMode);
-  scene.fog.color.setHex(isNightMode ? 0x060a14 : 0x1f1924);
-  document.getElementById('btnWeatherToggle').innerText = isNightMode ? 'NIGHT' : 'SUNSET';
+  if (mode === 'dawn') {
+    scene.background.setHex(0x1e1b4b);
+    scene.fog.color.setHex(0x1e1b4b);
+    sunLight.color.setHex(0xfda4af);
+    sunLight.intensity = 1.6;
+    sunLight.position.set(28, 14, 18);
+    ambientLight.intensity = 0.45;
+    bloomPass.strength = 0.42;
+  } else if (mode === 'day') {
+    scene.background.setHex(0x0c1424);
+    scene.fog.color.setHex(0x0c1424);
+    sunLight.color.setHex(0xfffbeb);
+    sunLight.intensity = 2.2;
+    sunLight.position.set(24, 34, 22);
+    ambientLight.intensity = 0.6;
+    bloomPass.strength = 0.32;
+  } else if (mode === 'sunset') {
+    scene.background.setHex(0x27121b);
+    scene.fog.color.setHex(0x27121b);
+    sunLight.color.setHex(0xf97316);
+    sunLight.intensity = 2.0;
+    sunLight.position.set(-28, 12, 20);
+    ambientLight.intensity = 0.4;
+    bloomPass.strength = 0.52;
+  } else if (mode === 'night') {
+    scene.background.setHex(0x03060c);
+    scene.fog.color.setHex(0x03060c);
+    sunLight.color.setHex(0x38bdf8);
+    sunLight.intensity = 0.65;
+    sunLight.position.set(15, 28, -18);
+    ambientLight.intensity = 0.22;
+    bloomPass.strength = 0.72;
+  }
 };
 
 const langDict = {
   gu: {
-    hdrSub: "OFFICIAL BATTLE ROYALE ENGINE",
     csTag: "COMING SOON",
-    csMsg: "અમારું કામ ચાલુ છે • અસલી ગેમિંગ ગ્રાફિક્સ જુઓ!",
-    wmTitle: "🪖 BATTLE ROYALE SQUAD",
-    wmSub: "🔥 COMING SOON • કામ ચાલુ છે",
-    gestureTxt: "👆 આંગળીથી ચારેય બાજુ ફેરવો અને અંદર Zoom કરો!",
-    tabSquad: "🪖 સ્ક્વોડ લોબી",
-    tabRun: "🏃‍♂️ રનિંગ એક્શન",
-    tabDrop: "📦 એરડ્રોપ લૂટ",
-    tabArmor: "🛡️ આર્મર ગિયર"
+    csMsg: "અમારું કામ ચાલુ છે • ફ્રી ફાયર રોયલ મેપ જુઓ!",
+    gestureTxt: "👆 આંગળીથી ચારેય બાજુ ફેરવો • ઝૂમ કરીને મેપના દરેક ખૂણા જુઓ!",
+    z0: "🗺️ પૂરો મેપ", z1: "🕌 શાહી મહેલ", z2: "🕰️ ક્લોક ટાવર", z3: "📦 એરડ્રોપ પ્લાઝા", z4: "🌉 લાલ બ્રિજ",
+    tDawn: "🌅 સવાર", tDay: "☀️ બપોર", tSun: "🌇 સાંજ", tNight: "🌙 રાત"
   },
   hi: {
-    hdrSub: "OFFICIAL BATTLE ROYALE ENGINE",
     csTag: "COMING SOON",
-    csMsg: "हमारा काम चालू है • असली गेमिंग ग्राफिक्स देखें!",
-    wmTitle: "🪖 BATTLE ROYALE SQUAD",
-    wmSub: "🔥 COMING SOON • काम चालू है",
-    gestureTxt: "👆 उंगली से चारों तरफ घुमाएं और अंदर Zoom करें!",
-    tabSquad: "🪖 स्क्वाड लॉबी",
-    tabRun: "🏃‍♂️ रनिंग एक्शन",
-    tabDrop: "📦 एयरड्रॉप लूट",
-    tabArmor: "🛡️ आर्मर गियर"
+    csMsg: "हमारा काम चालू है • फ्री फायर रॉयल मैप देखें!",
+    gestureTxt: "👆 उंगली से चारों तरफ घुमाएं • ज़ूम करके मैप का हर कोना देखें!",
+    z0: "🗺️ पूरा मैप", z1: "🕌 शाही महल", z2: "🕰️ क्लॉक टावर", z3: "📦 एयरड्रॉप प्लाज़ा", z4: "🌉 लाल ब्रिज",
+    tDawn: "🌅 सुबह", tDay: "☀️ दोपहर", tSun: "🌇 शाम", tNight: "🌙 रात"
   },
   en: {
-    hdrSub: "OFFICIAL BATTLE ROYALE ENGINE",
     csTag: "COMING SOON",
-    csMsg: "Work in Progress • Explore Real In-Game Graphics!",
-    wmTitle: "🪖 BATTLE ROYALE SQUAD",
-    wmSub: "🔥 COMING SOON • WORK IN PROGRESS",
-    gestureTxt: "👆 Drag to Rotate Around Squad • Pinch to Zoom In!",
-    tabSquad: "🪖 Squad Lobby",
-    tabRun: "🏃‍♂️ Running Action",
-    tabDrop: "📦 Airdrop Loot",
-    tabArmor: "🛡️ Armor Gear"
+    csMsg: "Work in Progress • Explore Free Fire Royal Map!",
+    gestureTxt: "👆 Drag to Rotate Around Map • Pinch to Zoom Into Every Landmark!",
+    z0: "🗺️ Full Map", z1: "🕌 Citadel", z2: "🕰️ Clock Tower", z3: "📦 Airdrop", z4: "🌉 Red Bridge",
+    tDawn: "🌅 Dawn", tDay: "☀️ Noon", tSun: "🌇 Sunset", tNight: "🌙 Night"
   }
 };
 
 window.setAppLang = function(l, btn) {
+  currentLang = l;
   document.querySelectorAll('.l-btn').forEach(b => b.classList.remove('active'));
   btn.classList.add('active');
   const d = langDict[l];
-  document.getElementById('hdrSub').innerText = d.hdrSub;
-  document.getElementById('csTag').innerText = d.csTag;
-  document.getElementById('csMsg').innerText = d.csMsg;
-  document.getElementById('wmTitle').innerText = d.wmTitle;
-  document.getElementById('wmSub').innerText = d.wmSub;
-  document.getElementById('gestureTxt').innerText = d.gestureTxt;
-  document.getElementById('tabSquad').innerText = d.tabSquad;
-  document.getElementById('tabRun').innerText = d.tabRun;
-  document.getElementById('tabDrop').innerText = d.tabDrop;
-  document.getElementById('tabArmor').innerText = d.tabArmor;
+  Object.keys(d).forEach(k => {
+    const el = document.getElementById(k);
+    if (el) el.innerText = d[k];
+  });
+  const zInfo = zonesData[currentZoneIdx][l];
+  document.getElementById('ziTitle').innerText = zInfo.title;
+  document.getElementById('ziDesc').innerText = zInfo.desc;
 };
 
-function animateBattleground() {
-  requestAnimationFrame(animateBattleground);
+function animateDiorama() {
+  requestAnimationFrame(animateDiorama);
   const delta = clock.getDelta();
+  const elapsed = clock.getElapsedTime();
 
-  mixers.forEach(m => m.mixer.update(delta));
-
-  if (autoRotate && scene) {
-    scene.rotation.y += 0.003;
+  // Smooth Camera Flight Interpolation
+  if (isFlying) {
+    camera.position.lerp(camGoalPos, 0.06);
+    controls.target.lerp(camGoalTarget, 0.06);
+    if (camera.position.distanceTo(camGoalPos) < 0.25) {
+      isFlying = false;
+    }
   }
 
-  // Animate Red Airdrop Smoke
-  if (smokePoints) {
-    const sArr = smokePoints.geometry.attributes.position.array;
+  // Animate Fountain Jets
+  if (fountainParticles) {
+    const fArr = fountainParticles.geometry.attributes.position.array;
+    for (let i = 0; i < fArr.length; i += 3) {
+      fArr[i + 1] += 0.035;
+      if (fArr[i + 1] > 2.35) fArr[i + 1] = 0.95;
+    }
+    fountainParticles.geometry.attributes.position.needsUpdate = true;
+  }
+
+  // Animate Soft Volumetric Airdrop Smoke
+  if (smokeParticles) {
+    const sArr = smokeParticles.geometry.attributes.position.array;
     for (let i = 0; i < sArr.length; i += 3) {
       sArr[i + 1] += 0.025;
-      if (sArr[i + 1] > 5.5) sArr[i + 1] = 1.1;
+      if (sArr[i + 1] > 7.5) sArr[i + 1] = 2.1;
     }
-    smokePoints.geometry.attributes.position.needsUpdate = true;
+    smokeParticles.geometry.attributes.position.needsUpdate = true;
   }
 
-  // Animate Rising Embers
-  if (emberPoints) {
-    const eArr = emberPoints.geometry.attributes.position.array;
-    for (let i = 0; i < eArr.length; i += 3) {
-      eArr[i + 1] += 0.015;
-      if (eArr[i + 1] > 4.8) eArr[i + 1] = 0.1;
-    }
-    emberPoints.geometry.attributes.position.needsUpdate = true;
+  // Pulse Airdrop Sky-Beam
+  if (airdropBeam) {
+    airdropBeam.material.opacity = 0.2 + Math.sin(elapsed * 4) * 0.1;
   }
 
-  // If in Running mode, scroll grass texture under squad's boots so it looks like real running across the map!
-  if (currentMode === 'run') {
-    scene.traverse(obj => {
-      if (obj.isMesh && obj.material && obj.material.map && obj.geometry.type === 'CircleGeometry') {
-        obj.material.map.offset.y -= delta * 0.6;
-      }
-    });
-  }
+  // Rotate Clock Tower Hands
+  clockHands.forEach(h => {
+    h.rotation.z = -elapsed * 0.4;
+  });
+
+  // Animate Walking Squad Players along the Courtyard Paths
+  patrolAgents.forEach(ag => {
+    ag.position.z = ag.userData.baseZ + Math.sin(elapsed * ag.userData.speed + ag.userData.phase) * 1.4;
+  });
 
   controls.update();
   composer.render();
 }
 
-window.addEventListener('load', initBattlegrounds);
+window.addEventListener('load', initDiorama);
 </script>
 </body>
 </html>

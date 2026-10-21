@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>World Winner - Map v0.0</title>
+    <title>World Winner - Map v0.1</title>
     <style>
         body { margin: 0; overflow: hidden; background-color: #87CEEB; } 
         #ui { position: absolute; top: 10px; width: 100%; text-align: center; color: white; font-family: Arial, sans-serif; font-weight: bold; font-size: 24px; text-shadow: 2px 2px 4px #000; pointer-events: none; }
@@ -12,17 +12,17 @@
     <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
 </head>
 <body>
-    <div id="ui">🏆 WORLD WINNER 🏆<br><span style="font-size:16px; color:#FFD700;">Map v0.0 - Base Terrain</span></div>
+    <div id="ui">🏆 WORLD WINNER 🏆<br><span style="font-size:16px; color:#FFD700;">Map v0.1 - Real Grass Terrain</span></div>
 
     <script>
-        // 1. सीन सेटअप (हमारी दुनिया)
+        // 1. सीन और आसमान
         const scene = new THREE.Scene();
-        scene.background = new THREE.Color('#87CEEB'); // नीला आसमान
-        scene.fog = new THREE.Fog('#87CEEB', 50, 400); // किनारों को छिपाने के लिए कोहरा
+        scene.background = new THREE.Color('#87CEEB'); 
+        scene.fog = new THREE.Fog('#87CEEB', 50, 400); 
 
-        // 2. कैमरा (हमारी आँखें)
+        // 2. कैमरा
         const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
-        camera.position.set(0, 15, 40); // थोड़ा ऊपर से देखने के लिए
+        camera.position.set(0, 15, 40); 
 
         const renderer = new THREE.WebGLRenderer({ antialias: true });
         renderer.setSize(window.innerWidth, window.innerHeight);
@@ -30,19 +30,29 @@
 
         const controls = new THREE.OrbitControls(camera, renderer.domElement);
         controls.enableDamping = true;
+        controls.maxPolarAngle = Math.PI / 2 - 0.05; // कैमरे को ज़मीन के नीचे जाने से रोकना
 
         // 3. रोशनी (सूरज)
-        const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
+        const ambientLight = new THREE.AmbientLight(0xffffff, 0.7);
         scene.add(ambientLight);
         const sunLight = new THREE.DirectionalLight(0xffffff, 1);
         sunLight.position.set(100, 200, 100);
         scene.add(sunLight);
 
-        // 4. बरमूडा की ज़मीन (बड़ा हरा मैदान)
+        // 4. असली घास वाली ज़मीन (Texture)
+        const textureLoader = new THREE.TextureLoader();
+        const grassTexture = textureLoader.load('https://threejs.org/examples/textures/terrain/grasslight-big.jpg');
+        
+        // घास की फोटो को खींचने से बचाने के लिए उसे बार-बार रिपीट करना
+        grassTexture.wrapS = THREE.RepeatWrapping;
+        grassTexture.wrapT = THREE.RepeatWrapping;
+        grassTexture.repeat.set(100, 100); 
+
         const groundGeo = new THREE.PlaneGeometry(1000, 1000);
-        const groundMat = new THREE.MeshStandardMaterial({ color: 0x4CAF50 }); // हरा रंग
+        const groundMat = new THREE.MeshStandardMaterial({ map: grassTexture, roughness: 0.8 }); 
+        
         const ground = new THREE.Mesh(groundGeo, groundMat);
-        ground.rotation.x = -Math.PI / 2; // ज़मीन को लेटाना
+        ground.rotation.x = -Math.PI / 2;
         scene.add(ground);
 
         // 5. एनिमेशन लूप

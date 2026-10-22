@@ -3,82 +3,103 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>World Winner - Map v0.2</title>
+    <title>World Winner - Map v0.3</title>
     <style>
-        body { margin: 0; overflow: hidden; background-color: #87CEEB; }
-        #ui { position: absolute; top: 10px; width: 100%; text-align: center; color: white; font-family: Arial, sans-serif; font-weight: bold; font-size: 24px; text-shadow: 2px 2px 4px #000; pointer-events: none; z-index: 10; }
+        body { margin: 0; overflow: hidden; background-color: #5ab1e6; }
+        #ui { position: absolute; top: 15px; width: 100%; text-align: center; color: white; font-family: 'Impact', Arial, sans-serif; font-weight: bold; font-size: 28px; text-shadow: 2px 2px 5px #000; pointer-events: none; z-index: 10; letter-spacing: 1px;}
+        /* गेम के बीच का निशाना (Crosshair) */
+        #crosshair { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: rgba(255, 255, 255, 0.9); font-size: 24px; font-weight: bold; pointer-events: none; z-index: 10; text-shadow: 1px 1px 2px #000; }
     </style>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
 </head>
 <body>
-    <div id="ui">🏆 WORLD WINNER 🏆<br><span style="font-size:16px; color:#FFD700;">Map v0.2 - Hills & Obstacles</span></div>
+    <div id="ui">🏆 WORLD WINNER 🏆<br><span style="font-size:16px; color:#00FF00;">Map v0.3 - Ultra HD Textures & FPS View</span></div>
+    
+    <!-- स्क्रीन के बीच का निशाना -->
+    <div id="crosshair">✛</div>
 
     <script>
         // 1. सीन और आसमान
         const scene = new THREE.Scene();
-        scene.background = new THREE.Color('#87CEEB'); // नीला आसमान
-        scene.fog = new THREE.FogExp2('#87CEEB', 0.004); // मैप के किनारों को छिपाने के लिए कोहरा
+        scene.background = new THREE.Color('#5ab1e6'); 
+        scene.fog = new THREE.FogExp2('#5ab1e6', 0.003); // असली कोहरा
 
-        // 2. कैमरा
-        const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
-        camera.position.set(0, 20, 60);
+        // 2. गेमर वाला कैमरा (ज़मीन के पास)
+        const camera = new THREE.PerspectiveCamera(70, window.innerWidth / window.innerHeight, 0.1, 1000);
+        camera.position.set(0, 8, 25); 
 
         const renderer = new THREE.WebGLRenderer({ antialias: true });
         renderer.setSize(window.innerWidth, window.innerHeight);
-        renderer.shadowMap.enabled = true; // गेम में असली परछाई चालू करना
+        renderer.shadowMap.enabled = true; // परछाईं ऑन
+        renderer.shadowMap.type = THREE.PCFSoftShadowMap; // असली दिखने वाली परछाईं
         document.body.appendChild(renderer.domElement);
 
         const controls = new THREE.OrbitControls(camera, renderer.domElement);
         controls.enableDamping = true;
-        controls.maxPolarAngle = Math.PI / 2 - 0.01; // कैमरे को ज़मीन के नीचे जाने से रोकना
+        controls.maxPolarAngle = Math.PI / 2 - 0.02; 
+        controls.target.set(0, 5, 0); // कैमरे का फोकस थोड़ा आगे
 
-        // 3. गेमिंग रोशनी (सूरज)
-        const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+        // 3. शानदार गेमिंग लाइटिंग (सूरज)
+        const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
         scene.add(ambientLight);
         
-        const sunLight = new THREE.DirectionalLight(0xffffff, 1);
+        const sunLight = new THREE.DirectionalLight(0xffffff, 1.2);
         sunLight.position.set(100, 200, 50);
         sunLight.castShadow = true;
+        // हाई-क्वालिटी परछाईं की सेटिंग
+        sunLight.shadow.mapSize.width = 2048; 
+        sunLight.shadow.mapSize.height = 2048;
         sunLight.shadow.camera.left = -150;
         sunLight.shadow.camera.right = 150;
         sunLight.shadow.camera.top = 150;
         sunLight.shadow.camera.bottom = -150;
         scene.add(sunLight);
 
-        // 4. ऊबड़-खाबड़ ज़मीन (Hills) बनाना
-        const groundGeo = new THREE.PlaneGeometry(1000, 1000, 60, 60);
+        // --- असली फोटो (Textures) लोड करना ---
+        const textureLoader = new THREE.TextureLoader();
         
-        // गणित (Math) का इस्तेमाल करके ज़मीन में पहाड़ और गड्ढे बनाना
+        // 4. असली घास वाली ऊबड़-खाबड़ ज़मीन
+        const grassTexture = textureLoader.load('https://threejs.org/examples/textures/terrain/grasslight-big.jpg');
+        grassTexture.wrapS = THREE.RepeatWrapping;
+        grassTexture.wrapT = THREE.RepeatWrapping;
+        grassTexture.repeat.set(60, 60); // घास को पूरे मैप में फैलाना
+
+        const groundGeo = new THREE.PlaneGeometry(1000, 1000, 100, 100);
         const vertices = groundGeo.attributes.position.array;
         for (let i = 0; i < vertices.length; i += 3) {
             const x = vertices[i];
             const y = vertices[i + 1];
-            vertices[i + 2] = Math.sin(x / 30) * 6 + Math.cos(y / 30) * 6; 
+            vertices[i + 2] = Math.sin(x / 40) * 8 + Math.cos(y / 40) * 8; // पहाड़ बनाना
         }
         groundGeo.computeVertexNormals();
 
         const groundMat = new THREE.MeshStandardMaterial({ 
-            color: 0x3b7a15, // असली घास का गहरा रंग
+            map: grassTexture, // हरा रंग हटाकर असली घास लगाई
             roughness: 0.9 
         }); 
         
         const ground = new THREE.Mesh(groundGeo, groundMat);
         ground.rotation.x = -Math.PI / 2;
-        ground.receiveShadow = true; // ज़मीन पर परछाई पड़ेगी
+        ground.receiveShadow = true;
         scene.add(ground);
 
-        // 5. छुपने के लिए लकड़ी के बक्से (Crates)
+        // 5. असली लकड़ी के छुपने वाले बक्से (Crates)
+        const crateTexture = textureLoader.load('https://threejs.org/examples/textures/crate.gif');
         const boxGeo = new THREE.BoxGeometry(6, 6, 6);
-        const boxMat = new THREE.MeshStandardMaterial({ color: 0x8B4513, roughness: 0.8 }); // लकड़ी का रंग
+        const boxMat = new THREE.MeshStandardMaterial({ 
+            map: crateTexture, // भूरा रंग हटाकर असली लकड़ी लगाई
+            roughness: 0.8 
+        });
         
-        for(let i = 0; i < 40; i++) {
+        for(let i = 0; i < 50; i++) {
             const box = new THREE.Mesh(boxGeo, boxMat);
-            // पूरे मैप में अलग-अलग जगह बक्से रखना
             box.position.x = (Math.random() - 0.5) * 400;
             box.position.z = (Math.random() - 0.5) * 400;
-            // ज़मीन की ऊंचाई के हिसाब से बक्सों को सेट करना
-            box.position.y = Math.sin(box.position.x / 30) * 6 + Math.cos(box.position.z / 30) * 6 + 3; 
+            // बक्सों को पहाड़ की ऊंचाई के हिसाब से ज़मीन पर रखना
+            box.position.y = Math.sin(box.position.x / 40) * 8 + Math.cos(box.position.z / 40) * 8 + 3; 
+            
+            box.rotation.y = Math.random() * Math.PI; // बक्सों को थोड़ा तिरछा करना ताकि असली लगें
             box.castShadow = true;
             box.receiveShadow = true;
             scene.add(box);

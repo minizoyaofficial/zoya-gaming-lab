@@ -3,30 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>World Winner - Map v0.6</title>
+    <title>World Winner - Map v0.7</title>
     <style>
         body { margin: 0; overflow: hidden; background-color: #5ab1e6; }
         #ui { position: absolute; top: 15px; width: 100%; text-align: center; color: white; font-family: 'Impact', sans-serif; font-size: 28px; text-shadow: 2px 2px 5px #000; pointer-events: none; z-index: 10; letter-spacing: 1px;}
         #crosshair { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: rgba(255, 255, 255, 0.9); font-size: 24px; font-weight: bold; pointer-events: none; z-index: 10; text-shadow: 1px 1px 3px #000; }
+        #loading { position: absolute; top: 50px; width: 100%; text-align: center; color: #00FF00; font-family: Arial; font-weight: bold; font-size: 18px; text-shadow: 1px 1px 2px #000; }
     </style>
-    <!-- 3D लाइब्रेरी और लोडर्स -->
+    <!-- 3D लाइब्रेरी -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
 </head>
 <body>
-    <div id="ui">🏆 WORLD WINNER 🏆<br><span style="font-size:16px; color:#00FF00;">Map v0.6 - 3D Training Ground Base</span></div>
+    <div id="ui">🏆 WORLD WINNER 🏆<br><span style="font-size:16px; color:#FFD700;">Map v0.7 - Real 3D Character</span></div>
+    <div id="loading" id="loadText">🏃‍♂️ फौजी लोड हो रहा है...</div>
     <div id="crosshair">✛</div>
 
     <script>
         // 1. सीन और खुला आसमान
         const scene = new THREE.Scene();
-        scene.background = new THREE.Color('#5ab1e6'); // साफ नीला आसमान
-        scene.fog = new THREE.FogExp2('#5ab1e6', 0.003); // आउटडोर कोहरा
+        scene.background = new THREE.Color('#5ab1e6'); 
+        scene.fog = new THREE.FogExp2('#5ab1e6', 0.003); 
 
-        // 2. कैमरा (गेमर व्यू)
+        // 2. कैमरा
         const camera = new THREE.PerspectiveCamera(70, window.innerWidth / window.innerHeight, 0.1, 1000);
-        camera.position.set(0, 10, 30); 
+        camera.position.set(0, 10, 25); 
 
         const renderer = new THREE.WebGLRenderer({ antialias: true });
         renderer.setSize(window.innerWidth, window.innerHeight);
@@ -39,7 +41,7 @@
         controls.maxPolarAngle = Math.PI / 2 - 0.02; 
         controls.target.set(0, 5, 0);
 
-        // 3. गेमिंग लाइटिंग (सूरज)
+        // 3. गेमिंग लाइटिंग
         const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
         scene.add(ambientLight);
         
@@ -54,31 +56,20 @@
         sunLight.shadow.camera.bottom = -150;
         scene.add(sunLight);
 
+        // 4. ट्रेनिंग ग्राउंड बेस (मैप)
         const textureLoader = new THREE.TextureLoader();
-
-        // 4. विशाल 3D मैदान (Grass)
         const grassTexture = textureLoader.load('https://threejs.org/examples/textures/terrain/grasslight-big.jpg');
         grassTexture.wrapS = grassTexture.wrapT = THREE.RepeatWrapping;
         grassTexture.repeat.set(50, 50);
 
         const groundGeo = new THREE.PlaneGeometry(800, 800, 64, 64);
-        const vertices = groundGeo.attributes.position.array;
-        for (let i = 0; i < vertices.length; i += 3) {
-            // ज़मीन को थोड़ा सा ऊबड़-खाबड़ बनाना
-            vertices[i + 2] = Math.sin(vertices[i] / 50) * 4 + Math.cos(vertices[i + 1] / 50) * 4; 
-        }
-        groundGeo.computeVertexNormals();
-
         const groundMat = new THREE.MeshStandardMaterial({ map: grassTexture, roughness: 0.9 }); 
         const ground = new THREE.Mesh(groundGeo, groundMat);
         ground.rotation.x = -Math.PI / 2;
         ground.receiveShadow = true;
         scene.add(ground);
 
-        // 5. 3D मैप के स्ट्रक्चर (Training Ground Base)
-        const concreteTexture = textureLoader.load('https://threejs.org/examples/textures/crate.gif'); // कंक्रीट/लकड़ी का टेक्सचर
-        
-        // बीच का बड़ा प्लेटफॉर्म
+        // प्लेटफॉर्म (जिस पर फौजी खड़ा होगा)
         const platformGeo = new THREE.BoxGeometry(40, 2, 40);
         const platformMat = new THREE.MeshStandardMaterial({ color: 0x888888, roughness: 0.7 });
         const platform = new THREE.Mesh(platformGeo, platformMat);
@@ -87,38 +78,54 @@
         platform.castShadow = true;
         scene.add(platform);
 
-        // चढ़ने के लिए रैम्प (Ramps)
-        const rampGeo = new THREE.BoxGeometry(10, 2, 20);
-        const ramp1 = new THREE.Mesh(rampGeo, platformMat);
-        ramp1.position.set(0, 0, 28);
-        ramp1.rotation.x = -Math.PI / 8; // रैम्प को तिरछा करना
-        ramp1.receiveShadow = true; ramp1.castShadow = true;
-        scene.add(ramp1);
+        // 5. असली 3D कैरेक्टर (.glb) लोड करना
+        let mixer; // एनिमेशन के लिए
+        const clock = new THREE.Clock();
+        const loader = new THREE.GLTFLoader();
 
-        // छुपने के लिए दीवारें (Cover Walls)
-        const wallGeo = new THREE.BoxGeometry(12, 6, 2);
-        const wallMat = new THREE.MeshStandardMaterial({ map: concreteTexture });
-        
-        const wallPositions = [
-            {x: -10, z: -10, r: 0},
-            {x: 10, z: 10, r: 0},
-            {x: -15, z: 10, r: Math.PI / 4},
-            {x: 15, z: -10, r: -Math.PI / 4}
-        ];
+        // यहाँ हमने आपके GitHub वाली 'Soldier.glb' का नाम दिया है
+        loader.load('./Soldier.glb', function (gltf) {
+            const soldier = gltf.scene;
+            
+            soldier.scale.set(4, 4, 4); // फौजी का साइज बड़ा करना
+            soldier.position.set(0, 2, 0); // उसे प्लेटफॉर्म के ऊपर रखना
+            
+            // फौजी की परछाईं चालू करना
+            soldier.traverse(function (object) {
+                if (object.isMesh) {
+                    object.castShadow = true;
+                    object.receiveShadow = true;
+                }
+            });
 
-        wallPositions.forEach(pos => {
-            const wall = new THREE.Mesh(wallGeo, wallMat);
-            wall.position.set(pos.x, 4, pos.z);
-            wall.rotation.y = pos.r;
-            wall.castShadow = true;
-            wall.receiveShadow = true;
-            scene.add(wall);
+            scene.add(soldier);
+
+            // फौजी का एनिमेशन चालू करना (दौड़ने वाला या खड़े रहने वाला)
+            mixer = new THREE.AnimationMixer(soldier);
+            // एनिमेशन नंबर 1 (Run) या 0 (Idle)
+            const action = mixer.clipAction(gltf.animations[1] || gltf.animations[0]); 
+            action.play();
+
+            // लोडिंग टेक्स्ट हटाना
+            document.getElementById('loading').style.display = 'none';
+
+        }, undefined, function (error) {
+            console.error("Error loading model:", error);
+            document.getElementById('loading').innerHTML = "❌ मॉडल लोड नहीं हुआ। फाइल का नाम चेक करें।";
+            document.getElementById('loading').style.color = "red";
         });
 
         // 6. एनिमेशन लूप
         function animate() {
             requestAnimationFrame(animate);
             controls.update();
+            
+            // 3D कैरेक्टर का एनिमेशन अपडेट करना
+            const delta = clock.getDelta();
+            if (mixer) {
+                mixer.update(delta);
+            }
+
             renderer.render(scene, camera);
         }
         animate();

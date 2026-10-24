@@ -3,109 +3,117 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>World Winner - Map v0.8</title>
+    <title>World Winner - Map v0.9</title>
     <style>
-        body { margin: 0; overflow: hidden; background-color: #5ab1e6; touch-action: none; /* मोबाइल पर स्क्रीन को स्क्रॉल होने से रोकेगा */ }
+        body { margin: 0; overflow: hidden; background-color: #87CEEB; touch-action: none; }
         #ui { position: absolute; top: 10px; width: 100%; text-align: center; color: white; font-family: 'Impact', sans-serif; font-size: 24px; text-shadow: 2px 2px 5px #000; pointer-events: none; z-index: 10; }
-        #loading { position: absolute; top: 40px; width: 100%; text-align: center; color: #00FF00; font-family: Arial; font-weight: bold; font-size: 16px; text-shadow: 1px 1px 2px #000; z-index: 10; }
-        #crosshair { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: rgba(255, 255, 255, 0.9); font-size: 20px; pointer-events: none; z-index: 10; text-shadow: 1px 1px 2px #000; }
+        /* लोडिंग स्क्रीन */
+        #loading-screen { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: #000; display: flex; flex-direction: column; justify-content: center; align-items: center; z-index: 50; }
+        #loading-text { color: #00FF00; font-family: Arial; font-weight: bold; font-size: 20px; margin-bottom: 20px; text-shadow: 1px 1px 5px #00FF00; }
+        .spinner { border: 8px solid #333; border-top: 8px solid #00FF00; border-radius: 50%; width: 50px; height: 50px; animation: spin 1s linear infinite; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
         
-        /* गेमिंग जॉयस्टिक का डिज़ाइन */
-        #joystick-zone { position: absolute; bottom: 30px; left: 30px; width: 100px; height: 100px; background: rgba(255, 255, 255, 0.2); border-radius: 50%; border: 2px solid rgba(255, 255, 255, 0.5); z-index: 20; }
-        #joystick-knob { position: absolute; top: 25px; left: 25px; width: 50px; height: 50px; background: rgba(255, 255, 255, 0.9); border-radius: 50%; box-shadow: 0 0 10px rgba(0,0,0,0.5); pointer-events: none; }
+        #crosshair { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: rgba(255, 255, 255, 0.9); font-size: 24px; pointer-events: none; z-index: 10; text-shadow: 1px 1px 2px #000; }
         
-        /* फायर बटन */
-        #fire-btn { position: absolute; bottom: 40px; right: 30px; width: 70px; height: 70px; background: rgba(255, 50, 50, 0.6); border-radius: 50%; border: 2px solid rgba(255, 255, 255, 0.5); color: white; font-weight: bold; z-index: 20; display: flex; justify-content: center; align-items: center; user-select: none; }
+        /* गेमिंग कंट्रोल्स */
+        #joystick-zone { position: absolute; bottom: 40px; left: 40px; width: 120px; height: 120px; background: rgba(255, 255, 255, 0.2); border-radius: 50%; border: 2px solid rgba(255, 255, 255, 0.5); z-index: 20; }
+        #joystick-knob { position: absolute; top: 35px; left: 35px; width: 50px; height: 50px; background: rgba(255, 255, 255, 0.9); border-radius: 50%; box-shadow: 0 0 10px rgba(0,0,0,0.5); pointer-events: none; }
+        
+        #fire-btn { position: absolute; bottom: 50px; right: 40px; width: 80px; height: 80px; background: rgba(255, 50, 50, 0.6); border-radius: 50%; border: 3px solid rgba(255, 255, 255, 0.7); color: white; font-weight: bold; font-size: 18px; z-index: 20; display: flex; justify-content: center; align-items: center; user-select: none; }
         #fire-btn:active { background: rgba(255, 0, 0, 0.9); transform: scale(0.9); }
     </style>
-    <!-- 3D लाइब्रेरी (यहाँ OrbitControls हटा दिया गया है क्योंकि अब कैमरा फौजी को फॉलो करेगा) -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
 </head>
 <body>
-    <div id="ui">🏆 WORLD WINNER - FPS MODE 🏆</div>
-    <div id="loading">🏃‍♂️ फौजी लोड हो रहा है...</div>
+    <!-- लोडिंग स्क्रीन -->
+    <div id="loading-screen">
+        <div class="spinner"></div>
+        <div id="loading-text">🗺️ 3D मैप और फौजी सर्वर से लोड हो रहे हैं...<br><span style="font-size:14px; color:white;">कृपया 10-15 सेकंड प्रतीक्षा करें</span></div>
+    </div>
+
+    <div id="ui">🏆 WORLD WINNER 🏆<br><span style="font-size:14px; color:#FFD700;">FPS 3D Map Loaded</span></div>
     <div id="crosshair">✛</div>
     
-    <!-- मोबाइल कंट्रोल्स -->
     <div id="joystick-zone"><div id="joystick-knob"></div></div>
     <div id="fire-btn">FIRE</div>
 
     <script>
-        // 1. बेसिक सीन और कोहरा
         const scene = new THREE.Scene();
         scene.background = new THREE.Color('#87CEEB'); 
         scene.fog = new THREE.FogExp2('#87CEEB', 0.015); 
 
-        // 2. गेमर कैमरा
         const camera = new THREE.PerspectiveCamera(70, window.innerWidth / window.innerHeight, 0.1, 1000);
-        
         const renderer = new THREE.WebGLRenderer({ antialias: true });
         renderer.setSize(window.innerWidth, window.innerHeight);
         renderer.shadowMap.enabled = true;
         renderer.shadowMap.type = THREE.PCFSoftShadowMap;
         document.body.appendChild(renderer.domElement);
 
-        // 3. गेमिंग लाइटिंग
-        const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
+        const ambientLight = new THREE.AmbientLight(0xffffff, 0.7);
         scene.add(ambientLight);
         const sunLight = new THREE.DirectionalLight(0xffffff, 1.2);
-        sunLight.position.set(50, 100, 50);
+        sunLight.position.set(100, 200, 50);
         sunLight.castShadow = true;
         scene.add(sunLight);
 
-        // 4. असली घास वाला मैदान (डिब्बा हटा दिया गया है)
-        const textureLoader = new THREE.TextureLoader();
-        const grassTex = textureLoader.load('https://threejs.org/examples/textures/terrain/grasslight-big.jpg');
-        grassTex.wrapS = grassTex.wrapT = THREE.RepeatWrapping;
-        grassTex.repeat.set(100, 100);
-
-        const groundGeo = new THREE.PlaneGeometry(1000, 1000);
-        const groundMat = new THREE.MeshStandardMaterial({ map: grassTex, roughness: 0.8 }); 
-        const ground = new THREE.Mesh(groundGeo, groundMat);
-        ground.rotation.x = -Math.PI / 2;
-        ground.receiveShadow = true;
-        scene.add(ground);
-
-        // 5. फौजी (.glb) और एनिमेशन
         let soldier, mixer, idleAction, runAction;
         let isMoving = false;
         const clock = new THREE.Clock();
         const loader = new THREE.GLTFLoader();
 
-        loader.load('./Soldier.glb', function (gltf) {
+        let loadedItems = 0;
+        function checkLoad() {
+            loadedItems++;
+            // जब मैप और फौजी दोनों लोड हो जाएँ, तो काली स्क्रीन हटा दें
+            if(loadedItems === 2) {
+                document.getElementById('loading-screen').style.display = 'none';
+            }
+        }
+
+        // 1. सर्वर से सीधा 3D मैप (Arena/Tower) लोड करना
+        loader.load('https://raw.githubusercontent.com/mrdoob/three.js/master/examples/models/gltf/collision-world.glb', function (gltf) {
+            const map3D = gltf.scene;
+            map3D.scale.set(3, 3, 3);
+            map3D.position.set(0, -3, 0); // मैप को फौजी के पैरों के नीचे सेट करना
+            
+            map3D.traverse(function (child) {
+                if (child.isMesh) { child.receiveShadow = true; child.castShadow = true; }
+            });
+            scene.add(map3D);
+            checkLoad();
+        });
+
+        // 2. सर्वर से सीधा 3D फौजी लोड करना
+        loader.load('https://raw.githubusercontent.com/mrdoob/three.js/master/examples/models/gltf/Soldier.glb', function (gltf) {
             soldier = gltf.scene;
             soldier.scale.set(3, 3, 3); 
-            soldier.position.set(0, 0, 0); // फौजी को सीधे ज़मीन (घास) पर रखा
+            soldier.position.set(0, 0, 0); 
             
             soldier.traverse(function (child) {
                 if (child.isMesh) { child.castShadow = true; child.receiveShadow = true; }
             });
             scene.add(soldier);
 
-            // एनिमेशन सेट करना
             mixer = new THREE.AnimationMixer(soldier);
-            idleAction = mixer.clipAction(gltf.animations[0]); // खड़ा रहना
-            runAction = mixer.clipAction(gltf.animations[1]);  // दौड़ना
-            
+            idleAction = mixer.clipAction(gltf.animations[0]); 
+            runAction = mixer.clipAction(gltf.animations[1]);  
             idleAction.play(); 
-            document.getElementById('loading').style.display = 'none';
+            checkLoad();
         });
 
-        // 6. जॉयस्टिक कोडिंग (Mobile Touch Controls)
+        // 3. जॉयस्टिक कंट्रोल्स
         const zone = document.getElementById('joystick-zone');
         const knob = document.getElementById('joystick-knob');
         let joyX = 0, joyY = 0;
 
-        // जब उंगली स्क्रीन पर लगे
         zone.addEventListener('touchstart', handleTouch, {passive: false});
         zone.addEventListener('touchmove', handleTouch, {passive: false});
-        // जब उंगली हटे
         zone.addEventListener('touchend', () => {
             isMoving = false;
             joyX = 0; joyY = 0;
-            knob.style.transform = `translate(0px, 0px)`; // जॉयस्टिक वापस बीच में
-            if(runAction && idleAction) { runAction.stop(); idleAction.play(); } // फौजी वापस खड़ा हो जाए
+            knob.style.transform = `translate(0px, 0px)`; 
+            if(runAction && idleAction) { runAction.stop(); idleAction.play(); } 
         });
 
         function handleTouch(e) {
@@ -117,7 +125,7 @@
             let x = e.touches[0].clientX - centerX;
             let y = e.touches[0].clientY - centerY;
             
-            const max = 25; // जॉयस्टिक कितना बाहर जा सकता है
+            const max = 35; 
             const dist = Math.sqrt(x*x + y*y);
             if (dist > max) { x = (x/dist)*max; y = (y/dist)*max; }
             
@@ -127,11 +135,11 @@
 
             if(runAction && idleAction && !runAction.isRunning()) {
                 idleAction.stop();
-                runAction.play(); // फौजी का दौड़ना चालू
+                runAction.play(); 
             }
         }
 
-        // 7. एनिमेशन लूप (कैमरा फौजी के पीछे सेट करना)
+        // 4. कैमरा और मूवमेंट लूप
         function animate() {
             requestAnimationFrame(animate);
             const delta = clock.getDelta();
@@ -139,27 +147,21 @@
             if (mixer) mixer.update(delta);
 
             if (soldier) {
-                // जॉयस्टिक के हिसाब से फौजी को चलाना
                 if (isMoving) {
-                    soldier.rotation.y -= joyX * 0.05; // लेफ्ट/राइट घूमना
-                    soldier.translateZ(joyY * 0.15);   // आगे/पीछे चलना
+                    soldier.rotation.y -= joyX * 0.05; 
+                    soldier.translateZ(joyY * 0.15);   
                 }
-
-                // कैमरा को फौजी के कंधे के पीछे सेट करना (Free Fire Style)
-                const offset = new THREE.Vector3(0, 4, 8); // कंधे से 4 ऊपर और 8 पीछे
+                const offset = new THREE.Vector3(0, 4, 8); 
                 const camPos = offset.applyMatrix4(soldier.matrixWorld);
-                camera.position.lerp(camPos, 0.1); // कैमरे का फौजी के पीछे-पीछे आना
+                camera.position.lerp(camPos, 0.1); 
                 
-                // कैमरा फौजी के सिर के थोड़ा आगे देखेगा (ताकि Crosshair सही रहे)
                 const lookTarget = new THREE.Vector3(0, 2.5, -5).applyMatrix4(soldier.matrixWorld);
                 camera.lookAt(lookTarget);
             }
-
             renderer.render(scene, camera);
         }
         animate();
 
-        // स्क्रीन रोटेशन फिक्स
         window.addEventListener('resize', () => {
             camera.aspect = window.innerWidth / window.innerHeight;
             camera.updateProjectionMatrix();

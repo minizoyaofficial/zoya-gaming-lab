@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>World Winner - Master Blueprint</title>
+    <title>World Winner - Map v1.1</title>
     <style>
         body { margin: 0; overflow: hidden; background-color: #87CEEB; touch-action: none; }
         #ui { position: absolute; top: 10px; width: 100%; text-align: center; color: white; font-family: 'Impact', sans-serif; font-size: 24px; text-shadow: 2px 2px 5px #000; pointer-events: none; z-index: 10; }
@@ -14,7 +14,6 @@
         
         #crosshair { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: #00FF00; font-size: 24px; font-weight: bold; pointer-events: none; z-index: 10; text-shadow: 1px 1px 2px #000; }
         
-        /* जॉयस्टिक और फायर बटन */
         #joystick-zone { position: absolute; bottom: 40px; left: 40px; width: 120px; height: 120px; background: rgba(255, 255, 255, 0.2); border-radius: 50%; border: 2px solid rgba(255, 255, 255, 0.5); z-index: 20; }
         #joystick-knob { position: absolute; top: 35px; left: 35px; width: 50px; height: 50px; background: rgba(255, 255, 255, 0.9); border-radius: 50%; box-shadow: 0 0 10px rgba(0,0,0,0.5); pointer-events: none; }
         #fire-btn { position: absolute; bottom: 50px; right: 40px; width: 80px; height: 80px; background: rgba(255, 50, 50, 0.6); border-radius: 50%; border: 3px solid rgba(255, 255, 255, 0.7); color: white; font-weight: bold; font-size: 18px; z-index: 20; display: flex; justify-content: center; align-items: center; user-select: none; }
@@ -25,7 +24,7 @@
 <body>
     <div id="loading-screen">
         <div class="spinner"></div>
-        <div id="loading-text">🚀 World Winner Engine Load हो रहा है...<br><span style="font-size:12px; color:white;">Checking for map.glb...</span></div>
+        <div id="loading-text">🚀 World Winner Engine Load हो रहा है...</div>
     </div>
 
     <div id="ui">🏆 WORLD WINNER 🏆<br><span id="map-status" style="font-size:14px; color:#00FF00;">Waiting for Map...</span></div>
@@ -35,14 +34,8 @@
 
     <script>
         const scene = new THREE.Scene();
-        
-        // असली गेमिंग आसमान (Sky)
-        const textureLoader = new THREE.TextureLoader();
-        textureLoader.load('https://raw.githubusercontent.com/mrdoob/three.js/master/examples/textures/2294472375_24a3b8ef46_o.jpg', function(texture) {
-            texture.mapping = THREE.EquirectangularReflectionMapping;
-            scene.background = texture;
-            scene.environment = texture;
-        });
+        scene.background = new THREE.Color('#87CEEB'); // साफ नीला आसमान
+        scene.fog = new THREE.FogExp2('#87CEEB', 0.010); // आउटडोर कोहरा
 
         const camera = new THREE.PerspectiveCamera(70, window.innerWidth / window.innerHeight, 0.1, 2000);
         const renderer = new THREE.WebGLRenderer({ antialias: true });
@@ -80,23 +73,26 @@
             });
             scene.add(realMap);
             document.getElementById('map-status').innerText = "✅ Real Free Fire Map Loaded!";
+            document.getElementById('map-status').style.color = "#00FF00";
             checkLoad();
         }, undefined, function (error) {
-            // अगर GitHub पर 'map.glb' नहीं मिलती है, तो बैकअप के लिए घास का मैदान बनाएँ (ताकि नीली दीवारें न दिखें)
-            console.warn("map.glb not found. Loading Backup Terrain.");
+            // बैकअप: अगर map.glb नहीं है, तो सिर्फ ज़मीन बनाएँ
             document.getElementById('map-status').innerText = "⚠️ Please upload 'map.glb' to GitHub";
             document.getElementById('map-status').style.color = "red";
             
+            const textureLoader = new THREE.TextureLoader();
             const grassTex = textureLoader.load('https://threejs.org/examples/textures/terrain/grasslight-big.jpg');
             grassTex.wrapS = grassTex.wrapT = THREE.RepeatWrapping;
             grassTex.repeat.set(50, 50);
+            
             const groundGeo = new THREE.PlaneGeometry(1000, 1000, 50, 50);
             const vertices = groundGeo.attributes.position.array;
             for (let i = 0; i < vertices.length; i += 3) {
                 vertices[i + 2] = Math.sin(vertices[i] / 50) * 5 + Math.cos(vertices[i + 1] / 50) * 5; 
             }
             groundGeo.computeVertexNormals();
-            const groundMat = new THREE.MeshStandardMaterial({ map: grassTex, roughness: 0.9 }); 
+            
+            const groundMat = new THREE.MeshStandardMaterial({ map: grassTex, roughness: 0.9, color: 0x888888 }); // घास का रंग थोड़ा डार्क किया
             const ground = new THREE.Mesh(groundGeo, groundMat);
             ground.rotation.x = -Math.PI / 2;
             ground.receiveShadow = true;
@@ -105,7 +101,7 @@
         });
 
         // 2. फौजी कैरेक्टर लोड करना
-        loader.load('https://raw.githubusercontent.com/mrdoob/three.js/master/examples/models/gltf/Soldier.glb', function (gltf) {
+        loader.load('./Soldier.glb', function (gltf) {
             soldier = gltf.scene;
             soldier.scale.set(3, 3, 3); 
             soldier.position.set(0, 2, 0); 
@@ -119,6 +115,17 @@
             runAction = mixer.clipAction(gltf.animations[1]);  
             idleAction.play(); 
             checkLoad();
+        }, undefined, function(error) {
+            // अगर GitHub से नहीं मिलता, तो डायरेक्ट लिंक से लोड करें
+            loader.load('https://raw.githubusercontent.com/mrdoob/three.js/master/examples/models/gltf/Soldier.glb', function (gltf) {
+                soldier = gltf.scene;
+                soldier.scale.set(3, 3, 3); soldier.position.set(0, 2, 0); 
+                soldier.traverse(function (child) { if (child.isMesh) { child.castShadow = true; child.receiveShadow = true; } });
+                scene.add(soldier);
+                mixer = new THREE.AnimationMixer(soldier);
+                idleAction = mixer.clipAction(gltf.animations[0]); runAction = mixer.clipAction(gltf.animations[1]);  
+                idleAction.play(); checkLoad();
+            });
         });
 
         // 3. जॉयस्टिक कंट्रोल्स
